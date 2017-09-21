@@ -4,4 +4,5 @@
 int main() {
 	cout << "Hello World!";
 	cout << "Goodbye";
+	cout << "conflict";
 }

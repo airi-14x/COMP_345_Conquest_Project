@@ -3,5 +3,7 @@
 
 int main() {
 	cout << "Hello World!";
-	cout << "Goodbye~~";
+
+	cout << "Goodbye";
+	cout << "conflict";
 }

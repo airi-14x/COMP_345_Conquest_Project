@@ -1,0 +1,17 @@
+[Map]
+- Has multiple continents
+- Connected graphs
+
+	[Continent]
+	- Collection of countries
+	- Represents a subgraph
+		
+		[Countries]
+		- Player-owned
+		- A country can only belong to one continent
+		- Each country is a node
+
+[Map validator]
+- Uniqueness of continent
+- Uniqueness of country
+- Everything is reachable

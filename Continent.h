@@ -18,11 +18,11 @@
 #include <string>
 #include "Country.h"
 
-//using std::string;
-using namespace std;
+using std::string;
+//using namespace std;
 
 
-//using std::vector;
+using std::vector;
 
 class Continent {
 private:
@@ -38,10 +38,10 @@ public:
     string getName();
     
 
-    void addCountry(Country name);
+    void addCountry(Country c);
     Country getCountry(string name);
 
-    string printCountries();
+    string nameCountries();
     void setName(string n);
 };
 

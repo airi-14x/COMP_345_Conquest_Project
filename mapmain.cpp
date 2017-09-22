@@ -25,8 +25,13 @@ using std::endl;
 int main(int argc, char** argv) {
 
     Country kaz {"Kazakhstan","Continentazkstan", "Earl"};
+    Country mr ("Paradise", "HAHAHAHA", "No one");
     Continent yo{"Dead"};
-    cout << yo.toString() << endl;
+    
+    yo.addCountry(kaz);
+    yo.addCountry(mr);
+    Country temp = yo.getCountry("Paradise");
+    cout <<  yo.nameCountries() << endl;
     return 0;
 }
 

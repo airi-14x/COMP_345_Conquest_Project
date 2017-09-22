@@ -41,7 +41,7 @@ public:
     void addCountry(Country name);
     Country getCountry(string name);
 
-    void printCountries();
+    string printCountries();
     void setName(string n);
 };
 

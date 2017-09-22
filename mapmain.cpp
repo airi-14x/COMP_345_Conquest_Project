@@ -25,7 +25,7 @@ using std::endl;
 int main(int argc, char** argv) {
 
     Country kaz {"Kazakhstan","Continentazkstan", "Earl"};
-    Continent yo{};
+    Continent yo{"Dead"};
     cout << yo.toString() << endl;
     return 0;
 }

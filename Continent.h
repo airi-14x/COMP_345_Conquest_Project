@@ -14,8 +14,8 @@
 #ifndef CONTINENT_H
 #define CONTINENT_H
 
-//#include <vector>
-//#include <string>
+#include <vector>
+#include <string>
 #include "Country.h"
 
 //using std::string;
@@ -42,8 +42,8 @@ public:
     Country getCountry(string name);
 
     void printCountries();
-    void set Name();
-;
+    void setName(string n);
+};
 
 
 

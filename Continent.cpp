@@ -5,7 +5,7 @@
  */
 #include "Continent.h"
 //#include <vector>
-//#include <string>
+#include <string>
 using std::string;
 using namespace std; //because i cant use std vector
 //using std::vector;
@@ -20,4 +20,11 @@ Continent::Continent(string nem)
     name = nem;
 }
 
+void Continent::setName(string n)
+{  name = n; 
+}
 
+string Continent::toString()
+{
+    return "THIS IS A FREAAKING CONTINENT";
+}

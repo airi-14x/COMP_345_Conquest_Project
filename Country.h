@@ -13,7 +13,7 @@
 
 #ifndef COUNTRY_H
 #define COUNTRY_H
-//#include <string>
+#include <string>
 //using std::string;
 using namespace std;
 

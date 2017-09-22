@@ -13,7 +13,7 @@
 
 #include <cstdlib>
 #include <iostream>
-
+#include "Continent.h"
 #include "Country.h"
 using std::string;
 using std::cout;
@@ -25,8 +25,8 @@ using std::endl;
 int main(int argc, char** argv) {
 
     Country kaz {"Kazakhstan","Continentazkstan", "Earl"};
-    
-    cout << kaz.toString() << endl;
+    Continent yo{};
+    cout << yo.toString() << endl;
     return 0;
 }
 

@@ -18,6 +18,8 @@
 #include <vector>
 
 using std::string;
+using namespace std; //because i cant use std vector
+//using std::vector;
 using std::pair<>;
 
 

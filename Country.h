@@ -13,8 +13,9 @@
 
 #ifndef COUNTRY_H
 #define COUNTRY_H
-using std::string;
-
+//#include <string>
+//using std::string;
+using namespace std;
 
 class Country {
 private:
@@ -34,6 +35,11 @@ public:
     string getContinentName();
     string getName();
     int getArmyNum();
+    
+    void setArmyNum(int a);
+    void setName(string a);
+    void setContinentName(string a);
+    void setPlayerName(string a);
 
 
 };

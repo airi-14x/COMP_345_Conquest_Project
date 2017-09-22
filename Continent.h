@@ -13,27 +13,37 @@
 
 #ifndef CONTINENT_H
 #define CONTINENT_H
-#include <vector>
 
-using std::string;
+//#include <vector>
+//#include <string>
+#include "Country.h"
+
+//using std::string;
+using namespace std;
+
+
+//using std::vector;
 
 class Continent {
 private:
     string name; // placeholder, use Player class if needed
     vector<Country> cnts;
-    
+
 public:
+
     Continent();
-    Continent(string name);
-    
+    Continent(string nem);
+
     string toString();
     string getName();
     
+
     void addCountry(Country name);
     Country getCountry(string name);
-    
+
     void printCountries();
-};
+    void set Name();
+;
 
 
 

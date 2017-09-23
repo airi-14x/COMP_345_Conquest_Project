@@ -1,0 +1,46 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/* 
+ * File:   Dice.h
+ * Author: Airi
+ *
+ * Created on 2017/09/19, 19:09
+ */
+
+#ifndef DICE_H
+#define DICE_H
+
+#include <vector>
+using std::vector;
+class Dice {
+public:
+    Dice();
+    int randomiser();
+    void trackValue(int);
+    void showValue();
+    int getTotal();
+    
+    int num_rolls();   // Allows Player to choose 1~3 6-sided dice to roll // 
+    void percentage(); // Keeps track of % value rolled, add Dice() //
+    void clearVector();
+    void printDiceSequence();
+    
+private:
+    string player_name;
+    int counter; // For array's index //
+    int track_one; // !!! Don't remove the zeroes or track_five and track_six will give a strange value //
+    int track_two; 
+    int track_three;
+    int track_four;
+    int track_five;
+    int track_six;
+    vector<int> dice_sequence;
+};
+
+
+#endif /* DICE_H */
+

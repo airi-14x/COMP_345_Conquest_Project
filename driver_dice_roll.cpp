@@ -12,6 +12,7 @@
 
 
 #include <iostream>
+
 #include <ctime>
 #include "Dice.h"
 
@@ -43,7 +44,7 @@ int main() {
         d->showValue();
         cout << "\n";
     }
-    
+    d->printDiceSequence();
     d->percentage();
 
     Dice *c = new Dice();
@@ -60,7 +61,6 @@ int main() {
     c->printDiceSequence();
     c->clearVector();
 
-    // TO DO: Clear array after ... Re-initialise ... //
     c_rolls = c->num_rolls();
 
     for (int i = 0; i < c_rolls; i++) {
@@ -68,7 +68,7 @@ int main() {
         c->showValue();
         cout << "\n";
     }
-    
+    c->printDiceSequence();
     c ->percentage();
     delete d;
     d = NULL;

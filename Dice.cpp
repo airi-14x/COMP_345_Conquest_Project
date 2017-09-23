@@ -27,7 +27,7 @@ Dice::Dice() {
     track_four = 0;
     track_five = 0;
     track_six = 0;
-    counter = 0;
+    counter = 1;
     
     vector<int> dice_sequence(1); 
 }
@@ -40,7 +40,6 @@ int Dice::randomiser() {
 }
 
 // Increment Dice Counter //
-
 void Dice::trackValue(int dice_number) {
     switch (dice_number) {
         case 1:
@@ -84,6 +83,7 @@ int Dice::getTotal() {
     return total;
 }
 
+// Delete all values in Vector //
 void Dice::clearVector()
 {
     dice_sequence.clear();
@@ -92,7 +92,7 @@ void Dice::clearVector()
 void Dice::printDiceSequence()
 {
     int index = 0;
-    for(auto &i : dice_sequence)
+    for(auto &i : dice_sequence) // Goes through each element of the collection //
     {
         cout << "\nAt index " << index << " " << i;
         index++;

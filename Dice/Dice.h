@@ -15,14 +15,16 @@
 #define DICE_H
 
 #include <vector>
+#include <string>
 using std::vector;
+using std::string;
 class Dice {
 public:
     Dice();
     int randomiser();
     void trackValue(int);
     void showValue();
-    int getTotal();
+    int getTotal();    // Total # of Rolls 
     
     int num_rolls();   // Allows Player to choose 1~3 6-sided dice to roll // 
     void percentage(); // Keeps track of % value rolled, add Dice() //
@@ -30,7 +32,6 @@ public:
     void printDiceSequence();
     
 private:
-    string player_name;
     int counter; // For array's index //
     int track_one; // !!! Don't remove the zeroes or track_five and track_six will give a strange value //
     int track_two; 

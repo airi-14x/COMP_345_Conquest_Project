@@ -16,13 +16,13 @@
 
 #include <utility>
 #include <vector>
+#include <stack>
 #include "Continent.h"
 #include "Country.h"
 using std::string;
 //using namespace std; //because i cant use std vector
 using std::vector;
 using std::pair;
-
 class Map {
 private:
 
@@ -30,14 +30,17 @@ private:
 
     vector<Continent> conti; //vector of continents, each continent will have
     //a vector of countries named cnts
-    bool areAdjacent(Country m, Country n); //checks pairing vector for relationship
     //std::find(vector.begin(), vector.end(), item) != vector.end()
     vector<pair<Country, Country >> edges; //vector of country pairs for adjacency?
+
+    void flagConnections(Country root);
 
 public:
     bool validate();
 
-    void flagConnections(Country root);
+    bool areAdjacent(Country m, Country n); //checks pairing vector for relationship
+
+    int getContiSize();
     pair<Country, Country> getEdge(int index);
 
     void link(Country m, Country n); //two args are stored into the pair vector

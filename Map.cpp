@@ -37,7 +37,7 @@ void Map::flagConnections(Country root)
     {
         for(int j = 0 ; j < conti[i].cnts.size(); j++)
         {
-            if(conti[i].cnts[j].getVisited()==false)
+            if(areAdjacent(root,conti[i].cnts[j])&&(conti[i].cnts[j].getVisited()==false))
             {
                 flagConnections(conti[i].cnts[j]);
             }
@@ -46,10 +46,20 @@ void Map::flagConnections(Country root)
 }
 bool Map::areAdjacent(Country m, Country n)
 {
-    
+    for(int i =0; i < edges.size(); i++)
+    {
+        if((edges[i].first.getName() == m.getName() && edges[i].second.getName() == n.getName())
+            ||(edges[i].first.getName() == n.getName() && edges[i].second.getName() == m.getName()))
+            {
+                return true;
+            }
+    }
+            return false;
+
 }
 bool Map::validate()
 {
+    flagConnections(conti[0].cnts[0]);
     for(int i = 0; i< conti.size(); i++)
     {
         for(int j = 0 ; j < conti[i].cnts.size(); j++)

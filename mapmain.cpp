@@ -87,6 +87,7 @@ int main(int argc, char** argv) {
 
     face.link(kaz, mr);
 
+    
 
     cout << face.validate() << endl;
     return 0;

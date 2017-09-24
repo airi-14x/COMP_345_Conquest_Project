@@ -6,8 +6,6 @@
 
 #include <cstdlib>
 
-using std::rand;
-
 #include "deck.h"
 
 /* 

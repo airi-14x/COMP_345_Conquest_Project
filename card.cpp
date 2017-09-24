@@ -5,7 +5,6 @@
  */
 
 #include <cstdlib>
-using std::rand;
 
 #include "card.h"
 

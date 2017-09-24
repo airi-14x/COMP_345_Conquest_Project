@@ -12,6 +12,7 @@
 
 #include "hand.h"
 
+// A player with its own hand of cards and troops counter.
 class Player
 {
 public:

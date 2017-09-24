@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Continent.o \
 	${OBJECTDIR}/Country.o \
+	${OBJECTDIR}/Map.o \
 	${OBJECTDIR}/mapmain.o
 
 
@@ -73,6 +74,11 @@ ${OBJECTDIR}/Country.o: Country.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Country.o Country.cpp
+
+${OBJECTDIR}/Map.o: Map.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Map.o Map.cpp
 
 ${OBJECTDIR}/mapmain.o: mapmain.cpp
 	${MKDIR} -p ${OBJECTDIR}

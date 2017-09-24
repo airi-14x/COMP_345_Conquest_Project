@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Continent.o \
 	${OBJECTDIR}/Country.o \
+	${OBJECTDIR}/Map.o \
 	${OBJECTDIR}/mapmain.o
 
 
@@ -67,17 +68,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/comp-345-a1.exe: ${OBJECTFILES}
 ${OBJECTDIR}/Continent.o: Continent.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.c) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Continent.o Continent.cpp
+	$(COMPILE.c) -g -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Continent.o Continent.cpp
 
 ${OBJECTDIR}/Country.o: Country.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Country.o Country.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Country.o Country.cpp
+
+${OBJECTDIR}/Map.o: Map.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Map.o Map.cpp
 
 ${OBJECTDIR}/mapmain.o: mapmain.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mapmain.o mapmain.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mapmain.o mapmain.cpp
 
 # Subprojects
 .build-subprojects:

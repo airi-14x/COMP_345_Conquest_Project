@@ -17,6 +17,7 @@
                    projectFiles="true">
       <itemPath>Continent.cpp</itemPath>
       <itemPath>Country.cpp</itemPath>
+      <itemPath>Map.cpp</itemPath>
       <itemPath>mapmain.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -40,6 +41,12 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <standard>10</standard>
+        </cTool>
+        <ccTool>
+          <standard>8</standard>
+        </ccTool>
       </compileType>
       <item path="Continent.cpp" ex="false" tool="0" flavor2="0">
       </item>
@@ -48,6 +55,8 @@
       <item path="Country.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Country.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -81,6 +90,8 @@
       <item path="Country.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Country.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Map.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>

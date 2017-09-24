@@ -40,6 +40,9 @@ void Continent::addCountry(Country c)
     cnts.push_back(c);
 }
 
+int Continent::getCntsSize(){
+    return cnts.size();
+}
 string Continent::nameCountries()
 {
     string temp;

@@ -24,6 +24,12 @@ Map::Map(string n) {
     conti = {};
     edges = {};
 }
+
+int Map::getContiSize()
+{
+    return conti.size();
+}
+//!!not done yet
 void Map::flagConnections(Country root)
 {
     root.setVisited(true);

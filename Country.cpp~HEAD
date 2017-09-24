@@ -10,42 +10,41 @@ using std::string;
 Country::Country() {
     name = "";
     playername = "";
-    continentname = "";
     armynum = 0;
+    visited = false;
 
 }
 
-Country::Country(string nam, string conname) {
-    continentname = conname;
+Country::Country(string nam) {
     name = nam;
     armynum = 0;
     playername = "";
+    
+    visited = false;
 }
 
-Country::Country(string nam, string conname, string pname) {
+Country::Country(string nam,  string pname) {
     playername = pname;
-    continentname = conname;
     name = nam;
     armynum = 0;
+    
+    visited = false;
 }
 
-Country::Country(string nam, string conname, string pname, int army) {
+Country::Country(string nam, string pname, int army) {
     playername = pname;
-    continentname = conname;
     name = nam;
     armynum = army;
+    
+    visited = false;
 }
 
 string Country::toString() {
 
-    return "Country name: " + name + "\nContinent: "
-            + continentname + "\nRuler: " + playername + "\nArmy Size: "
+    return "Country name: " + name  + "\nRuler: " + playername + "\nArmy Size: "
             + std::to_string(armynum);
 }
 
- string Country::getContinentName() {
-    return continentname;
-}
 
  string Country::getName() {
     return name;
@@ -63,10 +62,15 @@ string Country::toString() {
     name = a;
 }
 
- void Country::setContinentName(string a) {
-    continentname = a;
-}
+
 
  void Country::setPlayerName(string a) {
     playername = a;
 }
+ void Country::setVisited(bool a)
+ {
+     visited = a;
+ }
+ bool Country::getVisited(){
+     return visited;
+ }

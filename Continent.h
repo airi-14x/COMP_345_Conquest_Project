@@ -27,10 +27,9 @@ using std::vector;
 class Continent {
 private:
     string name; // placeholder, use Player class if needed
+    vector<Country> cnts;
 
 public:
-
-        vector<Country> cnts;
 
     Continent();
     Continent(string nem);

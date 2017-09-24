@@ -19,8 +19,6 @@ Continent::Continent()
 Continent::Continent(string nem)
 {
     name = nem;
-        cnts= {};
-
 }
 
 void Continent::setName(string n)

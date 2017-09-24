@@ -16,29 +16,42 @@
 
 #include <utility>
 #include <vector>
-
+#include "Continent.h"
+#include "Country.h"
 using std::string;
-using namespace std; //because i cant use std vector
-//using std::vector;
-using std::pair<>;
-
+//using namespace std; //because i cant use std vector
+using std::vector;
+using std::pair;
 
 class Map {
 private:
-    vector<Continent> conti;//vector of continents, each continent will have
-                            //a vector of countries named cnts
-    vector<pair<Country, Country>>;//vector of country pairs for adjacency?
-    void link(Country m, Country n); //two args are stored into the pair vector
+
+    string name;
+
+    vector<Continent> conti; //vector of continents, each continent will have
+    //a vector of countries named cnts
     bool areAdjacent(Country m, Country n); //checks pairing vector for relationship
-                                            //std::find(vector.begin(), vector.end(), item) != vector.end()
-    bool validate();
+    //std::find(vector.begin(), vector.end(), item) != vector.end()
+    vector<pair<Country, Country >> edges; //vector of country pairs for adjacency?
+
 public:
+    bool validate();
+
+    void flagConnections(Country root);
+    pair<Country, Country> getEdge(int index);
+
+    void link(Country m, Country n); //two args are stored into the pair vector
+
     Map();
-    void addContinent(Continent name);
+    Map(string n);
+    void addContinent(Continent c);
     Continent getContinent(string contname);
-    
-    void printContinents();
-    void printAdjacents();
+
+    string getName();
+    string toString();
+    string printContinents();
+    string printEdges();
+
 };
 
 

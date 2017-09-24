@@ -25,9 +25,16 @@ Map::Map(string n) {
     edges = {};
 }
 
-int Map::getContiSize()
+int Map::getMapSize()
 {
-    return conti.size();
+    int mapSize = 0;
+    
+    for (int continent = 0; continent < conti.size(); continent++)
+    {
+        mapSize += conti.at(continent).getCntsSize();
+    }
+    
+    return mapSize;
 }
 //!!not done yet
 void Map::flagConnections(Country root)

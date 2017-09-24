@@ -30,7 +30,8 @@ private:
 
 public:
 
-        vector<Country> cnts;
+    vector<Country> cnts;
+    int getCntsSize();
 
         int getCntsSize();
     Continent();

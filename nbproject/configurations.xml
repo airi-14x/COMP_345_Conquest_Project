@@ -7,6 +7,10 @@
       <itemPath>Continent.h</itemPath>
       <itemPath>Country.h</itemPath>
       <itemPath>Map.h</itemPath>
+      <itemPath>card.h</itemPath>
+      <itemPath>deck.h</itemPath>
+      <itemPath>hand.h</itemPath>
+      <itemPath>player.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -18,7 +22,11 @@
       <itemPath>Continent.cpp</itemPath>
       <itemPath>Country.cpp</itemPath>
       <itemPath>Map.cpp</itemPath>
+      <itemPath>card.cpp</itemPath>
+      <itemPath>deck.cpp</itemPath>
+      <itemPath>hand.cpp</itemPath>
       <itemPath>mapmain.cpp</itemPath>
+      <itemPath>player.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -63,7 +71,23 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="card.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="card.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="deck.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="deck.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="hand.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hand.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -98,7 +122,23 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="card.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="card.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="deck.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="deck.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="hand.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="hand.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

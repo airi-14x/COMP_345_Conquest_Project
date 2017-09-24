@@ -12,6 +12,7 @@
 using std::vector;
 
 #include "card.h"
+#include "Map.h"
 
 /*
  * A card deck, holding a vector collection of card objects.
@@ -20,7 +21,7 @@ using std::vector;
 class Deck
 {
 public:
-    Deck(int size); // Populates a deck with as many cards as specified.
+    Deck(Map map); // Populates a deck with as many cards as there are countries on the map.
     Card draw(); // Draws a card at random and removes it from the deck.
 private:
     vector<Card> cards;

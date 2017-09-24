@@ -49,6 +49,7 @@ public:
     Map(string n);
     void addContinent(Continent c);
     Continent getContinent(string contname);
+    int getMapSize();
 
     string getName();
     string toString();

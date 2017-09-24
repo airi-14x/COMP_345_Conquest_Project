@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=Cygwin-Windows
+CND_PLATFORM=MinGW-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Release
 CND_DISTDIR=dist
@@ -38,7 +38,11 @@ OBJECTFILES= \
 	${OBJECTDIR}/Continent.o \
 	${OBJECTDIR}/Country.o \
 	${OBJECTDIR}/Map.o \
-	${OBJECTDIR}/mapmain.o
+	${OBJECTDIR}/card.o \
+	${OBJECTDIR}/deck.o \
+	${OBJECTDIR}/hand.o \
+	${OBJECTDIR}/mapmain.o \
+	${OBJECTDIR}/player.o
 
 
 # C Compiler Flags
@@ -80,10 +84,30 @@ ${OBJECTDIR}/Map.o: Map.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Map.o Map.cpp
 
+${OBJECTDIR}/card.o: card.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/card.o card.cpp
+
+${OBJECTDIR}/deck.o: deck.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/deck.o deck.cpp
+
+${OBJECTDIR}/hand.o: hand.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hand.o hand.cpp
+
 ${OBJECTDIR}/mapmain.o: mapmain.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mapmain.o mapmain.cpp
+
+${OBJECTDIR}/player.o: player.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/player.o player.cpp
 
 # Subprojects
 .build-subprojects:

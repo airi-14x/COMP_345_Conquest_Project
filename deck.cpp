@@ -13,15 +13,10 @@
  * NOTE: This solution is temporary; a default Deck() constructor should get
  * deck size from the size of the country collection on the map.
 */ 
-Deck::Deck(int size)
+Deck::Deck(Map map)
 {
-    /* 
-     * NOTE: Will require a way to get the number of countries from the map
-     * object..
-     */ 
-    
     // Add as many cards to the deck as specified in parameters.
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < map.getMapSize(); i++)
     {
         this->cards.push_back(Card());
     }

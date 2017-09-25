@@ -10,6 +10,25 @@
 Player::Player()
 {
     playerTroops = 0;
+    setDice();
+    setHand();
+}
+
+// Initializes the player's dice object.
+void Player::setDice()
+{
+    Dice playerDice; // Create Dice object with default constructor on heap.
+}
+
+// Returns the player's dice object.
+Dice Player::getDice()
+{
+    return playerDice;
+}
+
+Hand Player::setHand()
+{
+    Hand playerHand;
 }
 
 // Returns the player's hand object.
@@ -40,4 +59,10 @@ void Player::addTroops(int troops)
 void Player::subtractTroops(int troops)
 {
     playerTroops -= troops;
+}
+
+// Returns the collection of countries the player owns.
+vector<Country> Player::getCountries()
+{
+    return countries;
 }

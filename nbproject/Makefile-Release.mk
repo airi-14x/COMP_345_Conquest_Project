@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Continent.o \
 	${OBJECTDIR}/Country.o \
+	${OBJECTDIR}/Dice.o \
 	${OBJECTDIR}/Map.o \
 	${OBJECTDIR}/card.o \
 	${OBJECTDIR}/deck.o \
@@ -78,6 +79,11 @@ ${OBJECTDIR}/Country.o: Country.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Country.o Country.cpp
+
+${OBJECTDIR}/Dice.o: Dice.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Dice.o Dice.cpp
 
 ${OBJECTDIR}/Map.o: Map.cpp
 	${MKDIR} -p ${OBJECTDIR}

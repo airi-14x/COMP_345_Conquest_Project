@@ -110,7 +110,9 @@ int Dice::num_rolls() {
         if (rolls < 1 || rolls > 3) {
             cout << "Error, invalid value. Try Again. ";
             cin.clear(); // Gets rid of error flag //
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Stop ignoring after \n //
+            // cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Stop ignoring after \n //
+            // Namespace errors originated from this instruction. Had to comment it out
+            // for now in order to add dice to player implementation - Alexia
         } else {
             cout << "\nYou have requested " << rolls << " roll(s)";
             isInvalid = false;

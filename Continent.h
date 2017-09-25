@@ -31,9 +31,8 @@ private:
 public:
 
     vector<Country> cnts;
-    int getCntsSize();
 
-        int getCntsSize();
+    int getCntsSize();
     Continent();
     Continent(string nem);
 

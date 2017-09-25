@@ -9,8 +9,10 @@
 #include "Continent.h"
 #include "Country.h"
 #include "Map.h"
+#include <iostream>
+#include <iterator>
 using std::string;
-//using namespace std; //because i cant use std vector
+using namespace std; //because i cant use std vector
 using std::vector;
 using std::pair;
 
@@ -37,14 +39,18 @@ int Map::getMapSize()
     return mapSize;
 }
 //!!not done yet
-void Map::flagConnections(Country root)
+void Map::flagConnections(Country &root)
 {
+
     root.setVisited(true);
+
     for(int i = 0; i< conti.size(); i++)
     {
         for(int j = 0 ; j < conti[i].cnts.size(); j++)
         {
-            if(areAdjacent(root,conti[i].cnts[j])&&(conti[i].cnts[j].getVisited()==false))
+            //((edges[j].first.getName() == root.getName() && edges[j].second.getName() == conti[i].cnts[j].getName()))
+            if(areAdjacent(root,conti[i].cnts[j])
+                    &&(conti[i].cnts[j].getVisited()==false))
             {
                 flagConnections(conti[i].cnts[j]);
             }
@@ -66,17 +72,21 @@ bool Map::areAdjacent(Country m, Country n)
 }
 bool Map::validate()
 {
+    
     flagConnections(conti[0].cnts[0]);
+    
     for(int i = 0; i< conti.size(); i++)
-    {
+    {          
         for(int j = 0 ; j < conti[i].cnts.size(); j++)
         {
             if(conti[i].cnts[j].getVisited()==false)
-            {
+            { 
+                cout << conti[i].cnts[j].getName() << "\nnotvisited"<<endl;
                return false;
             }
         }
-    }
+    }           cout << "C++ ,please" <<endl;
+
     return true;
 }
 
@@ -123,12 +133,17 @@ Continent Map::getContinent(string contname) {
     }
 }
 
+void Map::addCountry(Country c, int index)
+{
+   conti[index].addCountry(c);
+}
+
 string Map::printEdges()
 {
     string temp = "";
     for(int i = 0; i < edges.size(); i++)
     {
-        temp+="[" + edges[i].first.getName() + ", " + edges[i].second.getName() + "]" ;
+        temp+="[" + edges[i].first.getName() + ", " + edges[i].second.getName() + "]\n" ;
     }
         
     return temp;

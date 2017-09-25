@@ -33,9 +33,10 @@ private:
     //std::find(vector.begin(), vector.end(), item) != vector.end()
     vector<pair<Country, Country >> edges; //vector of country pairs for adjacency?
 
-    void flagConnections(Country root);
+    void flagConnections(Country &root);
 
 public:
+    void addCountry(Country c, int index);
     bool validate();
 
     bool areAdjacent(Country m, Country n); //checks pairing vector for relationship

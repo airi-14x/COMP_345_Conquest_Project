@@ -6,9 +6,11 @@
 #include "Continent.h"
 #include <vector>
 #include <string>
+#include <iterator>
 using std::string;
 //using namespace std; //because i cant use std vector
 using std::vector;
+
 
 Continent::Continent()
 {

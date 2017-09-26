@@ -10,13 +10,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Continent.cpp</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Continent.h</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Map.cpp</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/mapmain.cpp</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Country.h</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Map.h</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Country.cpp</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/mapmain.cpp</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/Map.h</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/Dice.h</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/player.h</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/deck.h</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/Dice.cpp</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/deck.cpp</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/player.cpp</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/Continent.h</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/Map.cpp</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/Continent.cpp</file>
         </group>
     </open-files>
 </project-private>

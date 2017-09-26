@@ -8,9 +8,7 @@
       <itemPath>Country.h</itemPath>
       <itemPath>Dice.h</itemPath>
       <itemPath>Map.h</itemPath>
-      <itemPath>card.h</itemPath>
-      <itemPath>deck.h</itemPath>
-      <itemPath>hand.h</itemPath>
+      <itemPath>cards.h</itemPath>
       <itemPath>player.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -24,9 +22,7 @@
       <itemPath>Country.cpp</itemPath>
       <itemPath>Dice.cpp</itemPath>
       <itemPath>Map.cpp</itemPath>
-      <itemPath>card.cpp</itemPath>
-      <itemPath>deck.cpp</itemPath>
-      <itemPath>hand.cpp</itemPath>
+      <itemPath>cards.cpp</itemPath>
       <itemPath>mapmain.cpp</itemPath>
       <itemPath>player.cpp</itemPath>
     </logicalFolder>
@@ -77,17 +73,9 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="card.cpp" ex="false" tool="1" flavor2="0">
+      <item path="cards.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="card.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="deck.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="deck.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="hand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="hand.h" ex="false" tool="3" flavor2="0">
+      <item path="cards.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -132,17 +120,9 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="card.cpp" ex="false" tool="1" flavor2="0">
+      <item path="cards.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="card.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="deck.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="deck.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="hand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="hand.h" ex="false" tool="3" flavor2="0">
+      <item path="cards.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -39,9 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Country.o \
 	${OBJECTDIR}/Dice.o \
 	${OBJECTDIR}/Map.o \
-	${OBJECTDIR}/card.o \
-	${OBJECTDIR}/deck.o \
-	${OBJECTDIR}/hand.o \
+	${OBJECTDIR}/cards.o \
 	${OBJECTDIR}/mapmain.o \
 	${OBJECTDIR}/player.o
 
@@ -90,20 +88,10 @@ ${OBJECTDIR}/Map.o: Map.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Map.o Map.cpp
 
-${OBJECTDIR}/card.o: card.cpp
+${OBJECTDIR}/cards.o: cards.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/card.o card.cpp
-
-${OBJECTDIR}/deck.o: deck.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/deck.o deck.cpp
-
-${OBJECTDIR}/hand.o: hand.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/hand.o hand.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/cards.o cards.cpp
 
 ${OBJECTDIR}/mapmain.o: mapmain.cpp
 	${MKDIR} -p ${OBJECTDIR}

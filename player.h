@@ -11,7 +11,7 @@
 #define PLAYER_H
 
 #include "Dice.h"
-#include "hand.h"
+#include "cards.h"
 #include "Country.h"
 
 // A player with its own hand of cards and troops counter.

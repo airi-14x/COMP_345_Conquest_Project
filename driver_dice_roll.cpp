@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  *
- * 
+ *
  * File:   main.cpp
- * Author: Airi
+ * Author: Airi Chow (#40003396)
  *
  * Created on 2017/09/18, 12:11
  */
 
 
 #include <iostream>
-
 #include <ctime>
 #include "Dice.h"
+#include "player.h"
 
 using std::cout;
 using std::cin;
@@ -22,58 +22,73 @@ using std::cin;
 int main() {
     srand(time(NULL));
 
-    // !! NEED TO CREATE PLAYER OBJECTS TO CAST THE DICE //
-    Dice *d = new Dice();
-    int d_rolls = d->num_rolls();
+    // Player 1 //
+    cout << "Player 1: Turn~ \n";
+    Player* p1 = new Player();
+    Dice d = p1->getDice();
+    //Dice *d = p1->getDice();
+
+    //Dice *d = new Dice();
+    int d_rolls = d.num_rolls();
     cout << "\n";
 
+    // ---- ROUND 1 ---- //
     // Add # Player rolls //
     for (int i = 0; i < d_rolls; i++) {
-        d->randomiser();
-        d->showValue();
+        d.randomiser();
+        d.showValue();
         cout << "\n";
     }
 
-    d->printDiceSequence();
-    d->clearVector();
-    
-    d_rolls = d->num_rolls();
+    d.printDiceSequence();
+    d.clearVector();
+
+    // ---- ROUND 2 ---- //
+    d_rolls = d.num_rolls();
 
     for (int i = 0; i < d_rolls; i++) {
-        d->randomiser();
-        d->showValue();
+        d.randomiser();
+        d.showValue();
         cout << "\n";
     }
-    d->printDiceSequence();
-    d->percentage();
+    d.printDiceSequence();
+    d.percentage();
 
-    Dice *c = new Dice();
-    int c_rolls = c->num_rolls();
+    cout << std::endl;
+
+    // Player 2 //
+    cout << "\nPlayer 2's turn~ \n";
+    Player* p2 = new Player();
+    Dice c = p2->getDice();
+
+    int c_rolls = c.num_rolls();
     cout << "\n";
 
+    // ---- ROUND 1 ---- //
     // Add # Player rolls //
     for (int i = 0; i < c_rolls; i++) {
-        c->randomiser();
-        c->showValue();
+        c.randomiser();
+        c.showValue();
         cout << "\n";
     }
 
-    c->printDiceSequence();
-    c->clearVector();
+    c.printDiceSequence();
+    c.clearVector();
 
-    c_rolls = c->num_rolls();
+    c_rolls = c.num_rolls();
 
+    // ---- ROUND 2 ---- //
     for (int i = 0; i < c_rolls; i++) {
-        c->randomiser();
-        c->showValue();
+        c.randomiser();
+        c.showValue();
         cout << "\n";
     }
-    c->printDiceSequence();
-    c ->percentage();
-    delete d;
-    d = NULL;
-    
-    delete c;
-    c = NULL;
+    c.printDiceSequence();
+    c .percentage();
+
+    delete p1;
+    p1 = NULL;
+    delete p2;
+    p2 = NULL;
+
 }
-

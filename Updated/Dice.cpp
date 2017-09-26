@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   Dice.cpp
  * Author: Airi
- * 
+ *
  * Created on 2017/09/19, 19:09
  */
 
@@ -29,8 +29,8 @@ Dice::Dice() {
     track_five = 0;
     track_six = 0;
     counter = 1;
-    
-    vector<int> dice_sequence(1); 
+
+    vector<int> dice_sequence(1);
 }
 
 int Dice::randomiser() {
@@ -64,7 +64,7 @@ void Dice::trackValue(int dice_number) {
     }
     cout << "\nRoll #" << counter << ": You rolled a: " << dice_number;
     counter++;
-    
+
     // Add Value to Sequence //
     dice_sequence.push_back(dice_number);
 }
@@ -137,6 +137,3 @@ void Dice::percentage() {
     double perc_six = ((double)track_six) / getTotal() * 100.0;
     cout << "\nPercentage of 6's roll: " <<perc_six << "%";
 }
-
-
-

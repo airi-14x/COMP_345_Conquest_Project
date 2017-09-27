@@ -6,7 +6,7 @@
 
 /* 
  * File:   Map.h
- * Author: User
+ * Author: Earl Steven Aromin 40004997
  *
  * Created on September 19, 2017, 8:27 PM
  */
@@ -16,27 +16,27 @@
 
 #include <utility>
 #include <vector>
-#include <stack>
-#include "Continent.h"
-#include "Country.h"
+#include <string>
+using namespace std;
 using std::string;
-//using namespace std; //because i cant use std vector
 using std::vector;
 using std::pair;
+
+class Continent;
+class Country;
 class Map {
 private:
 
     string name;
 
-    vector<Continent> conti; //vector of continents, each continent will have
+    vector<Continent*> conti; //vector of continents, each continent will have
     //a vector of countries named cnts
     //std::find(vector.begin(), vector.end(), item) != vector.end()
     vector<pair<Country, Country >> edges; //vector of country pairs for adjacency?
 
-    void flagConnections(Country &root);
+    void flagConnections(Country* root);
 
 public:
-    void addCountry(Country c, int index);
     bool validate();
 
     bool areAdjacent(Country m, Country n); //checks pairing vector for relationship
@@ -48,14 +48,67 @@ public:
 
     Map();
     Map(string n);
-    void addContinent(Continent c);
-    Continent getContinent(string contname);
+    void addContinent(Continent* c);
+    Continent* getContinent(string contname);
+    Continent* getContinent(int index);
     int getMapSize();
 
     string getName();
     string toString();
     string printContinents();
     string printEdges();
+
+};
+
+
+
+class Continent {
+private:
+    string name; // placeholder, use Player class if needed
+
+public:
+
+    vector<Country*> cnts;
+
+    int getCntsSize();
+    Continent();
+    Continent(string nem);
+
+    string toString();
+    string getName();
+    
+    void addCountry(Country* c);
+    Country getCountry(string name);
+    Country& getCountry(int index);
+    string nameCountries();
+    void setName(string n);
+};
+
+
+class Country {
+private:
+    bool visited;
+    string playername; // placeholder, use Player class if needed
+    string name;
+
+    int armynum;
+
+public:
+    void setVisited(bool a);
+    bool getVisited();
+    Country();
+    Country(string nam);
+    Country(string nam, string pname);
+    Country(string nam, string pname, int army);
+
+    string toString();
+    string getName();
+    int getArmyNum();
+
+    void setArmyNum(int a);
+    void setName(string a);
+    void setPlayerName(string a);
+
 
 };
 

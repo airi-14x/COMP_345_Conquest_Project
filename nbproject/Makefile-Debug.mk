@@ -35,8 +35,6 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/Continent.o \
-	${OBJECTDIR}/Country.o \
 	${OBJECTDIR}/Dice.o \
 	${OBJECTDIR}/Map.o \
 	${OBJECTDIR}/card.o \
@@ -69,16 +67,6 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/comp-345-a1.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/comp-345-a1 ${OBJECTFILES} ${LDLIBSOPTIONS}
-
-${OBJECTDIR}/Continent.o: Continent.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.c) -g -std=c11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Continent.o Continent.cpp
-
-${OBJECTDIR}/Country.o: Country.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Country.o Country.cpp
 
 ${OBJECTDIR}/Dice.o: Dice.cpp
 	${MKDIR} -p ${OBJECTDIR}

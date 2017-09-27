@@ -9,41 +9,35 @@
 
 #ifndef PLAYER_H
 #define PLAYER_H
-
 #include "Dice.h"
-#include "hand.h"
-#include "Country.h"
+//#include "hand.h"
 
 // A player with its own hand of cards and troops counter.
 class Player
 {
 public:
     Player(); // Creates a new player with no allocated troops.
-    
-    // Hand functionality
-    Hand setHand(); // Initialize the player's hand.
-    Hand getHand(); // Returns the player's hand object.
-    void addCard(Card newCard); // Adds cards to the player's hand object.
-    
-    // Map functionality
-    vector<Country> getCountries(); // Returns the collection of countries the player owns.
-    int getTroops(); // Returns the number of troops the player possesses.
-    void addTroops(int troops); // Grants new troops to the player.
-    void subtractTroops(int troops); // Takes away troops from the player.
     // NOTE: these three functions serve no purpose until the country files are
     // obtained. Not yet implemented to avoid compilation errors.
     void reinforce();
     void attack();
     void fortify();
-    
-    // Dice functionality
-    Dice getDice(); // Returns the player's dice object.
-    void setDice(); // Initializes the player's dice object.
+    // Regular accessors/mutators.
+    // NOTE: getHand() appears to return a valid hand object, but can't be used to add new cards; further troubleshooting required...
+    //       The player object appears to be able to add cards on its own, so likely a scope or memory issue. Using a player-specific
+    //       addCard() function in the meantime.
+    //Hand getHand(); // Returns the player's hand object.
+    //void addCard(Card newCard); // Adds cards to the player's hand object.
+    int getTroops(); // Returns the number of troops the player possesses.
+    void addTroops(int troops); // Grants new troops to the player.
+    void subtractTroops(int troops); // Takes away troops from the player.
+    Dice getDice(); // Get Dice
+    void setDice(); // Create Dice object
 private:
-    Hand playerHand;
+    //Hand playerHand;
     int playerTroops;
-    vector<Country> countries;
-    Dice playerDice;
+    Dice d1;    // Dice Object
+    
 };
 
 #endif /* PLAYER_H */

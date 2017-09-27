@@ -12,7 +12,7 @@
 
 #include "Dice.h"
 #include "cards.h"
-#include "Country.h"
+#include "Map.h"
 
 // A player with its own hand of cards and troops counter.
 class Player

@@ -31,6 +31,12 @@ Card::Card()
     }
 }
 
+// Generates a card object with a parametized type.
+Card::Card(CardType cardType)
+{
+    this->cardType = cardType;
+}
+
 // Returns the card's type as a CardType enum variable.
 CardType Card::getCardType()
 {
@@ -53,18 +59,41 @@ std::string Card::toString()
     }
 }
 
-/* 
- * Populates a deck with as many cards as specified.
- * NOTE: This solution is temporary; a default Deck() constructor should get
- * deck size from the size of the country collection on the map.
-*/ 
+// Populates a deck with as many cards as there are countries on the map.
 Deck::Deck(Map map)
 {
-    // Add as many cards to the deck as specified in parameters.
+    CardType newCardType = ct_infantry;
+    
+    /*
+     * Add as many cards to the deck as there are countries on the map
+     * while cycling through card types.
+     */
     for (int i = 0; i < map.getMapSize(); i++)
     {
-        this->cards.push_back(Card());
+        this->cards.push_back(Card(newCardType));
+        
+        switch(newCardType)
+        {
+            case ct_infantry:
+                newCardType = ct_artillery;
+                break;
+            case ct_artillery:
+                newCardType = ct_cavalry;
+                break;
+            default:
+                newCardType = ct_infantry;
+        }
     }
+}
+
+/*
+ * Returns the card at the index specified.
+ * NOTE: Currently only used by the object itself, and therefore private to
+ * avoid out of bounds exceptions.
+ */
+Card Deck::cardAt(int index)
+{
+    return this->cards.at(index);
 }
 
 // Draws a card at random and removes it from the deck.
@@ -83,6 +112,39 @@ Card Deck::draw()
     return drawnCard;
 }
 
+// Outputs the cards in hand. For testing purposes.
+void Deck::listCards()
+{
+    // For testing purposes, keeping track of how many cards of each type occur.
+    int infantryCards = 0;
+    int artilleryCards = 0;
+    int cavalryCards = 0;
+    
+    std::cout << "Cards in deck: " << cards.size() << std::endl;
+    
+    for (int i = 0; i < cards.size(); i++)
+    {
+        std::cout << "Card " << i << ": " << this->cardAt(i).toString() << std::endl;
+        
+        // Count the occurrences of each card type. For testing purposes.
+        switch(this->cardAt(i).getCardType())
+        {
+            case ct_infantry:
+                infantryCards++;
+                break;
+            case ct_artillery:
+                artilleryCards++;
+                break;
+            default:
+                cavalryCards++;
+        }
+    }
+    
+    cout << "Infantry cards: " << infantryCards << endl;
+    cout << "Artillery cards: " << artilleryCards << endl;
+    cout << "Cavalry cards: " << cavalryCards << endl;
+}
+
 // Creates an empty hand.
 Hand::Hand()
 {
@@ -95,8 +157,11 @@ void Hand::addCard(Card newCard)
     this->cards.push_back(newCard);
 }
 
-// Returns the card at the index specified.
-// NOTE: Can result in out of bounds exceptions; use exception handling.
+/*
+ * Returns the card at the index specified.
+ * NOTE: Currently only used by the object itself, and therefore private to
+ * avoid out of bounds exceptions.
+ */
 Card Hand::cardAt(int index)
 {
     return this->cards.at(index);
@@ -215,10 +280,32 @@ int Hand::exchange()
 // Outputs the cards in hand. For testing purposes.
 void Hand::listCards()
 {
-    std::cout << "Cards: " << cards.size() << std::endl;
+    // For testing purposes, keeping track of how many cards of each type occur.
+    int infantryCards = 0;
+    int artilleryCards = 0;
+    int cavalryCards = 0;
+    
+    std::cout << "Cards in hand: " << cards.size() << std::endl;
     
     for (int i = 0; i < cards.size(); i++)
     {
-        std::cout << "Card " << i << ": " << this->cardAt(i).toString() << std::endl;
+        cout << "Card " << i << ": " << this->cardAt(i).toString() << endl;
+        
+        // Count the occurrences of each card type. For testing purposes.
+        switch(this->cardAt(i).getCardType())
+        {
+            case ct_infantry:
+                infantryCards++;
+                break;
+            case ct_artillery:
+                artilleryCards++;
+                break;
+            default:
+                cavalryCards++;
+        }
     }
+    
+    cout << "Infantry cards: " << infantryCards << endl;
+    cout << "Artillery cards: " << artilleryCards << endl;
+    cout << "Cavalry cards: " << cavalryCards << endl;
 }

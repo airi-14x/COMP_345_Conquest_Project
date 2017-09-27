@@ -21,9 +21,8 @@ public:
     Player(); // Creates a new player with no allocated troops.
     
     // Hand functionality
-    Hand setHand(); // Initialize the player's hand.
+    void setHand(); // Initialize the player's hand.
     Hand& getHand(); // Returns the player's hand object.
-    void addCard(Card newCard); // Adds cards to the player's hand object.
     
     // Map functionality
     vector<Country> getCountries(); // Returns the collection of countries the player owns.

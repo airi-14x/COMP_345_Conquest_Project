@@ -26,7 +26,8 @@ Dice Player::getDice()
     return playerDice;
 }
 
-Hand Player::setHand()
+// Initializes the player's hand object.
+void Player::setHand()
 {
     Hand playerHand;
 }
@@ -35,12 +36,6 @@ Hand Player::setHand()
 Hand& Player::getHand()
 {
     return playerHand;
-}
-
-// Adds cards to the player's hand object.
-void Player::addCard(Card newCard)
-{
-    playerHand.addCard(newCard);
 }
 
 // Returns the number of troops the player possesses.

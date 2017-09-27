@@ -13,8 +13,11 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "Map.h"
-#include <iterator>
+#include <ctime>
+//#include "Map.h"
+//#include <iterator>
+#include "cards.h"
+#include "player.h"
 using std::string;
 using std::cout;
 using std::endl;
@@ -26,6 +29,8 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
+    srand(time(NULL));
+    
     Continent yo{"Dead"};\
     Continent* yoo = &yo;
     Map face{"ye"};
@@ -82,12 +87,14 @@ int main(int argc, char** argv) {
 
     //face.link(oh9,oh1);
 
-
-
-
     cout << face.getContinent(0)->nameCountries(); //pointer testing
     cout << yo.nameCountries();//pointer testing p2
     cout << face.validate() << endl;
+    
+    Deck newDeck(face);
+    
+    newDeck.listCards();
+    
     return 0;
 }
 

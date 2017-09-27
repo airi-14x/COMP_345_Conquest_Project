@@ -343,6 +343,10 @@ void Country::setPlayerName(string a) {
     playername = a;
 }
 
+string Country::getPlayerName() {
+    return playername;
+}
+
 void Country::setVisited(bool a) {
     visited = a;
 }

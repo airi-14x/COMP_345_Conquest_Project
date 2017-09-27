@@ -92,6 +92,7 @@ void Player::removeCountry(Country* country)
     }
 }
 
+// Takes troops from a player and deploys them to an owned territory.
 void Player::reinforce(int troops, Country* country)
 {
     /*
@@ -101,17 +102,20 @@ void Player::reinforce(int troops, Country* country)
     if (troops <= playerTroops && troops > 0)
     {
         // Marker to validate the presence of the country in the player's collection.
-        bool countryFound = false;
+        bool countryValid = false;
         
+        // Check the player's collection, validate if the country is found.
         for (int i = 0; i < countries.size(); i++)
         {
-            if ((*countries.at(i)).getName() == (*country).getName())
+            if (countries.at(i)->getName() == country->getName())
             {
-                countryFound = true;
+                countryValid = true;
+                break;
             }
         }
         
-        if (countryFound)
+        // If the country is found, add parametized troops to it and subtract them from the player's troops.
+        if (countryValid)
         {
             country->setArmyNum(country->getArmyNum() + troops);
             playerTroops -= troops;
@@ -127,4 +131,61 @@ void Player::reinforce(int troops, Country* country)
         cout << "Cannot reinforce with 0 or fewer troops." << endl;
     
     cout << playerName << " has " << playerTroops << " deployable troops." << endl;
+}
+
+void Player::attack(Map map, Country* attackingCountry, Country* defendingCountry)
+{
+    /* 
+     * The following conditions must be met for a valid attack:
+     * - The attacking country belongs to the attacker.
+     * - The defending country does not belong to the attacker.
+     * - The two countries are adjacent.
+     * - The attacking country has more than 1 army in it.
+     */
+    
+    // Markers to ensure the attacking country is owned by the correct player 
+    // and that the attack as a whole is valid.
+    bool attackingCountryValid = false;
+    bool attackValid = false;
+        
+    // Check the player's collection, validate if the country is found.
+    for (int i = 0; i < countries.size(); i++)
+    {
+        if (countries.at(i)->getName() == attackingCountry->getName())
+        {
+            attackingCountryValid = true;
+            break;
+        }
+    }
+    
+    // Continue if the attacking country is owned by the attacking player.
+    if (attackingCountryValid)
+    {
+        // Check if the defending country belongs to an opponent.
+        if (defendingCountry->getPlayerName() != playerName)
+        {
+            // Check if the two countries are adjacent.
+            if (map.areAdjacent(*attackingCountry, *defendingCountry))
+            {
+                if (attackingCountry->getArmyNum() > 1)
+                {
+                    attackValid = true;
+                }
+                else
+                    cout << attackingCountry->getName() << " doesn't have enough troops to attack." << endl;
+            }
+            else
+                cout << attackingCountry->getName() << " and " << defendingCountry->getName() << " are not adjacent." << endl;
+        }
+        else
+            cout << defendingCountry->getName() << " is already owned by " << playerName << "." << endl;
+    }
+    else
+        cout << attackingCountry->getName() << "is not owned by " << playerName << "." << endl;
+    
+    // If the attack conditions are met
+    if (attackValid)
+    {
+        // CONTINUE FROM HERE
+    }
 }

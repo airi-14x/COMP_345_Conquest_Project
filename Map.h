@@ -109,6 +109,7 @@ public:
     string toString();
     string getName();
     int getArmyNum();
+    string getPlayerName();
 
     void setArmyNum(int a);
     void setName(string a);

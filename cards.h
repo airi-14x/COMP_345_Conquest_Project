@@ -23,6 +23,7 @@ class Card
 {
 public:
     Card(); // Generates a card object with a random type.
+    Card(CardType cardType); // Generates a card object with a parametized type.
     CardType getCardType(); // Returns the card's type as a CardType enum variable.
     std::string toString(); // Returns a string representation of the card's type.
 private:
@@ -38,8 +39,10 @@ class Deck
 public:
     Deck(Map map); // Populates a deck with as many cards as there are countries on the map.
     Card draw(); // Draws a card at random and removes it from the deck.
+    void listCards(); // Outputs the cards in hand. For testing purposes.
 private:
     vector<Card> cards;
+    Card cardAt(int index); // Returns the card at the index specified.
 };
 
 /*
@@ -52,11 +55,11 @@ class Hand
 public:
     Hand(); // Creates an empty hand.
     void addCard(Card newCard); // Adds a specified card to the end of the hand's card collection.
-    Card cardAt(int index); // Returns the card at the index specified.
     int exchange(); //Exchanges three cards for troops in increments of five with each new exchange.
     void listCards(); // Outputs the cards in hand. For testing purposes.
 private:
     vector<Card> cards;
+    Card cardAt(int index); // Returns the card at the index specified.
 };
 
 #endif /* CARD_H */

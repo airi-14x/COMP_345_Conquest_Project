@@ -115,11 +115,7 @@ int Dice::num_rolls() {
         if (rolls < 1 || rolls > 3) {
             cout << "Error, invalid value. Try Again. ";
             cin.clear(); // Gets rid of error flag //
-<<<<<<< HEAD
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Stop ignoring after \n // --> Fixed by adding header
-=======
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Stop ignoring after \n //
->>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
         } else {
             cout << "\nYou have requested " << rolls << " roll(s)";
             isInvalid = false;

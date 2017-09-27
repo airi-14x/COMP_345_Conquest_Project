@@ -50,14 +50,13 @@ private:
 class Hand
 {
 public:
-    Hand(); // Creates an empty hand and sets its exchange counter to 0.
+    Hand(); // Creates an empty hand.
     void addCard(Card newCard); // Adds a specified card to the end of the hand's card collection.
     Card cardAt(int index); // Returns the card at the index specified.
-    int exchange(int firstCardIndex, int secondCardIndex, int thirdCardIndex); //Exchanges three cards for troops in increments of five with each new exchange.
+    int exchange(); //Exchanges three cards for troops in increments of five with each new exchange.
     void listCards(); // Outputs the cards in hand. For testing purposes.
 private:
     vector<Card> cards;
-    int exchanges; // Number of times the player has exchanged cards.
 };
 
 #endif /* CARD_H */

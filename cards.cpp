@@ -6,6 +6,9 @@
 
 #include <cstdlib>
 #include <iostream>
+using std::cin;
+using std::cout;
+using std::endl;
 #include "cards.h"
 
 // Generates a card object with a random type.
@@ -80,10 +83,10 @@ Card Deck::draw()
     return drawnCard;
 }
 
-// Creates an empty hand and sets its exchange counter to 0.
+// Creates an empty hand.
 Hand::Hand()
 {
-    this->exchanges = 0;
+    
 }
 
 // Adds a specified card to the end of the hand's card collection.
@@ -103,13 +106,64 @@ Card Hand::cardAt(int index)
  * Exchanges three cards for troops in increments of five with each new exchange.
  * Takes three indices, sorts them, and compares the card types.
  * Exchanges the cards for a number of troops if they are all of the same
- * type or all of different types.
+ * type or all of different types. Returns the number of troops earned or 0 if
+ * no valid exchange was made.
  * 
- * NOTE: Can result in out of bounds exceptions; implement exception handling.
+ * NOTE: Eventually useful to alter this function to work with less user input
+ * and handle out of bounds, etc. with exceptions.
  */
-int Hand::exchange(int firstIndex, int secondIndex, int thirdIndex)
+int Hand::exchange()
 {
-    //Ensure all three indices are in ascending order.
+    // Keeps track of the number of times an exchange has been successfully made.
+    static int exchanges = 0;
+    
+    // The three indices for card removal.
+    int firstIndex, secondIndex, thirdIndex;
+    
+    /*
+     * Ask for three indices and ensure their validity.
+     * Return an error message and loop request if the input is invalid.
+     */
+    while (firstIndex < 0 || 
+           firstIndex >= this->cards.size())
+    {
+        cout << "Enter the index of the first card to exchange: ";
+        cin >> firstIndex;
+        
+        if (firstIndex < 0 || firstIndex >= this->cards.size())
+            cout << endl << "ERROR: The input index is out of bounds; try again." << endl;
+    }
+    
+    while (secondIndex < 0 || 
+           secondIndex >= this->cards.size() || 
+           secondIndex == firstIndex)
+    {
+        cout << "Enter the index of the second card to exchange: ";
+        cin >> secondIndex;
+        
+        if (secondIndex < 0 || secondIndex >= this->cards.size())
+            cout << "ERROR: index out of bounds; try again." << endl;
+        
+        if (secondIndex == firstIndex)
+            cout << "ERROR: index already selected; try again." << endl;
+    }
+    
+    while (thirdIndex < 0 || 
+           thirdIndex >= this->cards.size() || 
+           thirdIndex == firstIndex || 
+           thirdIndex == secondIndex)
+    {
+        cout << "Enter the index of the second card to exchange: ";
+        cin >> thirdIndex;
+        
+        if (thirdIndex < 0 || thirdIndex >= this->cards.size())
+            cout << "ERROR: index out of bounds; try again." << endl;
+        
+        if (thirdIndex == firstIndex || thirdIndex == secondIndex)
+            cout << "ERROR: index already selected; try again." << endl;
+    }
+    
+    // Ensure all three indices are in ascending order.
     if (firstIndex > secondIndex)
     {
         int tempIndex = firstIndex;
@@ -140,7 +194,7 @@ int Hand::exchange(int firstIndex, int secondIndex, int thirdIndex)
          cards.at(secondIndex).getCardType() != cards.at(thirdIndex).getCardType() && 
          cards.at(firstIndex).getCardType() != cards.at(thirdIndex).getCardType()))
     {
-        this->exchanges++;
+        exchanges++;
         
         // Erase the target cards while compensating for the hand's decrease
         // in size.
@@ -148,10 +202,14 @@ int Hand::exchange(int firstIndex, int secondIndex, int thirdIndex)
         this->cards.erase(this->cards.begin() + secondIndex - 1);
         this->cards.erase(this->cards.begin() + thirdIndex - 2);
     
-        return this->exchanges * 5;
+        cout << "Granting " << exchanges * 5 << " troops." << endl;
+        return exchanges * 5;
     }
     else
+    {
+        cout << "Invalid trade; exactly two cards match." << endl;
         return 0;
+    }
 }
 
 // Outputs the cards in hand. For testing purposes.

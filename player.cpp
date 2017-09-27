@@ -32,7 +32,7 @@ Hand Player::setHand()
 }
 
 // Returns the player's hand object.
-Hand Player::getHand()
+Hand& Player::getHand()
 {
     return playerHand;
 }

@@ -4,7 +4,10 @@
  * Assignment: 1
  */
 
+#include <iostream>
 #include "player.h"
+using std::cout;
+using std::endl;
 
 // Creates a new player with no allocated troops.
 Player::Player()
@@ -89,7 +92,39 @@ void Player::removeCountry(Country* country)
     }
 }
 
-void Player::fortify()
+void Player::reinforce(int troops, Country* country)
 {
+    /*
+     * Confirm that the player has enough troops, otherwise give an error
+     * message and let the function terminate.
+     */
+    if (troops <= playerTroops && troops > 0)
+    {
+        // Marker to validate the presence of the country in the player's collection.
+        bool countryFound = false;
+        
+        for (int i = 0; i < countries.size(); i++)
+        {
+            if ((*countries.at(i)).getName() == (*country).getName())
+            {
+                countryFound = true;
+            }
+        }
+        
+        if (countryFound)
+        {
+            country->setArmyNum(country->getArmyNum() + troops);
+            playerTroops -= troops;
+            cout << country->getName() << " reinforced with " << troops << " troops." << endl;
+        }
+        else
+            cout << country->getName() << " is not owned by " << playerName << "; reinforcement aborted." << endl;
+        
+    }
+    else if (troops > 0)
+        cout << "Not enough troops; this action cannot be taken." << endl;
+    else
+        cout << "Cannot reinforce with 0 or fewer troops." << endl;
     
+    cout << playerName << " has " << playerTroops << " deployable troops." << endl;
 }

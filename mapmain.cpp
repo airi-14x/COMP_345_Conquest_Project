@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "Map.h"
+#include "player.h"
 #include <iterator>
 using std::string;
 using std::cout;
@@ -119,8 +120,21 @@ int main(int argc, char** argv) {
 
     //cout << face.getContinent(0)->nameCountries(); //pointer testing
     //cout << yo.nameCountries(); //pointer testing p2
-     face.valiCont(yas);
-     face.validate();
+    face.valiCont(yas);
+    face.validate();
+     
+    Player me("Alexia");
+    
+    me.addCountry(ha);
+    me.addTroops(10);
+    
+    me.reinforce(0, ha);
+    me.reinforce(15, ha);
+    me.reinforce(10, ha3);
+    me.reinforce(10, ha);
+    
+    cout << ha->getArmyNum() << " troops currently occupy " << ha->getName() << "." << endl;
+    
     return 0;
 }
 

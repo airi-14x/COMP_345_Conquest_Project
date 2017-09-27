@@ -32,9 +32,9 @@ public:
     vector<Country*> getCountries(); // Returns the collection of countries the player owns.
     void addCountry(Country*); // Adds a country to the player's country collection.
     void removeCountry(Country*); // Removes a country to the player's country collection.
-    void fortify();
-    void reinforce();
+    void reinforce(int troops, Country* country);
     void attack();
+    void fortify();
     
     // Dice functionality
     Dice getDice(); // Returns the player's dice object.

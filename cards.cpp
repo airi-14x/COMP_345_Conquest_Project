@@ -11,6 +11,8 @@ using std::cout;
 using std::endl;
 #include "cards.h"
 
+// CARD IMPLEMENTATION
+
 // Generates a card object with a random type.
 Card::Card()
 {
@@ -58,6 +60,8 @@ std::string Card::toString()
             return "cavalry";
     }
 }
+
+// DECK IMPLEMENTATION
 
 // Populates a deck with as many cards as there are countries on the map.
 Deck::Deck(Map map)
@@ -144,6 +148,8 @@ void Deck::listCards()
     cout << "Artillery cards: " << artilleryCards << endl;
     cout << "Cavalry cards: " << cavalryCards << endl;
 }
+
+// HAND IMPLEMENTATION
 
 // Creates an empty hand.
 Hand::Hand()

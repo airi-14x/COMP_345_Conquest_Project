@@ -18,31 +18,33 @@
 class Player
 {
 public:
-    Player(); // Creates a new player with no allocated troops.
+    Player(); // Creates a new player with no allocated troops and no name.
+    Player(string playerName); // Creates a new named player with no allocated troops.
+    int getTroops(); // Returns the number of troops the player possesses.
+    void addTroops(int troops); // Grants new troops to the player.
+    void subtractTroops(int troops); // Takes away troops from the player.
     
     // Hand functionality
     void setHand(); // Initialize the player's hand.
     Hand& getHand(); // Returns the player's hand object.
     
     // Map functionality
-    vector<Country> getCountries(); // Returns the collection of countries the player owns.
-    int getTroops(); // Returns the number of troops the player possesses.
-    void addTroops(int troops); // Grants new troops to the player.
-    void subtractTroops(int troops); // Takes away troops from the player.
-    // NOTE: these three functions serve no purpose until the country files are
-    // obtained. Not yet implemented to avoid compilation errors.
+    vector<Country*> getCountries(); // Returns the collection of countries the player owns.
+    void addCountry(Country*); // Adds a country to the player's country collection.
+    void removeCountry(Country*); // Removes a country to the player's country collection.
+    void fortify();
     void reinforce();
     void attack();
-    void fortify();
     
     // Dice functionality
     Dice getDice(); // Returns the player's dice object.
     void setDice(); // Initializes the player's dice object.
 private:
-    Hand playerHand;
+    string playerName;
     int playerTroops;
-    vector<Country> countries;
     Dice playerDice;
+    Hand playerHand;
+    vector<Country*> countries;
 };
 
 #endif /* PLAYER_H */

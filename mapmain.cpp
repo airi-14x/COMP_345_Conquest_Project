@@ -91,9 +91,15 @@ int main(int argc, char** argv) {
     cout << yo.nameCountries();//pointer testing p2
     cout << face.validate() << endl;
     
+    
+    //==============================MY STUFF======================
+    
     Deck newDeck(face);
     
     newDeck.listCards();
+    
+    Player player1("p1");
+    Player player2("p2");
     
     return 0;
 }

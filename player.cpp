@@ -9,6 +9,16 @@
 // Creates a new player with no allocated troops.
 Player::Player()
 {
+    playerName = "";
+    playerTroops = 0;
+    setDice();
+    setHand();
+}
+
+// Creates a new named player with no allocated troops.
+Player::Player(string playerName)
+{
+    this->playerName = playerName;
     playerTroops = 0;
     setDice();
     setHand();
@@ -57,7 +67,29 @@ void Player::subtractTroops(int troops)
 }
 
 // Returns the collection of countries the player owns.
-vector<Country> Player::getCountries()
+vector<Country*> Player::getCountries()
 {
     return countries;
+}
+
+// Adds a country to the player's country collection.
+void Player::addCountry(Country* country)
+{
+    countries.push_back(country);
+}
+
+// Removes a country to the player's country collection.
+void Player::removeCountry(Country* country)
+{
+    // Search the player's country collection to find where the target is, then erase it.
+    for(int i = 0; i < countries.size(); i++)
+    {
+        if (countries.at(i) == country)
+            countries.erase(countries.begin() + i);
+    }
+}
+
+void Player::fortify()
+{
+    
 }

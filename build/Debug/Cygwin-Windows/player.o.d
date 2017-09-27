@@ -1,7 +1,5 @@
-build/Debug/Cygwin-Windows/player.o: player.cpp player.h hand.h card.h
+build/Debug/Cygwin-Windows/player.o: player.cpp player.h Dice.h
 
 player.h:
 
-hand.h:
-
-card.h:
+Dice.h:

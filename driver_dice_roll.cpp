@@ -22,17 +22,30 @@ using std::cin;
 int main() {
     srand(time(NULL));
 
+<<<<<<< HEAD
+    // !! NEED TO CREATE PLAYER OBJECTS TO CAST THE DICE //
+=======
     // Player 1 //
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
     cout << "Player 1: Turn~ \n";
     Player* p1 = new Player();
     Dice d = p1->getDice();
     //Dice *d = p1->getDice();
+<<<<<<< HEAD
+    
+    //Dice *d = new Dice();
+    int d_rolls = d.num_rolls();
+    cout << "\n";
+    
+    
+=======
 
     //Dice *d = new Dice();
     int d_rolls = d.num_rolls();
     cout << "\n";
 
     // ---- ROUND 1 ---- //
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
     // Add # Player rolls //
     for (int i = 0; i < d_rolls; i++) {
         d.randomiser();
@@ -42,8 +55,13 @@ int main() {
 
     d.printDiceSequence();
     d.clearVector();
+<<<<<<< HEAD
+    
+    
+=======
 
     // ---- ROUND 2 ---- //
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
     d_rolls = d.num_rolls();
 
     for (int i = 0; i < d_rolls; i++) {
@@ -53,6 +71,14 @@ int main() {
     }
     d.printDiceSequence();
     d.percentage();
+<<<<<<< HEAD
+
+    cout << std::endl;
+    cout << "\nPlayer 2's turn~ \n";
+    Player* p2 = new Player();
+    Dice c = p2->getDice();
+    
+=======
 
     cout << std::endl;
 
@@ -61,6 +87,7 @@ int main() {
     Player* p2 = new Player();
     Dice c = p2->getDice();
 
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
     int c_rolls = c.num_rolls();
     cout << "\n";
 
@@ -85,6 +112,21 @@ int main() {
     }
     c.printDiceSequence();
     c .percentage();
+<<<<<<< HEAD
+    
+    delete p1;
+    p1 = NULL;
+    delete p2;
+    p2 = NULL;
+    //delete d;
+    //d = NULL;
+    
+    //delete c;
+    //c = NULL;
+    
+}
+=======
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
 
     delete p1;
     p1 = NULL;

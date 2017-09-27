@@ -6,15 +6,13 @@
 
 /* 
  * File:   main.cpp
- * Author: Earl
+ * Author: Earl Steven Aromin 40004997
  *
  * Created on September 19, 2017, 7:31 PM
  */
 
 #include <cstdlib>
 #include <iostream>
-#include "Continent.h"
-#include "Country.h"
 #include "Map.h"
 #include <iterator>
 using std::string;
@@ -28,9 +26,10 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
-    Continent yo{"Dead"};
+    Continent yo{"Dead"};\
+    Continent* yoo = &yo;
     Map face{"ye"};
-    face.addContinent(yo);
+    face.addContinent(yoo);
 
 
     Country oh{"Ye"};
@@ -40,55 +39,55 @@ int main(int argc, char** argv) {
     Country oh4{"Ye4"};
     Country oh5{"Ye5"};
     Country oh6{"Ye6"};
-   Country oh7{"Ye7"};
-   Country oh8{"Ye8"};
-   Country oh9{"Ye9"};
+    Country oh7{"Ye7"};
+    Country oh8{"Ye8"};
+    Country oh9{"Ye9"};
 
 
+    Country* ohh = &oh;
+    Country* ohh1 = &oh1;
+    Country* ohh2 = &oh2;
+    Country* ohh3 = &oh3;
+    Country* ohh4 = &oh4;
+    Country* ohh5 = &oh5;
+    Country* ohh6 = &oh6;
+    Country* ohh7 = &oh7;
+    Country* ohh8 = &oh8;
+    Country* ohh9 = &oh9;
 
-    face.addCountry(oh,0);
-    face.addCountry(oh1,0);
-    face.addCountry(oh2,0);
-    face.addCountry(oh3,0);
-    face.addCountry(oh4,0);
-    face.addCountry(oh5,0);
-    face.addCountry(oh6,0);
-    face.addCountry(oh7,0);
-    face.addCountry(oh8,0);
-    face.addCountry(oh9,0);
-    /*  
-    yo.addCountry(oh);
-    yo.addCountry(oh1);
-    yo.addCountry(oh2);
-    yo.addCountry(oh3);
-    yo.addCountry(oh4);
-    yo.addCountry(oh5);
-    yo.addCountry(oh6);
-    yo.addCountry(oh7);
-    yo.addCountry(oh8);
-    yo.addCountry(oh9);
-   */
 
-    face.link(oh,oh1);
-    face.link(oh,oh2);
-    face.link(oh2,oh3);
-    face.link(oh3,oh4);
-    face.link(oh2,oh4);
-    face.link(oh4,oh5);
+    yo.addCountry(ohh);
+    yo.addCountry(ohh1);
+    yo.addCountry(ohh2);
+    yo.addCountry(ohh3);
+    yo.addCountry(ohh4);
+    yo.addCountry(ohh5);
+    yo.addCountry(ohh6);
+    yo.addCountry(ohh7);
+    yo.addCountry(ohh8);
+    yo.addCountry(ohh9);
+
+    //links countries
+    face.link(oh, oh1);
+    face.link(oh, oh2);
+    face.link(oh2, oh3);
+    face.link(oh3, oh4);
+    face.link(oh2, oh4);
+    face.link(oh4, oh5);
     face.link(oh4,oh6);
-    face.link(oh6,oh7);
-    face.link(oh7,oh8);
-    
-    face.link(oh8,oh9);
-    
+    face.link(oh6, oh7);
+    face.link(oh7, oh8);
+
+    face.link(oh8, oh9);
+
     //face.link(oh9,oh1);
-    
-    
 
 
-    
-    
-    cout << face.validate()<< endl;
+
+
+    cout << face.getContinent(0)->nameCountries(); //pointer testing
+    cout << yo.nameCountries();//pointer testing p2
+    cout << face.validate() << endl;
     return 0;
 }
 

@@ -6,10 +6,15 @@
                    projectFiles="true">
       <itemPath>Dice.h</itemPath>
       <itemPath>Map.h</itemPath>
+<<<<<<< HEAD
       <itemPath>card.h</itemPath>
       <itemPath>deck.h</itemPath>
       <itemPath>hand.h</itemPath>
       <itemPath>Update_2017_09_25/player.h</itemPath>
+=======
+      <itemPath>cards.h</itemPath>
+      <itemPath>player.h</itemPath>
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -20,9 +25,7 @@
                    projectFiles="true">
       <itemPath>Dice.cpp</itemPath>
       <itemPath>Map.cpp</itemPath>
-      <itemPath>card.cpp</itemPath>
-      <itemPath>deck.cpp</itemPath>
-      <itemPath>hand.cpp</itemPath>
+      <itemPath>cards.cpp</itemPath>
       <itemPath>mapmain.cpp</itemPath>
       <itemPath>player.cpp</itemPath>
     </logicalFolder>
@@ -65,19 +68,15 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
+<<<<<<< HEAD
       <item path="Update_2017_09_25/player.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="card.cpp" ex="false" tool="1" flavor2="0">
+=======
+      <item path="cards.cpp" ex="false" tool="1" flavor2="0">
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
       </item>
-      <item path="card.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="deck.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="deck.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="hand.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="hand.h" ex="false" tool="3" flavor2="0">
+      <item path="cards.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -112,6 +111,7 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
+<<<<<<< HEAD
       <item path="Update_2017_09_25/player.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="card.cpp" ex="false" tool="1" flavor2="0">
@@ -123,8 +123,11 @@
       <item path="deck.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="hand.cpp" ex="false" tool="1" flavor2="0">
+=======
+      <item path="cards.cpp" ex="false" tool="1" flavor2="0">
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
       </item>
-      <item path="hand.h" ex="false" tool="3" flavor2="0">
+      <item path="cards.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
       </item>

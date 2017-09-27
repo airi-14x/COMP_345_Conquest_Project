@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   Dice.cpp
- * Author: Airi
- * 
+ * Author: Airi Chow (#40003396)
+ *
  * Created on 2017/09/19, 19:09
  */
 
@@ -29,12 +29,12 @@ Dice::Dice() {
     track_five = 0;
     track_six = 0;
     counter = 1;
-    
-    vector<int> dice_sequence(1); 
+
+    vector<int> dice_sequence(1);
 }
 
 int Dice::randomiser() {
-    int dice_number = rand() % 6 + 1;
+    int dice_number = rand() % 6 + 1;  // Dice's Range //
     dice_number = rand() % 6 + 1;
     trackValue(dice_number);
     return dice_number;
@@ -64,11 +64,12 @@ void Dice::trackValue(int dice_number) {
     }
     cout << "\nRoll #" << counter << ": You rolled a: " << dice_number;
     counter++;
-    
+
     // Add Value to Sequence //
     dice_sequence.push_back(dice_number);
 }
 
+// Number of times each # roll happened //
 void Dice::showValue() {
     cout << "\n1's Dice Roll: " << track_one;
     cout << "\n2's Dice Roll: " << track_two;
@@ -78,6 +79,7 @@ void Dice::showValue() {
     cout << "\n6's Dice Roll: " << track_six;
 }
 
+// Used in percentage //
 int Dice::getTotal() {
     int total = track_one + track_two + track_three + track_four + track_five +
             track_six;
@@ -90,6 +92,7 @@ void Dice::clearVector()
     dice_sequence.clear();
 }
 
+// Prints what is in the Vector for current roll //
 void Dice::printDiceSequence()
 {
     int index = 0;
@@ -100,6 +103,7 @@ void Dice::printDiceSequence()
     }
 }
 
+// # Rolls requested, 1-3 rolls. Error is handled. //
 int Dice::num_rolls() {
     int rolls;
     bool isInvalid = true;
@@ -111,7 +115,11 @@ int Dice::num_rolls() {
         if (rolls < 1 || rolls > 3) {
             cout << "Error, invalid value. Try Again. ";
             cin.clear(); // Gets rid of error flag //
+<<<<<<< HEAD
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Stop ignoring after \n // --> Fixed by adding header
+=======
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Stop ignoring after \n //
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
         } else {
             cout << "\nYou have requested " << rolls << " roll(s)";
             isInvalid = false;
@@ -120,6 +128,7 @@ int Dice::num_rolls() {
     return rolls;
 }
 
+// Calculate Percentage of Rolls //
 void Dice::percentage() {
 
     cout << "\n-------- Stats ---------";
@@ -137,6 +146,3 @@ void Dice::percentage() {
     double perc_six = ((double)track_six) / getTotal() * 100.0;
     cout << "\nPercentage of 6's roll: " <<perc_six << "%";
 }
-
-
-

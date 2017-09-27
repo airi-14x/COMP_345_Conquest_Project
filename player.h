@@ -10,7 +10,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Dice.h"
+<<<<<<< HEAD
 //#include "hand.h"
+=======
+#include "cards.h"
+#include "Country.h"
+>>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
 
 // A player with its own hand of cards and troops counter.
 class Player

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <code-assistance-data xmlns="http://www.netbeans.org/ns/make-project-private/1">
-        <code-model-enabled>true</code-model-enabled>
-    </code-assistance-data>
     <data xmlns="http://www.netbeans.org/ns/make-project-private/1">
         <activeConfTypeElem>1</activeConfTypeElem>
         <activeConfIndexElem>0</activeConfIndexElem>
@@ -10,17 +7,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Dice.cpp</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/mapmain.cpp</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Map.cpp</file>
-            <file>file:/C:/Users/Earl/Documents/GitHub/Assignments/COMP-345-A1/Map.h</file>
-=======
             <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/cards.cpp</file>
-            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/player.h</file>
             <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/player.cpp</file>
+            <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/player.h</file>
             <file>file:/C:/Users/Alexia/Documents/GitHub/COMP-345-A1/cards.h</file>
->>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
         </group>
     </open-files>
 </project-private>

@@ -6,15 +6,8 @@
                    projectFiles="true">
       <itemPath>Dice.h</itemPath>
       <itemPath>Map.h</itemPath>
-<<<<<<< HEAD
-      <itemPath>card.h</itemPath>
-      <itemPath>deck.h</itemPath>
-      <itemPath>hand.h</itemPath>
-      <itemPath>Update_2017_09_25/player.h</itemPath>
-=======
       <itemPath>cards.h</itemPath>
       <itemPath>player.h</itemPath>
->>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -53,12 +46,15 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <standard>10</standard>
-        </cTool>
         <ccTool>
-          <standard>8</standard>
+          <standard>11</standard>
         </ccTool>
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
       </compileType>
       <item path="Dice.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -68,19 +64,15 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
-<<<<<<< HEAD
-      <item path="Update_2017_09_25/player.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="card.cpp" ex="false" tool="1" flavor2="0">
-=======
       <item path="cards.cpp" ex="false" tool="1" flavor2="0">
->>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
       </item>
       <item path="cards.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -95,6 +87,7 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <standard>11</standard>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -102,6 +95,12 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerDynSerch>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </linkerDynSerch>
+        </linkerTool>
       </compileType>
       <item path="Dice.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -111,27 +110,15 @@
       </item>
       <item path="Map.h" ex="false" tool="3" flavor2="0">
       </item>
-<<<<<<< HEAD
-      <item path="Update_2017_09_25/player.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="card.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="card.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="deck.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="deck.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="hand.cpp" ex="false" tool="1" flavor2="0">
-=======
       <item path="cards.cpp" ex="false" tool="1" flavor2="0">
->>>>>>> 8bf31e72ec9d88f442a3cdf0bd84f7021bb79209
       </item>
       <item path="cards.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="mapmain.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="player.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="player.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

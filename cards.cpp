@@ -189,7 +189,10 @@ int Hand::exchange()
     static int exchanges = 0;
     
     // The three indices for card removal.
-    int firstIndex, secondIndex, thirdIndex;
+    int firstIndex = -1;
+    int secondIndex = -1;
+    int thirdIndex = -1;
+    
     
     /*
      * Ask for three indices and ensure their validity.
@@ -224,7 +227,7 @@ int Hand::exchange()
            thirdIndex == firstIndex || 
            thirdIndex == secondIndex)
     {
-        cout << "Enter the index of the second card to exchange: ";
+        cout << "Enter the index of the third card to exchange: ";
         cin >> thirdIndex;
         
         if (thirdIndex < 0 || thirdIndex >= this->cards.size())

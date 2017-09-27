@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   Dice.h
- * Author: Airi
+ * Author: Airi Chow (#40003396)
  *
  * Created on 2017/09/19, 19:09
  */
@@ -24,24 +24,23 @@ public:
     int randomiser();
     void trackValue(int);
     void showValue();
-    int getTotal();    // Total # of Rolls 
-    
-    int num_rolls();   // Allows Player to choose 1~3 6-sided dice to roll // 
+    int getTotal();    // Total # of Rolls
+
+    int num_rolls();   // Allows Player to choose 1~3 6-sided dice to roll //
     void percentage(); // Keeps track of % value rolled, add Dice() //
     void clearVector();
     void printDiceSequence();
-    
+
 private:
     int counter; // For array's index //
-    int track_one; // !!! Don't remove the zeroes or track_five and track_six will give a strange value //
-    int track_two; 
+    int track_one;
+    int track_two;
     int track_three;
     int track_four;
     int track_five;
     int track_six;
-    vector<int> dice_sequence;
+    vector<int> dice_sequence; // Sequence of rolls in vector //
 };
 
 
 #endif /* DICE_H */
-

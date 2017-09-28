@@ -1,8 +1,1 @@
-*.exe
 *.xml
-*.stackdump
-Makefile
-nbproject/
-dist/
-build/
-.dep.inc

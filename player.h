@@ -19,10 +19,10 @@ class Player
 {
 public:
     Player(); // Creates a new player with no allocated troops and no name.
-    Player(string playerName); // Creates a new named player with no allocated troops.
+    Player(string); // Creates a new named player with no allocated troops.
     int getTroops(); // Returns the number of troops the player possesses.
-    void addTroops(int troops); // Grants new troops to the player.
-    void subtractTroops(int troops); // Takes away troops from the player.
+    void addTroops(int); // Grants new troops to the player.
+    void subtractTroops(int); // Takes away troops from the player.
     
     // Hand functionality
     void setHand(); // Initialize the player's hand.
@@ -32,9 +32,10 @@ public:
     vector<Country*> getCountries(); // Returns the collection of countries the player owns.
     void addCountry(Country*); // Adds a country to the player's country collection.
     void removeCountry(Country*); // Removes a country to the player's country collection.
-    void reinforce(int troops, Country* country); // Takes troops from a player and deploys them to an owned territory.
-    void attack(Country* attackingCountry, Country* targetCountry); // Attacks an enemy country.
-    void fortify();
+    void reinforce(int, Country*); // Takes troops from a player and deploys them to an owned territory.
+    void attack(Country*, Country*); // Attacks an enemy country.
+    void fortify(Country*, Country*); // Allows the player to move armies from a country to another one, as long as they are connected.
+    void resetTurn(); // Resets the value of hasConquered back to false.
     
     // Dice functionality
     Dice getDice(); // Returns the player's dice object.
@@ -42,6 +43,7 @@ public:
 private:
     string playerName;
     int playerTroops;
+    bool hasConquered;
     Dice playerDice;
     Hand playerHand;
     vector<Country*> countries;

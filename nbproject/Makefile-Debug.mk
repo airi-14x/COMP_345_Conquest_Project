@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=MinGW-Windows
+CND_PLATFORM=Cygwin-Windows
 CND_DLIB_EXT=dll
 CND_CONF=Debug
 CND_DISTDIR=dist
@@ -38,7 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Dice.o \
 	${OBJECTDIR}/Map.o \
 	${OBJECTDIR}/cards.o \
-	${OBJECTDIR}/mapmain.o \
+	${OBJECTDIR}/part5_driver.o \
 	${OBJECTDIR}/player.o
 
 
@@ -69,27 +69,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/comp-345-a1.exe: ${OBJECTFILES}
 ${OBJECTDIR}/Dice.o: Dice.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Dice.o Dice.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Dice.o Dice.cpp
 
 ${OBJECTDIR}/Map.o: Map.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Map.o Map.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Map.o Map.cpp
 
 ${OBJECTDIR}/cards.o: cards.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/cards.o cards.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/cards.o cards.cpp
 
-${OBJECTDIR}/mapmain.o: mapmain.cpp
+${OBJECTDIR}/part5_driver.o: part5_driver.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/mapmain.o mapmain.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/part5_driver.o part5_driver.cpp
 
 ${OBJECTDIR}/player.o: player.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -std=c++14 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/player.o player.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/player.o player.cpp
 
 # Subprojects
 .build-subprojects:

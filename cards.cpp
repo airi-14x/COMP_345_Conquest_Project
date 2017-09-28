@@ -65,7 +65,7 @@ std::string Card::toString()
 // DECK IMPLEMENTATION
 
 // Populates a deck with as many cards as there are countries on the map.
-Deck::Deck(Map map)
+Deck::Deck(Map* map)
 {
     CardType newCardType = ct_infantry;
     
@@ -73,7 +73,7 @@ Deck::Deck(Map map)
      * Add as many cards to the deck as there are countries on the map
      * while cycling through card types.
      */
-    for (int i = 0; i < map.getMapSize(); i++)
+    for (int i = 0; i < map->getMapSize(); i++)
     {
         this->cards.push_back(Card(newCardType));
         
@@ -150,6 +150,12 @@ void Deck::listCards()
     cout << "Cavalry cards: " << cavalryCards << endl;
 }
 
+// Returns the number of cards in the deck.
+int Deck::getSize()
+{
+    return cards.size();
+}
+
 // HAND IMPLEMENTATION
 
 // Creates an empty hand.
@@ -172,6 +178,12 @@ void Hand::addCard(Card newCard)
 Card Hand::cardAt(int index)
 {
     return this->cards.at(index);
+}
+
+// Returns the number of cards in hand.
+int Hand::getSize()
+{
+    return cards.size();
 }
 
 /* 

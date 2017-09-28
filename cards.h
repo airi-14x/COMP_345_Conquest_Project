@@ -38,9 +38,10 @@ private:
 class Deck
 {
 public:
-    Deck(Map map); // Populates a deck with as many cards as there are countries on the map.
+    Deck(Map* map); // Populates a deck with as many cards as there are countries on the map.
     Card draw(); // Draws a card at random and removes it from the deck.
     void listCards(); // Outputs the cards in hand. For testing purposes.
+    int getSize(); // Returns the number of cards in the deck.
 private:
     vector<Card> cards;
     Card cardAt(int index); // Returns the card at the index specified.
@@ -58,6 +59,7 @@ public:
     void addCard(Card newCard); // Adds a specified card to the end of the hand's card collection.
     int exchange(); //Exchanges three cards for troops in increments of five with each new exchange.
     void listCards(); // Outputs the cards in hand. For testing purposes.
+    int getSize(); // Returns the number of cards in hand.
 private:
     vector<Card> cards;
     Card cardAt(int index); // Returns the card at the index specified.

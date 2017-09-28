@@ -56,13 +56,13 @@ void Map::flagConnections(Country* root) {
 void Map::flagAlliedConnections(Country* root) {
 
     root->setVisited(true);
-
+            
     for (int i = 0; i < conti.size(); i++) {
         for (int j = 0; j < conti[i]->cnts.size(); j++) {
             if (areAdjacent(*root, *conti[i]->cnts[j])
                     && root->getPlayerName() == conti[i]->cnts[j]->getPlayerName()
                     &&(conti[i]->cnts[j]->getVisited() == false)) {
-                flagConnections(conti[i]->cnts[j]);
+                flagAlliedConnections(conti[i]->cnts[j]);
             }
         }
     }
@@ -231,10 +231,16 @@ string Map::printEdges() {
 // Checks if a target country is connected to an origin country via allied countries.
 bool Map::checkAlliedReach(Country* origin, Country* target)
 {
+    // Reset flags to avoid conflicting output.
     resetFlags();
+    
+    // Flag all connected countries owned by origin's owner.
     flagAlliedConnections(origin);
     
+    // Determine if the target country is flagged.
     bool targetReachable = target->getVisited();
+    
+    // Wipe flags to avoid conflict in other functions.
     resetFlags();
     
     return targetReachable;

@@ -18,6 +18,7 @@ Player::Player()
     playerName = "";
     playerTroops = 0;
     hasConquered = false;
+    hasFortified = false;
     setDice();
     setHand();
     
@@ -30,6 +31,7 @@ Player::Player(string playerName)
     this->playerName = playerName;
     playerTroops = 0;
     hasConquered = false;
+    hasFortified = false;
     setDice();
     setHand();
     
@@ -354,15 +356,54 @@ void Player::attack(Map* map, Country* attackingCountry, Country* defendingCount
 }
 
 // Allows the player to move armies from a country to another one, as long as they are connected.
-void Player::fortify(Country* origin, Country* target)
+void Player::fortify(Map* map, Country* origin, Country* target)
 {
+    // Ensure that the fortification is valid.
+    bool validFort = map->checkAlliedReach(origin, target);
     
+    // If the fortification is valid, proceed. Otherwise, announce the error.
+    if (validFort)
+    {
+        cout << target->getName() << " can be fortified from " << origin->getName() << endl;
+        cout << origin->getName() << " has " << origin->getArmyNum() << " armies." << endl;
+        cout << target->getName() << " has " << target->getArmyNum() << " armies." << endl;
+
+        int armiesSent = -1;
+
+        // Ask for armies, must be between 0 and cannot leave a country empty.
+        while (armiesSent < 0 || armiesSent >= origin->getArmyNum())
+        {
+            cout << "Send how many armies?" << endl;
+            cin >> armiesSent;
+
+            // Inform user of errors if they occur.
+            if (armiesSent < 0)
+                cout << "Cannot send negative armies. Try again." << endl;
+            else if (armiesSent >= origin->getArmyNum())
+                cout << "Must leave at least one army in " << origin->getName() << endl;
+        }
+
+        // Commit to fortification if more than zero armies were sent.
+        // Otherwise don't mark fortifications as complete. The user's turn is not over.
+        if (armiesSent > 0)
+        {
+            cout << "Fortification complete. Sending " << armiesSent << " armies to " << target->getName() << "." << endl;
+            hasFortified = true;
+            target->setArmyNum(target->getArmyNum() + armiesSent);
+            origin->setArmyNum(origin->getArmyNum() - armiesSent);
+        }
+        else
+            cout << "No armies sent." << endl;
+    }
+    else
+        cout << target->getName() << " cannot be fortified from " << origin->getName() << endl;
 }
 
-// Resets hasConquered back to false.
+// Resets turn markers back to false.
 void Player::resetTurn()
 {
     hasConquered = false;
+    hasFortified = false;
 }
 
 Player* Player::findPlayer(string searchName)

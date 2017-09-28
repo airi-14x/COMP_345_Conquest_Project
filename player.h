@@ -36,7 +36,7 @@ public:
     void removeCountry(Country*); // Removes a country to the player's country collection.
     void reinforce(int, Country*); // Takes troops from a player and deploys them to an owned territory.
     void attack(Map*, Country*, Country*); // Attacks an enemy country.
-    void fortify(Country*, Country*); // Allows the player to move armies from a country to another one, as long as they are connected.
+    void fortify(Map*, Country*, Country*); // Allows the player to move armies from a country to another one, as long as they are connected.
     void resetTurn(); // Resets the value of hasConquered back to false.
     
     // Dice functionality
@@ -54,6 +54,7 @@ private:
     string playerName;
     int playerTroops;
     bool hasConquered;
+    bool hasFortified;
     Dice playerDice;
     Hand playerHand;
     vector<Country*> countries;

@@ -5,7 +5,7 @@
  */
 
 /* 
- * File:   main.cpp
+ * File:   part1driver.cpp
  * Author: Earl Steven Aromin 40004997
  *
  * Created on September 19, 2017, 7:31 PM
@@ -26,23 +26,17 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
-    Continent nohr{"Nohr"};\
+    Continent nohr{"Nohr"}; //continent 2
     Continent* pnohr = &nohr;
-    Continent hoshido{"Hoshido"};\
+    Continent hoshido{"Hoshido"}; //continent 1
     Continent* phoshido = &hoshido;
-    Map ylisse{"Ylisse"};
+
+    Map ylisse{"Ylisse"}; //Map name
     ylisse.addContinent(phoshido);
     ylisse.addContinent(pnohr);
 
-    Continent oi{"what"};
-    Continent* io = &oi;
-    
-    ylisse.addContinent(io);
-    Country heh{"Ye"};
-    Country* ehh = &heh;
-    io->addCountry(ehh);
-    
 
+    //countries that belong to nohr
     Country valla{"Valla"};
     Country sagesse{"Sagesse"};
     Country nestra{"Nestra"};
@@ -54,7 +48,7 @@ int main(int argc, char** argv) {
     Country etruria{"Etruria"};
     Country gallia{"Gallia"};
 
-
+    //pointers for nohrian countries
     Country* pval = &valla;
     Country* psag = &sagesse;
     Country* pnes = &nestra;
@@ -66,7 +60,7 @@ int main(int argc, char** argv) {
     Country* petr = &etruria;
     Country* pgal = &gallia;
 
-
+    //shoving ccountries in nohr
     pnohr->addCountry(pval);
     pnohr->addCountry(psag);
     pnohr->addCountry(pnes);
@@ -78,6 +72,7 @@ int main(int argc, char** argv) {
     pnohr->addCountry(petr);
     pnohr->addCountry(pgal);
 
+    //Hoshido countries
     Country mokushu{"Mokushu"};
     Country kohga{"Kohga"};
     Country izumo{"Izumo"};
@@ -92,12 +87,13 @@ int main(int argc, char** argv) {
     phoshido->addCountry(pkohga);
     phoshido->addCountry(pizumo);
     phoshido->addCountry(psacae);
-    
-    ylisse.link(mokushu,kohga);
-    ylisse.link(kohga,izumo);
-    ylisse.link(izumo,sacae);
 
-  //  links countries
+    //Paths within hoshido    
+    ylisse.link(mokushu, kohga);
+    ylisse.link(kohga, izumo);
+    ylisse.link(izumo, sacae);
+
+    //paths in nohr
     ylisse.link(valla, sagesse);
     ylisse.link(valla, nestra);
     ylisse.link(nestra, car);
@@ -107,16 +103,14 @@ int main(int argc, char** argv) {
     ylisse.link(plegia, jugdral);
     ylisse.link(jugdral, archanea);
     ylisse.link(archanea, etruria);
-
     ylisse.link(etruria, gallia);
+   //link between nohr and hoshido
+   
+    ylisse.link(jugdral, izumo);
+    
+    
+    ylisse.validate(pnes);
 
-    ylisse.link(jugdral,izumo);
-
-    ylisse.checkDuplicateCnts();
-
-     ylisse.valiCont(phoshido);
-     ylisse.validate(pnes);
-     
     return 0;
 }
 

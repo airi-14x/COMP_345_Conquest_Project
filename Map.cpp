@@ -56,7 +56,7 @@ void Map::flagConnections(Country* root) {
 void Map::flagAlliedConnections(Country* root) {
 
     root->setVisited(true);
-            
+
     for (int i = 0; i < conti.size(); i++) {
         for (int j = 0; j < conti[i]->cnts.size(); j++) {
             if (areAdjacent(*root, *conti[i]->cnts[j])
@@ -87,12 +87,14 @@ bool Map::valiCont(Continent* cont) {
 
     for (int i = 0; i < cont->cnts.size(); i++) {
         if (cont->cnts[i]->getVisited() == false) {
-            cout << cont->cnts[i]->getName() << " in " << cont->getName() << " cannot be reached" << endl; //that's a 0
+            cout << cont->cnts[i]->getName() << " in " << cont->getName() << " cannot be reached\n" << endl; //that's a 0
+            resetFlags();
+
             return false;
         }
     }
 
-    cout << cont->getName() << " is connected" << endl; //this is a 1
+    cout << cont->getName() << " is connected\n" << endl; //this is a 1
     resetFlags();
     return true;
 }
@@ -126,19 +128,26 @@ bool Map::areAdjacent(Country m, Country n) {
 //checks if all countries are reachable from root
 
 bool Map::validate(Country* root) {
+    if (checkDuplicateCnts()) {
+        flagConnections(root); //flags reachable ones
 
-    flagConnections(root); //flags reachable ones
 
-    for (int i = 0; i < conti.size(); i++) {
-        for (int j = 0; j < conti[i]->cnts.size(); j++) {
-            if (conti[i]->cnts[j]->getVisited() == false) {
-                cout << conti[i]->cnts[j]->getName() << " cannot be reached" << endl; //that's a 0
-                return false;
+        for (int i = 0; i < conti.size(); i++) {
+            for (int j = 0; j < conti[i]->cnts.size(); j++) {
+                if (conti[i]->cnts[j]->getVisited() == false) {
+                    cout << conti[i]->cnts[j]->getName() << " cannot be reached" << endl; //prints out an unreachable one
+                    resetFlags();
+
+                    return false;
+                }
             }
         }
     }
-    cout << "Map is connected" << endl; //this is a 1
+    cout << "Map is connected\n" << endl; //this is a 1
     resetFlags();
+
+
+
     return true;
 }
 //creates a pair of countries that will be used for validation
@@ -150,6 +159,14 @@ void Map::link(Country m, Country n) {
 }
 
 void Map::addContinent(Continent* c) {
+    for(int i = 0; i < conti.size(); i++)
+    {
+        if(c->getName()==conti[i]->getName())
+        {
+            cout<<"Continent of same name("<<c->getName()<<") exists in this map, please rename."<<endl;
+            return;
+        }
+    }
     conti.push_back(c);
 }
 
@@ -195,7 +212,7 @@ Continent* Map::getContinent(string contname) {
 }
 //... checks if same country name is in different continents
 
-void Map::checkDuplicateCnts() {
+bool Map::checkDuplicateCnts() {
     if (conti.size() != 1) {
         for (int i = 0; i < (conti.size()); i++) { //compare(x,y) , this loop defines the continent for x
             for (int j = (i + 1); j < conti.size(); j++) { //continent for y
@@ -204,8 +221,8 @@ void Map::checkDuplicateCnts() {
                         if ((conti[i]->cnts[l]->getName() == conti[j]->cnts[k]->getName())) {
                             cout << "Duplicate of " << conti[i]->cnts[l]->getName()
                                     << " found in " << conti[i]->getName()
-                                    << " and " << conti[j]->getName() << endl;
-                            return;
+                                    << " and " << conti[j]->getName() << "\n" << endl;
+                            return false;
 
                         }
                     }
@@ -215,7 +232,8 @@ void Map::checkDuplicateCnts() {
         }
     }
 
-    cout << "No country dupes!" << endl;
+    cout << "No country dupes!\n" << endl;
+    return true;
 }
 //shows all connections
 
@@ -229,20 +247,20 @@ string Map::printEdges() {
 }
 
 // Checks if a target country is connected to an origin country via allied countries.
-bool Map::checkAlliedReach(Country* origin, Country* target)
-{
+
+bool Map::checkAlliedReach(Country* origin, Country* target) {
     // Reset flags to avoid conflicting output.
     resetFlags();
-    
+
     // Flag all connected countries owned by origin's owner.
     flagAlliedConnections(origin);
-    
+
     // Determine if the target country is flagged.
     bool targetReachable = target->getVisited();
-    
+
     // Wipe flags to avoid conflict in other functions.
     resetFlags();
-    
+
     return targetReachable;
 }
 
@@ -277,6 +295,14 @@ string Continent::toString() {
 //takes a pointer of a country
 
 void Continent::addCountry(Country* c) {
+    for(int i = 0; i < cnts.size(); i++)
+    {
+        if(c->getName()==cnts[i]->getName())
+        {
+            cout<<"Country of same name("<<c->getName()<<") exists in this continent, please rename."<<endl;
+            return;
+        }
+    }
     cnts.push_back(c);
 }
 
@@ -379,8 +405,8 @@ void Country::setName(string a) {
 void Country::setPlayerName(string a) {
     playername = a;
 }
-string Country::getPlayerName()
-{
+
+string Country::getPlayerName() {
     return playername;
 }
 

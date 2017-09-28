@@ -38,10 +38,11 @@ private:
     void flagConnections(Country* root);
     void flagAlliedConnections(Country* root);
     void flagContinent(Country* root, Continent* cont);
+    bool checkDuplicateCnts();
+
 
 public:
     //checks if two continents have the same country 
-    void checkDuplicateCnts();
     bool validate(Country* root);
 
     bool valiCont(Continent* cont);

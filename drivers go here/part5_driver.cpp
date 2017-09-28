@@ -134,7 +134,7 @@ int main(int argc, char** argv) {
         
         if (demoHand.getSize() != 0)
         {
-            cout << "Would you like to continue exchanging cards?";
+            cout << "Would you like to continue exchanging cards? ";
             cin >> c;
         }
         else

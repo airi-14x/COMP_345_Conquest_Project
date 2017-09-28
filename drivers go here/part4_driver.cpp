@@ -84,7 +84,8 @@ int main(int argc, char** argv) {
     cout << endl << "Player 2 now has " << player2.getTroops() << " armies." << endl;
     cout << "Player 2's hand object is now filled: " << endl;
     player2.getHand().listCards();
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     // Distributing countries. Add armies for demo.
     cout << endl << "Giving all of Continent 1 to Player 1..." << endl;
@@ -107,7 +108,8 @@ int main(int argc, char** argv) {
     cout << country2a.toString() << endl;
     cout << country2b.toString() << endl;
     cout << country2c.toString() << endl;
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     // Showing reinforcement.
     cout << "=====================================" << endl;
@@ -123,24 +125,29 @@ int main(int argc, char** argv) {
     
     cout << endl << "After reinforcement: " << endl;
     cout << country2b.toString() << endl;
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     // Showing reinforcement error cases.
     cout << endl << "Reinforcing an enemy country: " << endl;
     player1.reinforce(1, pCountry2a);
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     cout << endl << "Reinforcing with too many armies (Player 1 currently has 15 armies to deploy): " << endl;
     player1.reinforce(20, pCountry1a);
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     cout << endl << "Reinforcing with negative armies: " << endl;
     player1.reinforce(-5, pCountry1a);
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     cout << endl << "Reinforcing with no army: " << endl;
     player1.reinforce(0, pCountry1a);
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     // Showing fortify.
     cout << "====================================" << endl;
@@ -149,16 +156,19 @@ int main(int argc, char** argv) {
     
     cout << "Attempting to fortify with only 1 troop (1-A to 2-B): " << endl;
     player1.fortify(pDemoMap, pCountry1a, pCountry2b);
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     cout << "Attempting to fortify unreachable country (1-B to 2-C): " << endl;
     player1.fortify(pDemoMap, pCountry1b, pCountry2c);
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     cout << "Fortifying successfully (1-B to 2-B): " << endl;
     player1.fortify(pDemoMap, pCountry1b, pCountry2b);
     cout << endl << country2b.toString() << endl;
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     // Showing attack.
     cout << "=====================================" << endl;
@@ -167,7 +177,8 @@ int main(int argc, char** argv) {
     
     cout << "Attempting to attack without enough armies: " << endl;
     player1.attack(pDemoMap, pCountry1a, pCountry2a);
-    system("PAUSE");
+    cout << "Press Enter to continue..." << endl;
+    cin.ignore();
     
     char keepAttacking = 'y';
     

@@ -12,11 +12,13 @@
  */
 
 #include <cstdlib>
+#include <ctime>
 #include <iostream>
 #include "Map.h"
 #include "player.h"
 #include <iterator>
 using std::string;
+using std::cin;
 using std::cout;
 using std::endl;
 
@@ -26,7 +28,7 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-
+    
     Continent yo{"Dead"};\
     Continent* yoo = &yo;
     Continent ya{"Alive"};\
@@ -122,18 +124,6 @@ int main(int argc, char** argv) {
     //cout << yo.nameCountries(); //pointer testing p2
     face.valiCont(yas);
     face.validate();
-     
-    Player me("Alexia");
-    
-    me.addCountry(ha);
-    me.addTroops(10);
-    
-    me.reinforce(0, ha);
-    me.reinforce(15, ha);
-    me.reinforce(10, ha3);
-    me.reinforce(10, ha);
-    
-    cout << ha->getArmyNum() << " troops currently occupy " << ha->getName() << "." << endl;
     
     return 0;
 }

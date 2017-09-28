@@ -23,6 +23,8 @@ public:
     int getTroops(); // Returns the number of troops the player possesses.
     void addTroops(int); // Grants new troops to the player.
     void subtractTroops(int); // Takes away troops from the player.
+    string getName(); // Returns the player's name.
+    void setName(string); // Gives the player a name.
     
     // Hand functionality
     void setHand(); // Initialize the player's hand.
@@ -33,13 +35,21 @@ public:
     void addCountry(Country*); // Adds a country to the player's country collection.
     void removeCountry(Country*); // Removes a country to the player's country collection.
     void reinforce(int, Country*); // Takes troops from a player and deploys them to an owned territory.
-    void attack(Country*, Country*); // Attacks an enemy country.
+    void attack(Map*, Country*, Country*); // Attacks an enemy country.
     void fortify(Country*, Country*); // Allows the player to move armies from a country to another one, as long as they are connected.
     void resetTurn(); // Resets the value of hasConquered back to false.
     
     // Dice functionality
     Dice getDice(); // Returns the player's dice object.
     void setDice(); // Initializes the player's dice object.
+    
+    /*
+     * Vector of players in the game.
+     * Is used to keep track of player data during turns, from other player
+     * objects' perspectives.
+     */
+    static vector<Player*> players;
+    static Player* findPlayer(string); // Finds a player by name in the players vector.
 private:
     string playerName;
     int playerTroops;

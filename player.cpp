@@ -10,6 +10,8 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+vector<Player*> Player::players;
+
 // Creates a new player with no allocated troops.
 Player::Player()
 {
@@ -18,6 +20,8 @@ Player::Player()
     hasConquered = false;
     setDice();
     setHand();
+    
+    players.push_back(this);
 }
 
 // Creates a new named player with no allocated troops.
@@ -28,6 +32,8 @@ Player::Player(string playerName)
     hasConquered = false;
     setDice();
     setHand();
+    
+    players.push_back(this);
 }
 
 // Initializes the player's dice object.
@@ -82,6 +88,8 @@ vector<Country*> Player::getCountries()
 void Player::addCountry(Country* country)
 {
     countries.push_back(country);
+    
+    country->setPlayerName(playerName);
 }
 
 // Removes a country to the player's country collection.
@@ -136,7 +144,7 @@ void Player::reinforce(int troops, Country* country)
     cout << playerName << " has " << playerTroops << " deployable troops." << endl;
 }
 
-void Player::attack(Map map, Country* attackingCountry, Country* defendingCountry)
+void Player::attack(Map* map, Country* attackingCountry, Country* defendingCountry)
 {
     /* 
      * The following conditions must be met for a valid attack:
@@ -168,7 +176,7 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
         if (defendingCountry->getPlayerName() != playerName)
         {
             // Check if the two countries are adjacent.
-            if (map.areAdjacent(*attackingCountry, *defendingCountry))
+            if (map->areAdjacent(*attackingCountry, *defendingCountry))
             {
                 if (attackingCountry->getArmyNum() > 1)
                 {
@@ -198,18 +206,17 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
          * There must be 1, 2, or 3 attacking dice, and less than the number 
          * of armies in the attacking country.
          */
-        while(attackDiceCount > 0 && attackDiceCount <= 3 && attackDiceCount < attackingCountry->getArmyNum())
+        while(attackDiceCount <= 0 || attackDiceCount > 3 || attackDiceCount >= attackingCountry->getArmyNum())
         {
             cout << "Enter the number of dice used to attack: ";
             cin >> attackDiceCount;
-            cout << endl;
             
             if (attackDiceCount <= 0)
                 cout << "A positive number of dice must be used to attack." << endl;
-            else if (attackDiceCount >= attackingCountry->getArmyNum())
-                cout << "Fewer than " << attackingCountry->getArmyNum() << " dice must be used to attack." << endl;
             else if (attackDiceCount > 3)
                 cout << "3 dice or less must be used to attack." << endl;
+            else if (attackDiceCount >= attackingCountry->getArmyNum())
+                cout << "Fewer than " << attackingCountry->getArmyNum() << " dice must be used to attack." << endl;
         }
         
         /*
@@ -217,18 +224,17 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
          * There must be 1, 2, or 3 attacking dice, and less or as many  
          * as the number of armies in the attacking country.
          */
-        while(defenseDiceCount > 0 && defenseDiceCount <= 2 && defenseDiceCount <= defendingCountry->getArmyNum())
+        while(defenseDiceCount <= 0 || defenseDiceCount > 2 || defenseDiceCount > defendingCountry->getArmyNum())
         {
             cout << "Enter the number of dice used to defend: ";
             cin >> defenseDiceCount;
-            cout << endl;
             
             if (defenseDiceCount <= 0)
                 cout << "A positive number of dice must be used to defend." << endl;
-            else if (defenseDiceCount > defendingCountry->getArmyNum())
-                cout << defendingCountry->getArmyNum() << " dice or less must be used to defend." << endl;
             else if (defenseDiceCount > 2)
                 cout << "2 dice or less must be used to defend." << endl;
+            else if (defenseDiceCount > defendingCountry->getArmyNum())
+                cout << defendingCountry->getArmyNum() << " dice or less must be used to defend." << endl;
         }
         
         // Variables used to keep track of attack and defense rolls.
@@ -245,8 +251,6 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
         {
             tempRoll = playerDice.randomiser();
             
-            cout << playerName << " rolled a " << tempRoll << "." << endl;
-            
             if (tempRoll >= bestAttack) {
                 secondBestAttack = bestAttack;
                 bestAttack = tempRoll;
@@ -255,12 +259,13 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
                 secondBestAttack = tempRoll;
         }
         
+        // Reset attacker's die.
+        playerDice.clearVector();
+        
         // Roll the defense die as many times as necessary, sort the results.
         for (int i = 0; i < defenseDiceCount; i++)
         {
             tempRoll = playerDice.randomiser();
-            
-            cout << defendingCountry->getPlayerName() << " rolled a " << tempRoll << "." << endl;
             
             if (tempRoll >= bestDefense) {
                 secondBestDefense = bestDefense;
@@ -269,6 +274,9 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
             else if (tempRoll >= secondBestDefense)
                 secondBestDefense = tempRoll;
         }
+        
+        // Reset defender's die.
+        playerDice.clearVector();
         
         // Count the number of wins for the attack and defense.
         int attackWins = 0;
@@ -295,7 +303,7 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
         if (attackWins == 1)
             cout << defendingCountry->getPlayerName() << " lost 1 army!" << endl;
         else
-            cout << defendingCountry->getPlayerName() << " lost " << defenseWins << " armies!" << endl;
+            cout << defendingCountry->getPlayerName() << " lost " << attackWins << " armies!" << endl;
         
         // Adjust the armies in each country as a result of the attack.
         attackingCountry->setArmyNum(attackingCountry->getArmyNum() - defenseWins);
@@ -319,23 +327,23 @@ void Player::attack(Map map, Country* attackingCountry, Country* defendingCountr
             cout << playerName << " must move at least " << attackDiceCount << " armies to " << defendingCountry->getName() << "." << endl;
             
             // Loop until a valid number of armies is selected.
-            while (movedArmies >= attackDiceCount)
+            while (movedArmies < attackDiceCount || movedArmies >= attackingCountry->getArmyNum())
             {
                 cout << "Enter the number of armies to move: ";
                 cin >> movedArmies;
-                cout << endl;
                 
                 if (movedArmies < attackDiceCount)
                     cout << "Too few armies selected. Try again." << endl;
+                else if (movedArmies >= attackingCountry->getArmyNum())
+                    cout << "At least one army must remain in " << attackingCountry->getName() << endl;
             }
             
-            cout << "Transferring " << movedArmies << " armies from " << attackingCountry->getName() << " to " defendingCountry->getName() << "." << endl;
-            cout << "Transferring ownership of " << defendingCountry->getName() << " from " << defendingCountry->getPlayerName() << " to " playerName << "." << endl;
+            cout << "Transferring " << movedArmies << " armies from " << attackingCountry->getName() << " to " << defendingCountry->getName() << "." << endl;
+            cout << "Transferring ownership of " << defendingCountry->getName() << " from " << defendingCountry->getPlayerName() << " to " <<playerName << "." << endl;
             
             // Transfer ownership and troops.
-            defendingCountry->setPlayerName(playerName);
-            countries.push_back(defendingCountry);
-            // REMOVE DEFENDInG COUNTRY FROM DEFENDING PLAYER'S COLLECTION
+            findPlayer(defendingCountry->getPlayerName())->removeCountry(defendingCountry);
+            this->addCountry(defendingCountry);
             defendingCountry->setArmyNum(movedArmies);
             attackingCountry->setArmyNum(attackingCountry->getArmyNum() - movedArmies);
             
@@ -355,4 +363,16 @@ void Player::fortify(Country* origin, Country* target)
 void Player::resetTurn()
 {
     hasConquered = false;
+}
+
+Player* Player::findPlayer(string searchName)
+{
+    for (int i = 0; i < players.size(); i++)
+    {
+        if (players.at(i)->playerName == searchName)
+            return players.at(i);
+    }
+    
+    cout << "ERROR: No player named " << searchName << ". Returning null." << endl;
+    return NULL;
 }

@@ -4,4 +4,5 @@
 Makefile
 nbproject/
 dist/
-buid/
+build/
+.dep.inc

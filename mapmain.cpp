@@ -12,13 +12,10 @@
  */
 
 #include <cstdlib>
-#include <ctime>
 #include <iostream>
-#include "Map.h"
-#include "player.h"
 #include <iterator>
+#include "Map.h"
 using std::string;
-using std::cin;
 using std::cout;
 using std::endl;
 
@@ -28,103 +25,99 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    
-    Continent yo{"Dead"};\
-    Continent* yoo = &yo;
-    Continent ya{"Alive"};\
-    Continent* yas = &ya;
-    Map face{"ye"};
-    face.addContinent(yas);
-    face.addContinent(yoo);
+
+    Continent nohr{"Nohr"};\
+    Continent* pnohr = &nohr;
+    Continent hoshido{"Hoshido"};\
+    Continent* phoshido = &hoshido;
+    Map ylisse{"Ylisse"};
+    ylisse.addContinent(phoshido);
+    ylisse.addContinent(pnohr);
 
     Continent oi{"what"};
     Continent* io = &oi;
     
-   // face.addContinent(io);
-    Country heh{"Ey3"};
+    ylisse.addContinent(io);
+    Country heh{"Ye"};
     Country* ehh = &heh;
     io->addCountry(ehh);
     
 
-    Country oh{"Ye"};
-    Country oh1{"Ye1"};
-    Country oh2{"Ye2"};
-    Country oh3{"Ye3"};
-    Country oh4{"Ye4"};
-    Country oh5{"Ye5"};
-    Country oh6{"Ye6"};
-    Country oh7{"Ye7"};
-    Country oh8{"Ye8"};
-    Country oh9{"Ye9"};
+    Country valla{"Valla"};
+    Country sagesse{"Sagesse"};
+    Country nestra{"Nestra"};
+    Country car{"Carrion"};
+    Country plegia{"Plegia"};
+    Country valentia{"Valentia"};
+    Country jugdral{"Jugdral"};
+    Country archanea{"Archanea"};
+    Country etruria{"Etruria"};
+    Country gallia{"Gallia"};
 
 
-    Country* ohh = &oh;
-    Country* ohh1 = &oh1;
-    Country* ohh2 = &oh2;
-    Country* ohh3 = &oh3;
-    Country* ohh4 = &oh4;
-    Country* ohh5 = &oh5;
-    Country* ohh6 = &oh6;
-    Country* ohh7 = &oh7;
-    Country* ohh8 = &oh8;
-    Country* ohh9 = &oh9;
+    Country* pval = &valla;
+    Country* psag = &sagesse;
+    Country* pnes = &nestra;
+    Country* pcar = &car;
+    Country* ppleg = &plegia;
+    Country* plentia = &valentia;
+    Country* pjugd = &jugdral;
+    Country* parch = &archanea;
+    Country* petr = &etruria;
+    Country* pgal = &gallia;
 
 
-    yoo->addCountry(ohh);
-    yoo->addCountry(ohh1);
-    yoo->addCountry(ohh2);
-    yoo->addCountry(ohh3);
-    yoo->addCountry(ohh4);
-    yoo->addCountry(ohh5);
-    yoo->addCountry(ohh6);
-    yoo->addCountry(ohh7);
-    yoo->addCountry(ohh8);
-    yoo->addCountry(ohh9);
+    pnohr->addCountry(pval);
+    pnohr->addCountry(psag);
+    pnohr->addCountry(pnes);
+    pnohr->addCountry(pcar);
+    pnohr->addCountry(ppleg);
+    pnohr->addCountry(plentia);
+    pnohr->addCountry(pjugd);
+    pnohr->addCountry(parch);
+    pnohr->addCountry(petr);
+    pnohr->addCountry(pgal);
 
-    Country ho{"Ey"};
-    Country ho1{"Ey1"};
-    Country ho2{"Ey2"};
-    Country ho3{"Ey3"};
+    Country mokushu{"Mokushu"};
+    Country kohga{"Kohga"};
+    Country izumo{"Izumo"};
+    Country sacae{"Sacae"};
 
-    Country* ha = &ho;
-    Country* ha1 = &ho1;
-    Country* ha2 = &ho2;
-    Country* ha3 = &ho3;
+    Country* pmokushu = &mokushu;
+    Country* pkohga = &kohga;
+    Country* pizumo = &izumo;
+    Country* psacae = &sacae;
 
-    yas->addCountry(ha);
-    yas->addCountry(ha1);
-    yas->addCountry(ha2);
-    yas->addCountry(ha3);
+    phoshido->addCountry(pmokushu);
+    phoshido->addCountry(pkohga);
+    phoshido->addCountry(pizumo);
+    phoshido->addCountry(psacae);
     
-    face.link(ho,ho1);
-    face.link(ho1,ho2);
-    face.link(ho2,ho3);
+    ylisse.link(mokushu,kohga);
+    ylisse.link(kohga,izumo);
+    ylisse.link(izumo,sacae);
 
   //  links countries
-    face.link(oh, oh1);
-    face.link(oh, oh2);
-    face.link(oh2, oh3);
-    face.link(oh3, oh4);
-    face.link(oh2, oh4);
-    face.link(oh4, oh5);
-    face.link(oh4, oh6);
-    face.link(oh6, oh7);
-    face.link(oh7, oh8);
+    ylisse.link(valla, sagesse);
+    ylisse.link(valla, nestra);
+    ylisse.link(nestra, car);
+    ylisse.link(car, plegia);
+    ylisse.link(nestra, plegia);
+    ylisse.link(plegia, valentia);
+    ylisse.link(plegia, jugdral);
+    ylisse.link(jugdral, archanea);
+    ylisse.link(archanea, etruria);
 
-    face.link(oh8, oh9);
-
-    //face.link(oh9,oh1);
+    ylisse.link(etruria, gallia);
 
 
-    face.link(oh6,ho2);
 
-    face.checkDuplicateCnts();
+    ylisse.link(jugdral,izumo);
 
-    //cout << face.getContinent(0)->nameCountries(); //pointer testing
-    //cout << yo.nameCountries(); //pointer testing p2
-    face.valiCont(yas);
-    face.validate();
-    
+    ylisse.checkDuplicateCnts();
+
+     ylisse.valiCont(phoshido);
+     ylisse.validate(pnes);
     return 0;
 }
 

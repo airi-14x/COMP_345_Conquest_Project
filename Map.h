@@ -36,12 +36,7 @@ private:
 
     void resetFlags();
     void flagConnections(Country* root);
-<<<<<<< HEAD
     void flagAlliedConnections(Country* root);
-    
-=======
-
->>>>>>> 0a6ca235e2b3d6d7e7b4b9172c0c259edca6123e
     void flagContinent(Country* root, Continent* cont);
 
 public:
@@ -116,6 +111,7 @@ public:
     void setArmyNum(int a);
     void setName(string a);
     void setPlayerName(string a);
+    string getPlayerName();
 
 
 };

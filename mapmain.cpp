@@ -110,13 +110,7 @@ int main(int argc, char** argv) {
 
     ylisse.link(etruria, gallia);
 
-
-<<<<<<< HEAD
-    face.link(oh6,ho2);
-=======
-
     ylisse.link(jugdral,izumo);
->>>>>>> 0a6ca235e2b3d6d7e7b4b9172c0c259edca6123e
 
     ylisse.checkDuplicateCnts();
 

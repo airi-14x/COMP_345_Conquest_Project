@@ -48,6 +48,22 @@ void Map::flagConnections(Country* root) {
         }
     }
 }
+//flags reachable allied countries from root. Uses a recursive depth-first search
+
+void Map::flagAlliedConnections(Country* root) {
+
+    root->setVisited(true);
+
+    for (int i = 0; i < conti.size(); i++) {
+        for (int j = 0; j < conti[i]->cnts.size(); j++) {
+            if (areAdjacent(*root, *conti[i]->cnts[j])
+                    && root->getPlayerName() == conti[i]->cnts[j]->getPlayerName()
+                    &&(conti[i]->cnts[j]->getVisited() == false)) {
+                flagConnections(conti[i]->cnts[j]);
+            }
+        }
+    }
+}
 
 //flag connection for continent
 
@@ -207,6 +223,18 @@ string Map::printEdges() {
     }
 
     return temp;
+}
+
+// Checks if a target country is connected to an origin country via allied countries.
+bool Map::checkAlliedReach(Country* origin, Country* target)
+{
+    resetFlags();
+    flagAlliedConnections(origin);
+    
+    bool targetReachable = target->getVisited();
+    resetFlags();
+    
+    return targetReachable;
 }
 
 /*=============================================================

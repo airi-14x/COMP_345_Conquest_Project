@@ -36,6 +36,7 @@ private:
 
     void resetFlags();
     void flagConnections(Country* root);
+    void flagAlliedConnections(Country* root);
     
     void flagContinent(Country* root, Continent* cont);
 
@@ -64,6 +65,7 @@ public:
     string printContinents();
     string printEdges();
 
+    bool checkAlliedReach(Country* origin, Country* target);
 };
 
 

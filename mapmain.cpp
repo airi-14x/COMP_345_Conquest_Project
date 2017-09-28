@@ -115,7 +115,6 @@ int main(int argc, char** argv) {
 
     //face.link(oh9,oh1);
 
-
     face.link(oh6,ho2);
 
     face.checkDuplicateCnts();

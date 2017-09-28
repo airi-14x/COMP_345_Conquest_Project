@@ -17,13 +17,14 @@
 #include <utility>
 #include <vector>
 #include <string>
-using namespace std;
 using std::string;
 using std::vector;
 using std::pair;
 
+
 class Continent;
 class Country;
+
 class Map {
 private:
 
@@ -31,19 +32,22 @@ private:
 
     vector<Continent*> conti; //vector of continents, each continent will have
     //a vector of countries named cnts
-    //std::find(vector.begin(), vector.end(), item) != vector.end()
     vector<pair<Country, Country >> edges; //vector of country pairs for adjacency?
 
     void resetFlags();
     void flagConnections(Country* root);
+<<<<<<< HEAD
     void flagAlliedConnections(Country* root);
     
+=======
+
+>>>>>>> 0a6ca235e2b3d6d7e7b4b9172c0c259edca6123e
     void flagContinent(Country* root, Continent* cont);
 
 public:
     //checks if two continents have the same country 
     void checkDuplicateCnts();
-    bool validate();
+    bool validate(Country* root);
 
     bool valiCont(Continent* cont);
     bool areAdjacent(Country m, Country n); //checks pairing vector for relationship
@@ -68,11 +72,9 @@ public:
     bool checkAlliedReach(Country* origin, Country* target);
 };
 
-
-
 class Continent {
 private:
-    string name; 
+    string name;
 public:
 
     vector<Country*> cnts;
@@ -83,14 +85,13 @@ public:
 
     string toString();
     string getName();
-    
+
     void addCountry(Country* c);
     Country getCountry(string name);
     Country& getCountry(int index);
     string nameCountries();
     void setName(string n);
 };
-
 
 class Country {
 private:
@@ -111,7 +112,6 @@ public:
     string toString();
     string getName();
     int getArmyNum();
-    string getPlayerName();
 
     void setArmyNum(int a);
     void setName(string a);

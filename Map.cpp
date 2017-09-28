@@ -10,6 +10,8 @@
 using std::string;
 using std::vector;
 using std::pair;
+using std::endl;
+using std::cout;
 
 Map::Map() {
     conti = {};
@@ -40,9 +42,10 @@ void Map::flagConnections(Country* root) {
     root->setVisited(true);
 
     for (int i = 0; i < conti.size(); i++) {
-        for (int j = 0; j < conti[i]->cnts.size(); j++) {
-            if (areAdjacent(*root, *conti[i]->cnts[j])
+        for (int j = 0; j < conti[i]->cnts.size(); j++) {//continent iteration
+            if (areAdjacent(*root, *conti[i]->cnts[j])//country iteration within continent
                     &&(conti[i]->cnts[j]->getVisited() == false)) {
+                cout << root->getName() << " to " << conti[i]->cnts[j]->getName() << endl;
                 flagConnections(conti[i]->cnts[j]);
             }
         }
@@ -70,9 +73,10 @@ void Map::flagAlliedConnections(Country* root) {
 void Map::flagContinent(Country* root, Continent* cont) {
     root->setVisited(true);
     for (int i = 0; i < cont->cnts.size(); i++) {
-        if (areAdjacent(*root, *cont->cnts[i])
-                && cont->cnts[i]->getVisited() == false)
- {
+        if (areAdjacent(*root, *cont->cnts[i]) //countries
+                && cont->cnts[i]->getVisited() == false) {
+            cout << root->getName() << " to " << cont->cnts[i]->getName() << endl;
+
             flagContinent(cont->cnts[i], cont);
         }
     }
@@ -119,11 +123,11 @@ bool Map::areAdjacent(Country m, Country n) {
     return false;
 
 }
-//checks if all maps are reachable
+//checks if all countries are reachable from root
 
-bool Map::validate() {
+bool Map::validate(Country* root) {
 
-    flagConnections(conti[0]->cnts[0]); //flags reachable ones
+    flagConnections(root); //flags reachable ones
 
     for (int i = 0; i < conti.size(); i++) {
         for (int j = 0; j < conti[i]->cnts.size(); j++) {
@@ -193,12 +197,11 @@ Continent* Map::getContinent(string contname) {
 
 void Map::checkDuplicateCnts() {
     if (conti.size() != 1) {
-        for (int i = 0; i < (conti.size()); i++) {
-            for (int j = 0; j < conti.size(); j++) {
-                for (int l = 0; l < conti[i]->cnts.size(); l++) {
-                    for (int k = 0; k < conti[j]->cnts.size(); k++) {
-                        if ((conti[i]->cnts[l]->getName() == conti[j]->cnts[k]->getName())&& (conti[i]->getName() != conti[j]->getName())) {
-
+        for (int i = 0; i < (conti.size()); i++) { //compare(x,y) , this loop defines the continent for x
+            for (int j = (i + 1); j < conti.size(); j++) { //continent for y
+                for (int l = 0; l < conti[i]->cnts.size(); l++) {//country iteration of x
+                    for (int k = 0; k < conti[j]->cnts.size(); k++) {//country iteration of y
+                        if ((conti[i]->cnts[l]->getName() == conti[j]->cnts[k]->getName())) {
                             cout << "Duplicate of " << conti[i]->cnts[l]->getName()
                                     << " found in " << conti[i]->getName()
                                     << " and " << conti[j]->getName() << endl;
@@ -369,10 +372,6 @@ void Country::setName(string a) {
 
 void Country::setPlayerName(string a) {
     playername = a;
-}
-
-string Country::getPlayerName() {
-    return playername;
 }
 
 void Country::setVisited(bool a) {

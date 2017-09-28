@@ -1,4 +1,5 @@
 /*
+ * player.cpp
  * Author: Alexia Soucy, 40014822
  * Course: COMP 345, section D
  * Assignment: 1
@@ -132,18 +133,18 @@ void Player::reinforce(int troops, Country* country)
         {
             country->setArmyNum(country->getArmyNum() + troops);
             playerTroops -= troops;
-            cout << country->getName() << " reinforced with " << troops << " troops." << endl;
+            cout << country->getName() << " reinforced with " << troops << " armies." << endl;
         }
         else
             cout << country->getName() << " is not owned by " << playerName << "; reinforcement aborted." << endl;
         
     }
     else if (troops > 0)
-        cout << "Not enough troops; this action cannot be taken." << endl;
+        cout << "Not enough armies; this action cannot be taken." << endl;
     else
-        cout << "Cannot reinforce with 0 or fewer troops." << endl;
+        cout << "Cannot reinforce with 0 or fewer armies." << endl;
     
-    cout << playerName << " has " << playerTroops << " deployable troops." << endl;
+    cout << playerName << " has " << playerTroops << " deployable armies." << endl;
 }
 
 void Player::attack(Map* map, Country* attackingCountry, Country* defendingCountry)
@@ -248,6 +249,8 @@ void Player::attack(Map* map, Country* attackingCountry, Country* defendingCount
         
         int tempRoll;
         
+        cout << "Attacking rolls: " << endl;
+        
         // Roll the attack die as many times as necessary, sort the results.
         for (int i = 0; i < attackDiceCount; i++)
         {
@@ -261,8 +264,10 @@ void Player::attack(Map* map, Country* attackingCountry, Country* defendingCount
                 secondBestAttack = tempRoll;
         }
         
-        // Reset attacker's die.
+        // Reset die.
         playerDice.clearVector();
+        
+        cout << endl << "Defending rolls: " << endl;
         
         // Roll the defense die as many times as necessary, sort the results.
         for (int i = 0; i < defenseDiceCount; i++)
@@ -277,30 +282,44 @@ void Player::attack(Map* map, Country* attackingCountry, Country* defendingCount
                 secondBestDefense = tempRoll;
         }
         
-        // Reset defender's die.
+        // Reset die.
         playerDice.clearVector();
         
         // Count the number of wins for the attack and defense.
         int attackWins = 0;
         int defenseWins = 0;
         
+        cout << endl << endl << "Best attack (" << bestAttack << ") vs best defense (" << bestDefense << "): " << endl;
         if (bestAttack > bestDefense)
+        {
             attackWins++;
+            cout << "Attack wins." << endl;
+        }
         else
+        {
             defenseWins++;
+            cout << "Defense wins." << endl;
+        }
         
         // check second-best dice if both players used two dice or more.
+        cout << endl << "Second best attack (" << secondBestAttack << ") vs second best defense (" << secondBestDefense << "): " << endl;
         if (defenseDiceCount == 2 && attackDiceCount >= 2)
             if (secondBestAttack > secondBestDefense)
+            {
                 attackWins++;
+                cout << "Attack wins." << endl;
+            }
             else
+            {
                 defenseWins++;
+                cout << "Defense wins." << endl;
+            }
         
         // Report the losses on each side.
         if (defenseWins == 1)
-            cout << playerName << " lost 1 army!" << endl;
+            cout << endl << playerName << " lost 1 army!" << endl;
         else
-            cout << playerName << " lost " << defenseWins << " armies!" << endl;
+            cout << endl << playerName << " lost " << defenseWins << " armies!" << endl;
         
         if (attackWins == 1)
             cout << defendingCountry->getPlayerName() << " lost 1 army!" << endl;

@@ -32,7 +32,7 @@ private:
 
     vector<Continent*> conti; //vector of continents, each continent will have
     //a vector of countries named cnts
-    vector<pair<Country, Country >> edges; //vector of country pairs for adjacency?
+    vector<pair<Country*, Country* >> edges; //vector of country pairs for adjacency?
 
     void resetFlags();
     void flagConnections(Country* root);
@@ -49,9 +49,9 @@ public:
     bool areAdjacent(Country m, Country n); //checks pairing vector for relationship
 
     int getContiSize();
-    pair<Country, Country> getEdge(int index);
+    pair<Country*, Country*> getEdge(int index);
 
-    void link(Country m, Country n); //two args are stored into the pair vector
+    void link(Country* m, Country* n); //two args are stored into the pair vector
 
     Map();
     Map(string n);

@@ -88,27 +88,30 @@ int main(int argc, char** argv) {
     phoshido->addCountry(pizumo);
     phoshido->addCountry(psacae);
 
+
     //Paths within hoshido    
-    ylisse.link(mokushu, kohga);
-    ylisse.link(kohga, izumo);
-    ylisse.link(izumo, sacae);
+    ylisse.link(pmokushu, pkohga);
+    ylisse.link(pkohga, pizumo);
+    ylisse.link(pizumo, psacae);
 
     //paths in nohr
-    ylisse.link(valla, sagesse);
-    ylisse.link(valla, nestra);
-    ylisse.link(nestra, car);
-    ylisse.link(car, plegia);
-    ylisse.link(nestra, plegia);
-    ylisse.link(plegia, valentia);
-    ylisse.link(plegia, jugdral);
-    ylisse.link(jugdral, archanea);
-    ylisse.link(archanea, etruria);
-    ylisse.link(etruria, gallia);
-   //link between nohr and hoshido
-   
-    ylisse.link(jugdral, izumo);
+    ylisse.link(pval, psag);
+    ylisse.link(pval, pnes);
+    ylisse.link(pnes, pcar);
+    ylisse.link(pcar, ppleg);
+    ylisse.link(pnes, ppleg);
+    ylisse.link(ppleg, plentia);
+    ylisse.link(ppleg, pjugd);
+    ylisse.link(pjugd, parch);
+    ylisse.link(parch, petr);
+    ylisse.link(petr, pgal);
+    //link between nohr and hoshido
+    ylisse.link(pjugd, pizumo);
     
-    
+    cout << "\n\nValidating " << phoshido->getName() << endl;
+    ylisse.valiCont(phoshido);
+
+    cout << "\nValidating Map through " << pnes->getName() << endl;
     ylisse.validate(pnes);
 
     return 0;

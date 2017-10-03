@@ -117,8 +117,8 @@ void Map::resetFlags() {
  */
 bool Map::areAdjacent(Country m, Country n) {
     for (int i = 0; i < edges.size(); i++) {
-        if ((edges[i].first.getName() == m.getName() && edges[i].second.getName() == n.getName())
-                || (edges[i].first.getName() == n.getName() && edges[i].second.getName() == m.getName())) {
+        if ((edges[i].first->getName() == m.getName() && edges[i].second->getName() == n.getName())
+                || (edges[i].first->getName() == n.getName() && edges[i].second->getName() == m.getName())) {
             return true;
         }
     }
@@ -128,21 +128,27 @@ bool Map::areAdjacent(Country m, Country n) {
 //checks if all countries are reachable from root
 
 bool Map::validate(Country* root) {
-    if (checkDuplicateCnts()) {
-        flagConnections(root); //flags reachable ones
+    if (edges.empty()) {
+        cout << "Nothing connected" << endl;
+        return false;
+    }
+    if (!checkDuplicateCnts()) {
+        return false;
+    }
+    flagConnections(root); //flags reachable ones
 
 
-        for (int i = 0; i < conti.size(); i++) {
-            for (int j = 0; j < conti[i]->cnts.size(); j++) {
-                if (conti[i]->cnts[j]->getVisited() == false) {
-                    cout << conti[i]->cnts[j]->getName() << " cannot be reached" << endl; //prints out an unreachable one
-                    resetFlags();
+    for (int i = 0; i < conti.size(); i++) {
+        for (int j = 0; j < conti[i]->cnts.size(); j++) {
+            if (conti[i]->cnts[j]->getVisited() == false) {
+                cout << conti[i]->cnts[j]->getName() << " cannot be reached" << endl; //prints out an unreachable one
+                resetFlags();
 
-                    return false;
-                }
+                return false;
             }
         }
     }
+
     cout << "Map is connected\n" << endl; //this is a 1
     resetFlags();
 
@@ -152,18 +158,16 @@ bool Map::validate(Country* root) {
 }
 //creates a pair of countries that will be used for validation
 
-void Map::link(Country m, Country n) {
-    pair < Country, Country> k;
+void Map::link(Country* m, Country* n) {
+    pair < Country*, Country*> k;
     k = std::make_pair(m, n);
     edges.push_back(k);
 }
 
 void Map::addContinent(Continent* c) {
-    for(int i = 0; i < conti.size(); i++)
-    {
-        if(c->getName()==conti[i]->getName())
-        {
-            cout<<"Continent of same name("<<c->getName()<<") exists in this map, please rename."<<endl;
+    for (int i = 0; i < conti.size(); i++) {
+        if (c->getName() == conti[i]->getName()) {
+            cout << "Continent of same name(" << c->getName() << ") exists in this map, please rename." << endl;
             return;
         }
     }
@@ -178,7 +182,7 @@ string Map::toString() {
     return "Name: " + name + "\n";
 }
 
-pair<Country, Country> Map::getEdge(int index) {
+pair<Country*, Country*> Map::getEdge(int index) {
     return edges[index];
 }
 //just prints all continent 
@@ -240,7 +244,7 @@ bool Map::checkDuplicateCnts() {
 string Map::printEdges() {
     string temp = "";
     for (int i = 0; i < edges.size(); i++) {
-        temp += "[" + edges[i].first.getName() + ", " + edges[i].second.getName() + "]\n";
+        temp += "[" + edges[i].first->getName() + ", " + edges[i].second->getName() + "]\n";
     }
 
     return temp;
@@ -295,11 +299,9 @@ string Continent::toString() {
 //takes a pointer of a country
 
 void Continent::addCountry(Country* c) {
-    for(int i = 0; i < cnts.size(); i++)
-    {
-        if(c->getName()==cnts[i]->getName())
-        {
-            cout<<"Country of same name("<<c->getName()<<") exists in this continent, please rename."<<endl;
+    for (int i = 0; i < cnts.size(); i++) {
+        if (c->getName() == cnts[i]->getName()) {
+            cout << "Country of same name(" << c->getName() << ") exists in this continent, please rename." << endl;
             return;
         }
     }

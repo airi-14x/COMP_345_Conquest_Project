@@ -81,6 +81,18 @@ void Player::subtractTroops(int troops)
     playerTroops -= troops;
 }
 
+// Returns the player's name.
+string Player::getName()
+{
+    return playerName;
+}
+
+// Gives the player a name.
+void Player::setName(string name)
+{
+    playerName = name;
+}
+
 // Returns the collection of countries the player owns.
 vector<Country*> Player::getCountries()
 {
@@ -436,16 +448,4 @@ Player* Player::findPlayer(string searchName)
     
     cout << "ERROR: No player named " << searchName << ". Returning null." << endl;
     return NULL;
-}
-
-// Returns the player pointer that corresponds with the searched index.
-Player* Player::findPlayer(int searchIndex)
-{
-    if (searchIndex >= 0 && searchIndex < players.size())
-        return players.at();
-    else
-    {
-        cout << "ERROR: out of bounds. Valid indices: " << 0 << " to " << (players.size() - 1) << "." <<< endl;
-        return NULL;
-    }
 }

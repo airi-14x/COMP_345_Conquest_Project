@@ -51,7 +51,6 @@ public:
      */
     static vector<Player*> players;
     static Player* findPlayer(string); // Finds a player by name in the players vector.
-    static Player* findPlayer(int); // Finds a player by the index in the players vector. NOTE: Currently a workaround; Player::players.at(int)->getName() doesn't work.
 private:
     string playerName;
     int playerTroops;

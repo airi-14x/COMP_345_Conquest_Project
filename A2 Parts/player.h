@@ -37,6 +37,7 @@ public:
     void reinforce(int, Country*); // Takes troops from a player and deploys them to an owned territory.
     void attackPhase(Map*); // Allows the player to attack enemy territories in a loop.
     void attack(Map*, Country*, Country*); // Attacks an enemy country.
+    void fortifyPhase(Map*); // Allows the player to fortify an allied territory.
     void fortify(Map*, Country*, Country*); // Allows the player to move armies from a country to another one, as long as they are connected.
     void resetTurn(); // Resets the value of hasConquered back to false.
 

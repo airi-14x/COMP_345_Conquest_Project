@@ -533,6 +533,57 @@ void Player::attack(Map* map, Country* attackingCountry, Country* defendingCount
     }
 }
 
+// Allows the player to fortify one allied territory.
+void Player::fortifyPhase(Map* m)
+{
+    cout << "Beginning " << playerName << "'s fortification phase." << endl;
+
+    string countryName;
+    Country* origin = nullptr;
+    Country* target = nullptr;
+
+    char proceed = 'y';
+
+    cout << "Do you wish to fortify a country? ";
+    cin >> proceed;
+
+    if (proceed == 'y')
+    {
+        while (!hasFortified)
+        {
+            // Make sure the attacking country exists.
+            while (origin == nullptr)
+            {
+                cout << endl << "Which country do you wish to fortify from? ";
+                cin >> countryName;
+
+                origin = m->findCountry(countryName);
+
+                if (origin == nullptr)
+                    cout << countryName << " does not exist. Please enter a valid country name." << endl;
+            }
+
+            // Make sure the defending origin exists.
+            while (target == nullptr)
+            {
+                cout << "Which country do you wish to fortify? ";
+                cin >> countryName;
+
+                target = m->findCountry(countryName);
+
+                if (target == nullptr)
+                    cout << countryName << " does not exist. Please enter a valid country name." << endl;
+            }
+
+            fortify(m, origin, target);
+
+            origin = nullptr;
+            target = nullptr;
+        }
+
+    }
+}
+
 // Allows the player to move armies from a country to another one, as long as they are connected.
 void Player::fortify(Map* map, Country* origin, Country* target)
 {

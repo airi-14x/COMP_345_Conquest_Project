@@ -66,6 +66,7 @@ public:
     string printEdges();
 
     bool checkAlliedReach(Country* origin, Country* target);
+    Country* findCountry(string countryName); // Finds the parametized country in a Map object, going through every continent.
 };
 
 class Continent {

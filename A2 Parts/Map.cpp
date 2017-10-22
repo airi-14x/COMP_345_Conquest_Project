@@ -273,6 +273,25 @@ bool Map::checkAlliedReach(Country* origin, Country* target) {
     return targetReachable;
 }
 
+// Finds the parametized country in a Map object, going through every continent.
+Country* Map::findCountry(string countryName)
+{
+    // Go through the map looking for the parametized country.
+    for (int i = 0; i < conti.size(); i++)
+    {
+        for (int j = 0; j < conti.at(i)->getCntsSize(); j++)
+        {
+            // Compare names of countries to find a match.
+            if (countryName == conti.at(i)->getCountry(j).getName())
+            {
+                return &conti.at(i)->getCountry(j);
+            }
+        }
+    }
+
+    return nullptr;
+}
+
 /*=============================================================
  CONTINENT
  ==============================================================

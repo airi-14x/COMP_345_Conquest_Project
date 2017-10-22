@@ -32,9 +32,10 @@ public:
     vector<Country*> getCountries(); // Returns the collection of countries the player owns.
     void addCountry(Country*); // Adds a country to the player's country collection.
     void removeCountry(Country*); // Removes a country to the player's country collection.
-    void beginTurn(Map*); // Grants the player new armies and allows them to reinforce their countries.
+    void reinforcementPhase(Map*); // Grants the player new armies and allows them to reinforce their countries.
     void grantArmies(Map*); // Grants the player new armies based on the countries and continents they control.
     void reinforce(int, Country*); // Takes troops from a player and deploys them to an owned territory.
+    void attackPhase(Map*); // Allows the player to attack enemy territories in a loop.
     void attack(Map*, Country*, Country*); // Attacks an enemy country.
     void fortify(Map*, Country*, Country*); // Allows the player to move armies from a country to another one, as long as they are connected.
     void resetTurn(); // Resets the value of hasConquered back to false.

@@ -101,7 +101,7 @@ void Player::removeCountry(Country* country)
 }
 
 // Grants the player new armies and allows them to reinforce their countries.
-void Player::beginTurn(Map* m)
+void Player::reinforcementPhase(Map* m)
 {
     // Announce which player's turn is starting.
     cout << playerName << "'s turn begins." << endl << endl;
@@ -117,37 +117,21 @@ void Player::beginTurn(Map* m)
     // Reinforce until no armies are left.
     while (playerArmies > 0)
     {
-        int armiesSelected = 0;
-        string countrySelectedName = "";
-        Country* countrySelected = NULL;
+        int armiesSelected;
+        string countrySelectedName;
+        Country* countrySelected = nullptr;
 
         bool countryExists = false;
 
         // Make sure the selected country exists.
-        while (!countryExists)
+        while (countrySelected == nullptr)
         {
             cout << "Which country do you wish to reinforce? ";
             cin >> countrySelectedName;
 
-            // Go through the map looking for the selected country.
-            for (int i = 0; i < m->getContiSize(); i++)
-            {
-                for (int j = 0; j < m->getContinent(i)->getCntsSize(); j++)
-                {
-                    // Compare names of countries to find a match.
-                    if (countrySelectedName == m->getContinent(i)->getCountry(j).getName())
-                    {
-                        countryExists = true;
-                        countrySelected = &(m->getContinent(i)->getCountry(j));
-                        break;
-                    }
-                }
+            countrySelected = m->findCountry(countrySelectedName);
 
-                if (countryExists)
-                    break;
-            }
-
-            if (!countryExists)
+            if (countrySelected == nullptr)
                 cout << countrySelectedName << " does not exist. Please enter a valid country name." << endl;
         }
 
@@ -274,6 +258,50 @@ void Player::reinforce(int armies, Country* country)
         cout << "Cannot reinforce with 0 or fewer armies." << endl;
 
     cout << playerName << " has " << playerArmies << " deployable armies." << endl;
+}
+
+// Allows the player to attack enemy territories in a loop.
+void Player::attackPhase(Map* m)
+{
+    cout << "Beginning " << playerName << "'s attack phase." << endl;
+
+    char continueAttacking = 'y';
+
+    while (continueAttacking == 'y')
+    {
+       string countryName;
+        Country* origin = nullptr;
+        Country* target = nullptr;
+
+        // Make sure the attacking country exists.
+        while (origin == nullptr)
+        {
+            cout << "Which country do you wish to attack from? ";
+            cin >> countryName;
+
+            origin = m->findCountry(countryName);
+
+            if (origin == nullptr)
+                cout << countryName << " does not exist. Please enter a valid country name." << endl;
+        }
+
+        // Make sure the defending origin exists.
+        while (target == nullptr)
+        {
+            cout << "Which country do you wish to attack? ";
+            cin >> countryName;
+
+            target = m->findCountry(countryName);
+
+            if (target == nullptr)
+                cout << countryName << " does not exist. Please enter a valid country name." << endl;
+        }
+
+        attack(m, origin, target);
+
+        cout << endl << "Do you wish to continue attacking? ";
+        cin >> continueAttacking;
+    }
 }
 
 void Player::attack(Map* map, Country* attackingCountry, Country* defendingCountry)

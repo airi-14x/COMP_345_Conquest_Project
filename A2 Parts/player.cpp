@@ -111,7 +111,7 @@ void Player::beginTurn(Map* m)
     grantArmies(m);
 
     // Announce the number of armies to reinforce with.
-    cout << playerArmies << " armies granted." << endl << endl;
+    cout << playerArmies << " total armies granted." << endl << endl;
     cout << "Beginning reinforcement phase..." << endl;
 
     // Reinforce until no armies are left.
@@ -174,6 +174,7 @@ void Player::grantArmies(Map* m)
 
     // One army for every third country.
     totalGranted += countries.size()/3;
+    cout << playerName << " controls " << countries.size() << " countries." << endl;
     cout << "Granting " << totalGranted << " armies for countries owned." << endl;
 
     // A continent's control value for each continent owned entirely.
@@ -194,6 +195,7 @@ void Player::grantArmies(Map* m)
 
         if (fullControl)
         {
+            cout << playerName << " controls all of " << m->getContinent(i)->getName() << "." << endl;
             cout << "Granting " << m->getContinent(i)->getControl() << " armies for continents controlled." << endl;
             totalGranted += m->getContinent(i)->getControl();
         }

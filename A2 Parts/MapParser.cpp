@@ -105,7 +105,7 @@ void MapParser::createContinent(string line) {
     string name = data[0];
     int value = stoi(data[1]);
 
-    Continent *c = new Continent(name);
+    Continent *c = new Continent(name, value);
     m->addContinent(c);
 }
 

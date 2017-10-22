@@ -71,16 +71,19 @@ public:
 class Continent {
 private:
     string name;
+    int control; // The continent's control value, used by Player.
 public:
 
     vector<Country*> cnts;
 
     int getCntsSize();
     Continent();
-    Continent(string nem);
+    Continent(string nem, int ctrl);
 
     string toString();
     string getName();
+
+    int getControl(); // Returns the continent's control value, used by Player.
 
     void addCountry(Country* c);
     Country getCountry(string name);
@@ -111,7 +114,7 @@ public:
     string toString();
     string getName();
     int getArmyNum();
-    
+
     void setArmyNum(int a);
     void setName(string a);
     void setPlayerName(string a);

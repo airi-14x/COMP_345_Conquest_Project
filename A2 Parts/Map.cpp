@@ -35,6 +35,11 @@ int Map::getMapSize() {
 
     return mapSize;
 }
+
+int Map::getContiSize() {
+    return conti.size();
+}
+
 //flags reachable countries from root. Uses a recursive depth-first search
 
 void Map::flagConnections(Country* root) {
@@ -279,8 +284,9 @@ Continent::Continent() {
 
 }
 
-Continent::Continent(string nem) {
+Continent::Continent(string nem, int ctrl) {
     name = nem;
+    control = ctrl;
     cnts = {};
 
 }
@@ -306,6 +312,11 @@ void Continent::addCountry(Country* c) {
         }
     }
     cnts.push_back(c);
+}
+
+int Continent::getControl()
+{
+    return control;
 }
 
 int Continent::getCntsSize() {

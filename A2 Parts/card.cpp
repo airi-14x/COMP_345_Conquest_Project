@@ -17,7 +17,7 @@ Card::Card()
 {
     // Generate a random number between 0 and 2 to determine card type.
     int rng = rand() % 3;
-    
+
     // Assign card type based on the previously generated number.
     switch(rng)
     {

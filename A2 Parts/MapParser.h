@@ -33,8 +33,8 @@ class MapParser {
 		void createTerriotry(string line);
 		void createContinent(string line);
 	public:
-                Map* getMap();
 		MapParser();
+		Map* getMap();
 		void readFile(string fileName);
 };
 

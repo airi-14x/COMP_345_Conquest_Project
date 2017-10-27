@@ -279,12 +279,12 @@ Country* Map::findCountry(string countryName)
     // Go through the map looking for the parametized country.
     for (int i = 0; i < conti.size(); i++)
     {
-        for (int j = 0; j < conti.at(i)->getCntsSize(); j++)
+        for (int j = 0; j < conti[i]->getCntsSize(); j++)
         {
             // Compare names of countries to find a match.
-            if (countryName == conti.at(i)->getCountry(j).getName())
+            if (countryName == conti[i]->getCountry(j)->getName())
             {
-                return &conti.at(i)->getCountry(j);
+                return conti[i]->getCountry(j);
             }
         }
     }
@@ -350,25 +350,24 @@ string Continent::nameCountries() {
         return (name + " is an empty continent");
     } else {
         for (int i = 0; i < cnts.size(); i++) {
-            temp += getCountry(i).getName() + "\n";
+            temp += getCountry(i)->getName() + "\n";
         }
         return temp;
     }
 }
 //returns country to be searched by name
 
-Country Continent::getCountry(string name) {
+Country* Continent::getCountry(string name) {
 
     for (int i = 0; i < cnts.size(); i++) {
         if (cnts[i]->getName() == (name))
-
-            return *cnts[i];
+            return cnts[i];
     }
 }
 //returns country from index
 
-Country& Continent::getCountry(int index) {
-    return *cnts[index];
+Country* Continent::getCountry(int index) {
+    return cnts[index];
 }
 
 

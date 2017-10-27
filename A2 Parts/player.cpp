@@ -170,7 +170,7 @@ void Player::grantArmies(Map* m)
         // If such a country is found, the country isn't fully controlled by them and they don't get the bonus.
         for(int j = 0; j < m->getContinent(i)->getCntsSize(); j++)
         {
-            if(m->getContinent(i)->getCountry(j).getPlayerName() != playerName)
+            if(m->getContinent(i)->getCountry(j)->getName() != playerName)
             {
                 fullControl = false;
                 break;
@@ -217,6 +217,10 @@ void Player::grantArmies(Map* m)
 
     // Grant the new armies to the player.
     setArmies(totalGranted);
+}
+
+string Player::getName(){
+    return playerName;
 }
 
 // Takes armies from a player and deploys them to an owned territory.

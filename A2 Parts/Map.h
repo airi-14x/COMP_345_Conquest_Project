@@ -84,11 +84,12 @@ public:
     string toString();
     string getName();
 
+    int getNumOfContients();
     int getControl(); // Returns the continent's control value, used by Player.
 
     void addCountry(Country* c);
-    Country getCountry(string name);
-    Country& getCountry(int index);
+    Country* getCountry(string name);
+    Country* getCountry(int index);
     string nameCountries();
     void setName(string n);
 };

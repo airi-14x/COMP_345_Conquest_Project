@@ -615,10 +615,11 @@ void Player::fortify(Map* map, Country* origin, Country* target) {
         // Otherwise don't mark fortifications as complete. The user's turn is not over.
         if (armiesSent > 0) {
             /// [Count != 2] ///
-            Notify();
             hasFortified = true;
             target->setArmyNum(target->getArmyNum() + armiesSent);
             origin->setArmyNum(origin->getArmyNum() - armiesSent);
+            Notify();
+
         } else
             cout << "No armies sent." << endl;
     } else

@@ -130,7 +130,7 @@ void PhaseView::attackDisplay() {
                 cout << "||\t\t" << "Defense wins.                   ||\t";
             }
         }
-        cout <<endl<< "||==============================================||" << endl;
+        cout << endl << "||==============================================||" << endl;
 
     }
     //Reports army losses//
@@ -139,7 +139,7 @@ void PhaseView::attackDisplay() {
         if (_subject->getDefenseWins() == 1)
             cout << "||\t" << _subject->getName() << " lost an army!                        ||" << endl;
         else
-            cout  << "||\t" << _subject->getName() << " lost " << _subject->getDefenseWins() << " army!                         ||" << endl;
+            cout << "||\t" << _subject->getName() << " lost " << _subject->getDefenseWins() << " army!                         ||" << endl;
 
         if (_subject->getAttackWins() == 1)
             cout << "||\t" << _subject->getCountryTo()->getName() << " lost an army!                      ||" << endl;
@@ -169,18 +169,28 @@ void PhaseView::attackDisplay() {
 void PhaseView::fortifyDisplay() {
     // Player's Fortify Phase Info //
     if (counter == 1) {
-        cout << "||\t" << "Current Phase: Fortify Phase" << endl;
-        cout << "||\t" << "Beginning " << _subject->getName() << "'s fortification phase." << endl;
+        cout << "||\t" << "Current Phase: Fortify Phase            ||" << endl;
+        cout << "||\t" << "Beginning " << _subject->getName() << "'s fortification phase.     ||" << endl;
+        cout << "||==============================================||" << endl;
     }
 
     if (counter == 2 && (_subject->getCountryFrom() != nullptr || _subject->getCountryTo() != nullptr)) {
 
-        cout << "||\t" << _subject->getCountryFrom()->getName() << " has " << _subject->getCountryFrom()->getArmyNum() << " armies." << endl;
-        cout << "||\t" << _subject->getCountryTo()->getName() << " has " << _subject->getCountryFrom()->getArmyNum() << " armies." << endl;
+        cout << "||\t" << _subject->getCountryFrom()->getName() << " has " << _subject->getCountryFrom()->getArmyNum() << " armies.                      ||" << endl;
+        cout << "||\t" << _subject->getCountryTo()->getName() << " has " << _subject->getCountryTo()->getArmyNum() << " armies.                      ||" << endl;
+        cout << "||==============================================||" << endl;
+
     }
 
     if (_subject->getArmyChange() > 0) {
-        cout << "||\t" << "Fortification complete. Sending " << _subject->getArmyChange() << " armies to " << _subject->getCountryTo()->getName() << "." << endl;
+        cout << "||\tSending " << _subject->getArmyChange() << " armies to " << _subject->getCountryTo()->getName() << ".               ||" << endl;
+
+        cout << "||\t" << "Fortification complete.                 ||" << endl;
+
+        cout << "||\t" << _subject->getCountryFrom()->getName() << " has " << _subject->getCountryFrom()->getArmyNum() << " armies.                      ||" << endl;
+        cout << "||\t" << _subject->getCountryTo()->getName() << " has " << _subject->getCountryTo()->getArmyNum() << " armies.                      ||" << endl;
+        cout << "||==============================================||" << endl;
+
     }
 
 }

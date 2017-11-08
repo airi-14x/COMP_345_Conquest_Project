@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   StartRandomiser.cpp
  * Author: Airi Chow (#40003396)
- * 
+ *
  * Created on 2017/10/08, 20:31
  */
 
@@ -143,6 +143,8 @@ int StartRandomiser::RNG_countries(int num_countries) {
 // Assigns countries if they haven't been assigned. Loops otherwise //
 // Loop terminates when all countries are assigned //
 void StartRandomiser::assignCountries(int countries_left_to_assign, const vector<Country*> given_out_countries) {
+    assignNumArmies(); // Set # armies based on #Players //
+
     while (countries_left_to_assign > 0) {
         int value = RNG_countries(given_out_countries.size());
         cout << "\n value index: " << value;
@@ -153,6 +155,7 @@ void StartRandomiser::assignCountries(int countries_left_to_assign, const vector
                 cout << "Here??1";
                 players_turn[player_index]->addCountry(given_out_countries[value]);
                 given_out_countries[value]->setHasBeenAssigned();
+                given_out_countries[value]->setArmyNum(armies);
                 countries_left_to_assign--;
                 player_index++; // Move index //
                 if (player_index >= players_turn.size()) {
@@ -173,6 +176,7 @@ void StartRandomiser::assignCountries(int countries_left_to_assign, const vector
 
 // Used by setArmiesOnCountries to set according # players in game //
 void StartRandomiser::assignNumArmies() {
+    cout << "Player Turn size " << players_turn.size();
     switch (players_turn.size()) {
         case 2:
             armies = 40;
@@ -194,12 +198,12 @@ void StartRandomiser::assignNumArmies() {
 }
 
 // Iterates through all the countries and sets the armies size //
-void StartRandomiser::setArmiesOnCountries(const vector<Country*> given_out_countries) {
+/*void StartRandomiser::setArmiesOnCountries(const vector<Country*> given_out_countries) {
     assignNumArmies();
     for (int i = 0; i < given_out_countries.size(); i++) {
         given_out_countries[i]->setArmyNum(armies);
     }
-}
+}*/
 
 // Calls Countries' toString() //
 void StartRandomiser::display(const vector<Country*> given_out_countries) {
@@ -219,4 +223,3 @@ StartRandomiser::StartRandomiser(const StartRandomiser& orig) {
 
 StartRandomiser::~StartRandomiser() {
 }
-

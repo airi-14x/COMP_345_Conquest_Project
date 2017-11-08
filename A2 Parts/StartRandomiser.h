@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   StartRandomiser.h
  * Author: Airi Chow (#40003396)
  *
@@ -28,10 +28,10 @@ public:
     void assignCountries(int, const vector<Country*>); // Assign countries in Round-Robin-Order //
     void assignNumArmies();
     void display(const vector<Country*>); // Calls toString of Countries //
-    void setArmiesOnCountries(const vector<Country*>); // Set armies according to # Players in vector //
+    //void setArmiesOnCountries(const vector<Country*>); // Set armies according to # Players in vector //
     int RNG_countries(int); // Distribute the countries in RNG fashion //
-    
-    
+
+
 private:
     // Dice order makes sure that the player has been only assigned once //
     int dice_order_one;
@@ -47,8 +47,7 @@ private:
     int player_index; // Starts at 0 //
     int armies; // Armies to assign //
     vector<Player*> players_turn; // RNG turn order //
-    
+
 };
 
 #endif /* STARTRANDOMISER_H */
-

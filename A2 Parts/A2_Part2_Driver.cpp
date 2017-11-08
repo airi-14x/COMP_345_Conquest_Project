@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/* 
+/*
  * File:   A2_Part2_Driver.cpp
  * Author: Airi Chow (#40003396)
  *
@@ -28,16 +28,16 @@ int main() {
 
     srand(time(NULL));
 
-    // Create # of Players // --> Uncomment out in order to test cases where # Players = 2 ~ 6. 
+    // Create # of Players // --> Uncomment out in order to test cases where # Players = 2 ~ 6.
     Player *p1 = new Player("Player 1");
     Player *p2 = new Player("Player 2");
     Player *p3 = new Player("Player 3");
     //Player *p4 = new Player("Player 4");
     //Player *p5 = new Player("Player 5");
     //Player *p6 = new Player("Player 6");
-   
+
     StartRandomiser *r1 = new StartRandomiser();
-    
+
     // Create vectors of Players in increasing order //
     vector<Player*> increasing_order_player; // [P1, P2, P3]
     increasing_order_player.push_back(p1);
@@ -46,24 +46,24 @@ int main() {
     //increasing_order_player.push_back(p4);
     //increasing_order_player.push_back(p5);
     //increasing_order_player.push_back(p6);
-    
+
     // Round_Robin_Randomiser will RNG the player's turn order //
     r1->round_robin_randomiser(increasing_order_player);
     vector<Player*> turns_order(r1->getTurnPlayerVector()); // Get Turn order //
-    
+
     // Create a vector in order to store the countries to distribute //
     vector<Country*> given_out_countries;
 
     //---- Map + Continents + Countries --- being added --> From Earl's Map Driver //
-    Continent nohr{"Nohr"}; //continent 2
+    Continent nohr{"Nohr",1}; //continent 2
     Continent* pnohr = &nohr;
-    Continent hoshido{"Hoshido"}; //continent 1
+    Continent hoshido{"Hoshido",1}; //continent 1
     Continent* phoshido = &hoshido;
-    
+
     Map ylisse{"Ylisse"}; //Map name
     ylisse.addContinent(phoshido);
     ylisse.addContinent(pnohr);
-    
+
     //countries that belong to nohr
     Country valla{"Valla"};
     Country sagesse{"Sagesse"};
@@ -87,7 +87,7 @@ int main() {
     Country* parch = &archanea;
     Country* petr = &etruria;
     Country* pgal = &gallia;
-    
+
     // Add countries to vector //
     given_out_countries.push_back(pval);
     given_out_countries.push_back(psag);
@@ -127,27 +127,27 @@ int main() {
     phoshido->addCountry(pkohga);
     phoshido->addCountry(pizumo);
     phoshido->addCountry(psacae);
-    
+
     // Add countries to vector //
     given_out_countries.push_back(pmokushu);
     given_out_countries.push_back(pkohga);
     given_out_countries.push_back(pizumo);
     given_out_countries.push_back(psacae);
-    
+
     cout << "Size : " << given_out_countries.size();
-    
+
     //  ------------------------ //
- 
+
     int countries_left_to_assign = given_out_countries.size();
     cout << "\nCountries Left " << countries_left_to_assign;
     int player_index = 0;
- 
-    // 
+
+    //
     r1->assignCountries(countries_left_to_assign,given_out_countries);
-    r1->setArmiesOnCountries(given_out_countries);
+    //r1->setArmiesOnCountries(given_out_countries);
     r1->display(given_out_countries);
-    
-   
+
+
     delete p1;
     delete p2;
     delete p3;
@@ -160,4 +160,3 @@ int main() {
 
 
 }
-

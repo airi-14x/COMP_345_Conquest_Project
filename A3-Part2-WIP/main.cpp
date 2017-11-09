@@ -21,8 +21,9 @@ void giveCountryToPlayer(vector<Player>* p, Map* m) {
                 Country* country = conti->getCountry(j);
                 if (player.getName() == country->getPlayerName()) // if the player already owns the country
                     return giveCountryToPlayer(p, m); // try again
-                //cout << endl;
-                //cout << "Giving " << country->getName() << " from " << country->getPlayerName() << " to " << player.getName() << endl;
+                cout << endl;
+                cout << "Giving " << country->getName() << " from " << country->getPlayerName() << " to " << player.getName() << endl;
+                cout << "-----------------------------------------------------------------" << endl;
                 m->exchangeCountry(country, player.getName());
             }
         }
@@ -69,7 +70,7 @@ int main()
     cout << "Initial Setup" << endl;
     m->Notify();
 
-    for(int i = 0; i < 20; i++){
+    for(int i = 0; i < 10; i++){
         giveCountryToPlayer(&p, m);
     }
     return 0;

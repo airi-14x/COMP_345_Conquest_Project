@@ -10,7 +10,7 @@
 Subject::Subject(){
   observers = new list<Observer*>;
 }
-Subject::~Subject(){ 
+Subject::~Subject(){
   delete observers;
 }
 void Subject::Attach(Observer* o){
@@ -22,5 +22,5 @@ void Subject::Detach(Observer* o){
 void Subject::Notify(){
   list<Observer *>::iterator i = observers->begin();
   for (; i != observers->end(); ++i)
-    (*i)->Update(); 
+    (*i)->Update();
 };

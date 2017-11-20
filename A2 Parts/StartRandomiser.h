@@ -40,10 +40,10 @@ private:
     int dice_order_four;
     int dice_order_five;
     int dice_order_six;
-    int num_of_players;
+    //int num_of_players;
     int assign_order; // Maximum assignment order //
     int randomiser_number; // RNG order number //
-    int number_of_players(); // Range 2 - 6 --> Requires to input the same value as # Player created in Driver//
+    //int number_of_players(); // Range 2 - 6 --> Requires to input the same value as # Player created in Driver//
     int player_index; // Starts at 0 //
     int armies; // Armies to assign //
     vector<Player*> players_turn; // RNG turn order //

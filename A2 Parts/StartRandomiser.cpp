@@ -30,14 +30,14 @@ StartRandomiser::StartRandomiser() {
     dice_order_four = 1;
     dice_order_five = 1;
     dice_order_six = 1;
-    assign_order = number_of_players();
-    num_of_players = assign_order;
+    //assign_order = number_of_players();
+    //num_of_players = assign_order;
     player_index = 0;
     armies = 0;
 }
 
 // Set number_of_player which will be used in this class //
-int StartRandomiser::number_of_players() {
+/*int StartRandomiser::number_of_players() {
     cout << "Number of Players(min. 2 ~ max. 6)? ";
     int number_of_players;
     cin >> number_of_players;
@@ -55,12 +55,12 @@ int StartRandomiser::number_of_players() {
 
     return number_of_players;
 
-}
+}*/
 
 // Takes player_order which is a vector of Player* in order [P1,P2....]//
 // Set turns_order vector which is and RNG version of player_order //
 void StartRandomiser::round_robin_randomiser(const vector<Player*> player_order) {
-    while (assign_order > 0) {
+    while (player_order.size() > 0) {
         randomiser_number = rand() % num_of_players + 1; // ( 1 - #Players value)
         cout << "Current Random Number for Turns: " << randomiser_number << endl;
         cout << "Current assign_order : " << assign_order << endl;

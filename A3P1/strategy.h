@@ -83,4 +83,24 @@ public:
     void fortifyLoop(string,vector<Country*>*, Hand*, Dice*, bool*, Map*, Deck*);
 };
 
+// Random concrete strategy containing implementations for reinforcement,
+// attack, and fortification loops.
+class RandomStrategy : public ComputerStrategy
+{
+public:
+    void reinforceLoop(string,vector<Country*>*, Hand*, Dice*, bool*, Map*, Deck*);
+    void attackLoop(string,vector<Country*>*, Hand*, Dice*, bool*, Map*, Deck*);
+    void fortifyLoop(string,vector<Country*>*, Hand*, Dice*, bool*, Map*, Deck*);
+};
+
+// Cheater concrete strategy containing implementations for reinforcement,
+// attack, and fortification loops.
+class CheaterStrategy : public ComputerStrategy
+{
+public:
+    void reinforceLoop(string,vector<Country*>*, Hand*, Dice*, bool*, Map*, Deck*);
+    void attackLoop(string,vector<Country*>*, Hand*, Dice*, bool*, Map*, Deck*);
+    void fortifyLoop(string,vector<Country*>*, Hand*, Dice*, bool*, Map*, Deck*);
+};
+
 #endif // STRATEGY_H_INCLUDED

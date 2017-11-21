@@ -44,14 +44,20 @@ int main()
     char stratChar = 'Z';
     Strategy* demoStrat;
 
-    while (!(stratChar == 'H' || stratChar == 'A' || stratChar == 'B'))
+    while (!(stratChar == 'H' || stratChar == 'A' || stratChar == 'B' || stratChar == 'R' || stratChar == 'C'))
     {
-        cout << "Select demo strategy (H/A/B): ";
+        cout << "Select demo strategy (H/A/B/R/C): ";
         cin >> stratChar;
     }
 
     switch (stratChar)
     {
+    case 'R':
+        demoStrat = new RandomStrategy;
+        cout << "=================================" << endl;
+        cout << "Demoing random computer strategy." << endl;
+        cout << "=================================" << endl;
+        break;
     case 'B':
         demoStrat = new BenevolentStrategy;
         cout << "=====================================" << endl;

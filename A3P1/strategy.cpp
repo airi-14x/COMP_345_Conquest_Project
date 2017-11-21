@@ -927,7 +927,7 @@ void AggressiveStrategy::fortifyLoop(string playerName,vector<Country*>* playerC
                     // Compare army sizes
                     if (playerCountries->at(i)->getArmyNum() > playerCountries->at(strongestIndex)->getArmyNum());
                     {
-                        cout << "strongest is " << i << endl;
+                        strongestIndex = i;
                     }
                 }
             }
@@ -1096,4 +1096,230 @@ void BenevolentStrategy::fortifyLoop(string playerName,vector<Country*>* playerC
         cout << endl << "No valid fortification found." << endl;
     }
 
+}
+
+/*
+ * RANODM STRATEGY IMPLEMENTATION
+ */
+
+// Reinforces random countries with a random amount of armies.
+void RandomStrategy::reinforceLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
+{
+    // Uncomment for testing purposes.
+    //cout << "in aggro reinforce loop" << endl;
+    // Initialize all members
+    this->playerCountries = playerCountries;
+    this->playerHand = playerHand;
+    this->playerDice = playerDice;
+    this->playerName = playerName;
+    this->gameMap = gameMap;
+    this->gameDeck = gameDeck;
+    this->hasConquered = hasConquered;
+
+    armies = 0;
+
+    // Get new armies
+    grantArmies();
+
+    int targetIndex;
+    int armiesSent;
+
+    while (armies > 0)
+    {
+        // Select a country at random
+        targetIndex = rand() % playerCountries->size(); // [0, countries owned - 1]
+
+        // Select a random number of armies.
+        armiesSent = (rand() % armies) + 1; // [0, armies - 1] + 1 = [1, armies]
+
+        // Update total army count.
+        armies -= armiesSent;
+
+        reinforce(armiesSent, playerCountries->at(targetIndex));
+    }
+}
+
+// Attacks a random country a random number of times.
+void RandomStrategy::attackLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
+{
+    // Uncomment for testing purposes.
+    //cout << "in aggro attack loop" << endl;
+    // Initialize all members
+    this->playerCountries = playerCountries;
+    this->playerHand = playerHand;
+    this->playerDice = playerDice;
+    this->playerName = playerName;
+    this->gameMap = gameMap;
+    this->gameDeck = gameDeck;
+    this->hasConquered = hasConquered;
+
+    // Make a list of countries that have enemy neighbours and enough armies to attack.
+    vector<Country*> validAttackers;
+
+    for (int k = 0; k < playerCountries->size(); k++)
+    {
+        bool added = false;
+
+        for (int i = 0; i < gameMap->getContiSize(); i++)
+        {
+            for (int j = 0; j < gameMap->getContinent(i)->getCntsSize(); j++)
+            {
+                // If the two countries are adjacent, opponents, and the attacker's country can attack...
+                if (gameMap->areAdjacent(playerCountries->at(k), gameMap->getContinent(i)->getCountry(j)) &&
+                    gameMap->getContinent(i)->getCountry(j)->getPlayerName() != playerName &&
+                    playerCountries->at(k)->getArmyNum() > 1)
+                {
+                    validAttackers.push_back(playerCountries->at(k));
+                    added = true;
+                }
+
+                // If the country has already been added, go to the next one to avoid repetitions
+                if (added)
+                {
+                    break;
+                }
+            }
+
+            // If the country has already been added, go to the next one to avoid repetitions
+            if (added)
+            {
+                break;
+            }
+        }
+    }
+
+    // Select a random country from the previous list
+    Country* origin = validAttackers.at(rand() % validAttackers.size());
+
+    // Make a list of enemy countries neighbouring the attacking country.
+    vector<Country*> validDefenders;
+
+    for (int i = 0; i < gameMap->getContiSize(); i++)
+    {
+        for (int j = 0; j < gameMap->getContinent(i)->getCntsSize(); j++)
+        {
+            // If the two countries are adjacent, opponents, and the attacker's country can attack...
+            if (gameMap->areAdjacent(origin, gameMap->getContinent(i)->getCountry(j)) &&
+                gameMap->getContinent(i)->getCountry(j)->getPlayerName() != playerName)
+            {
+                validDefenders.push_back(gameMap->getContinent(i)->getCountry(j));
+            }
+        }
+    }
+
+    // Select a random country from the previous list
+    Country* target = validDefenders.at(rand() % validDefenders.size());
+
+    bool keepAttacking = true;
+
+    while (keepAttacking)
+    {
+        // Set up the attack
+        cout << endl << "Attacking " << target->getName() << " (" << target->getArmyNum() << " armies)" << " from "
+                     << origin->getName() << " (" << origin->getArmyNum() << " armies)." << endl;
+        int attackDiceCount = determineDiceCount(origin);
+        int defenseDiceCount = determineDiceCount(target);
+
+        // Attack
+        attack(origin, attackDiceCount, target, defenseDiceCount);
+
+        // Randomly decide to attack again or not if an attack is possible.
+        if (origin->getArmyNum() > 1 && target->getPlayerName() != playerName)
+        {
+            int decision = rand() % 2; // [0,1]
+
+            if (decision != 1)
+            {
+                keepAttacking = false;
+                cout << endl << playerName << " stops attacking." << endl;
+            }
+            else
+            {
+                cout << endl << playerName << " continues to attack." << endl;
+            }
+        }
+        else
+        {
+            keepAttacking = false;
+            cout << endl << playerName << " stops attacking." << endl;
+        }
+    }
+}
+
+// Fortifies from a random country to a random country by a random amount.
+void RandomStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
+{
+    // Uncomment for testing purposes.
+    //cout << "in aggro fortify loop" << endl;
+    // Initialize all members
+    this->playerCountries = playerCountries;
+    this->playerHand = playerHand;
+    this->playerDice = playerDice;
+    this->playerName = playerName;
+    this->gameMap = gameMap;
+    this->gameDeck = gameDeck;
+    this->hasConquered = hasConquered;
+
+    // Find all friendly countries that have neighbours.
+    vector<Country*> possibleOrigins;
+
+    for (int i = 0; i < playerCountries->size(); i++)
+    {
+        // If the current country has enough armies to fortify
+        if (playerCountries->at(i)->getArmyNum() > 1)
+        {
+            for (int j = 0; j < playerCountries->size(); j++)
+            {
+                // If the second country and the second country are connected
+                if (i != j &&
+                    gameMap->checkAlliedReach(playerCountries->at(i), playerCountries->at(j)))
+                {
+                    // Add the country to the list and leave the loop to avoid repetition
+                    possibleOrigins.push_back(playerCountries->at(i));
+                    break;
+                }
+            }
+        }
+    }
+
+    // Only continue if there are possible origins.
+    if (possibleOrigins.size() > 0)
+    {
+        // Select a random country from the list of valid fortifiers
+        Country* origin = possibleOrigins.at(rand() % possibleOrigins.size());
+
+        // Find all friendly countries that are connected to the selected origin.
+        vector<Country*> possibleTargets;
+
+        for (int i = 0; i < playerCountries->size(); i++)
+        {
+            // If the selected country isn't the origin and can be reached from the origin, add it to the list.
+            if (origin->getName() != playerCountries->at(i)->getName() &&
+                gameMap->checkAlliedReach(origin, playerCountries->at(i)))
+            {
+                possibleTargets.push_back(playerCountries->at(i));
+            }
+        }
+
+        // Only continue if there are possible targets.
+        if (possibleTargets.size() > 0)
+        {
+            // Select a target from the new list.
+            Country* target = possibleTargets.at(rand() % possibleTargets.size());
+
+            // Select the number of armies to fortify with
+            int armiesSent = rand() % origin->getArmyNum();
+
+            // Fortify
+            fortify(armiesSent, origin, target);
+        }
+        else
+        {
+            cout << "No valid fortification found.";
+        }
+    }
+    else
+    {
+        cout << "No valid fortification found.";
+    }
 }

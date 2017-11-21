@@ -456,8 +456,15 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
 
     char continueAttacking = 'y';
 
-    cout << "Do you wish to attack? (y/n):";
-    cin >> continueAttacking;
+    if (playerCountries->size() != gameMap->getMapSize())
+    {
+        cout << "Do you wish to attack? (y/n):";
+        cin >> continueAttacking;
+    }
+    else
+    {
+        continueAttacking = 'n';
+    }
 
     while (continueAttacking == 'y')
     {
@@ -549,8 +556,15 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
             attack(origin, attackDiceCount, target, defenseDiceCount);
         }
 
-        cout << endl << "Do you wish to continue attacking? ";
-        cin >> continueAttacking;
+        if (playerCountries->size() != gameMap->getMapSize())
+        {
+            cout << "Do you wish to continue attacking? (y/n):";
+            cin >> continueAttacking;
+        }
+        else
+        {
+            continueAttacking = 'n';
+        }
     }
 }
 
@@ -855,6 +869,12 @@ void AggressiveStrategy::attackLoop(string playerName,vector<Country*>* playerCo
     }
 
     bool canAttack = true;
+
+    // Make sure there are enemy countries left on the map.
+    if (playerCountries->size() == gameMap->getMapSize())
+    {
+        canAttack = false;
+    }
 
     // Attack until no longer possible
     while(canAttack)

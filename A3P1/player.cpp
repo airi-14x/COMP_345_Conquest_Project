@@ -135,9 +135,16 @@ void Player::reinforceLoop(Map* m, Deck* d)
 }
 
 // Allows the player to attack enemy territories in a loop.
-void Player::attackLoop(Map* m, Deck* d)
+bool Player::attackLoop(Map* m, Deck* d)
 {
     playerStrategy->attackLoop(playerName, &countries, &playerHand, &playerDice, &hasConquered, m, d);
+
+    if (countries.size() == m->getMapSize())
+    {
+        return true;
+    }
+
+    return false;
 }
 
 // Allows the player to fortify one allied territory.
@@ -146,8 +153,11 @@ void Player::fortifyLoop(Map* m, Deck* d)
     playerStrategy->fortifyLoop(playerName, &countries, &playerHand, &playerDice, &hasConquered, m, d);
 }
 
-void Player::takeTurn(Map* m, Deck* d)
+bool Player::takeTurn(Map* m, Deck* d)
 {
+    // Used to check if the player owns all countries.
+    bool victorious = false;
+
     // Refresh countries
     countries.clear();
 
@@ -160,24 +170,34 @@ void Player::takeTurn(Map* m, Deck* d)
         }
     }
 
-    cout << playerName << "'s turn begins." << endl;
-
-    cout << endl << "Reinforcement phase: " << endl;
-    reinforceLoop(m, d);
-    cout << endl << "Attack phase: " << endl;
-    attackLoop(m, d);
-    cout << endl << "Fortification phase: " << endl;
-    fortifyLoop(m, d);
-
-    if (hasConquered)
+    if (countries.size() > 0)
     {
-        cout << endl << playerName << " has been granted a card for conquering a country." << endl;
-        playerHand.addCard(d->draw());
+        cout << playerName << "'s turn begins." << endl;
+
+        cout << endl << "Reinforcement phase: " << endl;
+        reinforceLoop(m, d);
+        cout << endl << "Attack phase: " << endl;
+        victorious = attackLoop(m, d);
+
+        // If the game is still not won after attacking, carry on with the turn.
+        if (!victorious)
+        {
+            cout << endl << "Fortification phase: " << endl;
+            fortifyLoop(m, d);
+
+            if (hasConquered)
+            {
+                cout << endl << playerName << " has been granted a card for conquering a country." << endl;
+                playerHand.addCard(d->draw());
+            }
+
+            hasConquered = false;
+
+            cout << endl << playerName << "'s turn ends." << endl;
+        }
     }
 
-    hasConquered = false;
-
-    cout << endl << playerName << "'s turn ends." << endl;
+    return victorious;
 }
 
 // Finds a player by name in the players vector, returns a pointer to the player object.

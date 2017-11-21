@@ -34,9 +34,9 @@ public:
     vector<Country*>* getCountries(); // Returns the collection of countries the player owns.
     void addCountry(Country*); // Adds a country to the player's country collection.
     void removeCountry(Country*); // Removes a country to the player's country collection.
-    void takeTurn(Map*, Deck*); // Loops through reinforcement, attack, and fortify phases.
+    bool takeTurn(Map*, Deck*); // Loops through reinforcement, attack, and fortify phases. Returns true if the player is victorious.
     void reinforceLoop(Map*, Deck*); // Grants the player new armies and allows them to reinforce their countries.
-    void attackLoop(Map*, Deck*); // Allows the player to attack enemy territories in a loop.
+    bool attackLoop(Map*, Deck*); // Allows the player to attack enemy territories in a loop.
     void fortifyLoop(Map*, Deck*); // Allows the player to fortify an allied territory.
 
     // Dice functionality

@@ -1099,7 +1099,7 @@ void BenevolentStrategy::fortifyLoop(string playerName,vector<Country*>* playerC
 }
 
 /*
- * RANODM STRATEGY IMPLEMENTATION
+ * RANDOM STRATEGY IMPLEMENTATION
  */
 
 // Reinforces random countries with a random amount of armies.
@@ -1321,5 +1321,133 @@ void RandomStrategy::fortifyLoop(string playerName,vector<Country*>* playerCount
     else
     {
         cout << "No valid fortification found.";
+    }
+}
+
+/*
+ * CHEATER STRATEGY IMPLEMENTATION
+ */
+
+// Doubles armies on all countries owned by this player
+void CheaterStrategy::reinforceLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
+{
+    // Uncomment for testing purposes.
+    //cout << "in aggro reinforce loop" << endl;
+    // Initialize all members
+    this->playerCountries = playerCountries;
+    this->playerHand = playerHand;
+    this->playerDice = playerDice;
+    this->playerName = playerName;
+    this->gameMap = gameMap;
+    this->gameDeck = gameDeck;
+    this->hasConquered = hasConquered;
+
+    // Iterate through all countries owned by this player
+    for (int i = 0; i < playerCountries->size(); i++)
+    {
+        // Double each country's army number.
+        cout << endl << playerCountries->at(i)->getName() << " armies doubled from " << playerCountries->at(i)->getArmyNum() << " to ";
+        playerCountries->at(i)->setArmyNum(playerCountries->at(i)->getArmyNum() * 2);
+        cout << playerCountries->at(i)->getArmyNum() << "." << endl;
+    }
+}
+
+// Conquers all neighbours of all neighbouring enemy countries.
+void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
+{
+    // Uncomment for testing purposes.
+    //cout << "in aggro attack loop" << endl;
+    // Initialize all members
+    this->playerCountries = playerCountries;
+    this->playerHand = playerHand;
+    this->playerDice = playerDice;
+    this->playerName = playerName;
+    this->gameMap = gameMap;
+    this->gameDeck = gameDeck;
+    this->hasConquered = hasConquered;
+
+    // Make a list of all enemy neighbours
+    vector<Country*> enemyNeighbours;
+
+    for (int i = 0; i < gameMap->getContiSize(); i++)
+    {
+        for (int j = 0; j < gameMap->getContinent(i)->getCntsSize(); j++)
+        {
+            // If the country is an enemy, check if it's a neighbour and if so conquer it.
+            if (gameMap->getContinent(i)->getCountry(j)->getPlayerName() != playerName)
+            {
+                for (int k = 0; k < playerCountries->size(); k++)
+                {
+                    if (gameMap->areAdjacent(gameMap->getContinent(i)->getCountry(j), playerCountries->at(k)))
+                    {
+                        cout << endl << gameMap->getContinent(i)->getCountry(j)->getName() << " has been conquered by " << playerName << endl;
+                        gameMap->getContinent(i)->getCountry(j)->setPlayerName(playerName);
+                        playerCountries->push_back(gameMap->getContinent(i)->getCountry(j));
+
+                        *hasConquered = true;
+
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Doubles the number of armies on countries that have enemy neighbours.
+void CheaterStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
+{
+    // Uncomment for testing purposes.
+    //cout << "in aggro fortify loop" << endl;
+    // Initialize all members
+    this->playerCountries = playerCountries;
+    this->playerHand = playerHand;
+    this->playerDice = playerDice;
+    this->playerName = playerName;
+    this->gameMap = gameMap;
+    this->gameDeck = gameDeck;
+    this->hasConquered = hasConquered;
+
+    // Find all friendly countries that have enemy neighbours.
+    vector<Country*> countriesToFortify;
+
+    // Iterate through own countries.
+    for (int i = 0; i < playerCountries->size(); i++)
+    {
+        bool added = false;
+
+        // Iterate through all countries, checking for enemy neighbours.
+        for (int j = 0; j < gameMap->getContiSize(); j++)
+        {
+            for (int k = 0; k < gameMap->getContinent(j)->getCntsSize(); k++)
+            {
+                if (gameMap->getContinent(j)->getCountry(k)->getPlayerName() != playerName &&
+                    gameMap->areAdjacent(gameMap->getContinent(j)->getCountry(k), playerCountries->at(i)))
+                {
+                    countriesToFortify.push_back(playerCountries->at(i));
+                    added = true;
+                }
+
+                // Break out of loop if this country has already been validated.
+                if (added)
+                {
+                    break;
+                }
+            }
+
+            // Break out of loop if this country has already been validated.
+            if (added)
+            {
+                break;
+            }
+        }
+    }
+
+    for (int i = 0; i < countriesToFortify.size(); i++)
+    {
+        // Double each country's army number.
+        cout << endl << countriesToFortify.at(i)->getName() << " armies doubled from " << countriesToFortify.at(i)->getArmyNum() << " to ";
+        countriesToFortify.at(i)->setArmyNum(countriesToFortify.at(i)->getArmyNum() * 2);
+        cout << countriesToFortify.at(i)->getArmyNum() << "." << endl;
     }
 }

@@ -52,6 +52,12 @@ int main()
 
     switch (stratChar)
     {
+    case 'C':
+        demoStrat = new CheaterStrategy;
+        cout << "==================================" << endl;
+        cout << "Demoing cheater computer strategy." << endl;
+        cout << "==================================" << endl;
+        break;
     case 'R':
         demoStrat = new RandomStrategy;
         cout << "=================================" << endl;

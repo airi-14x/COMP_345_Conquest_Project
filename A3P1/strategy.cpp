@@ -1280,67 +1280,38 @@ void RandomStrategy::fortifyLoop(string playerName,vector<Country*>* playerCount
     this->gameDeck = gameDeck;
     this->hasConquered = hasConquered;
 
-    // Find all friendly countries that have neighbours.
-    vector<Country*> possibleOrigins;
+    vector<pair<Country*, Country*>> pairs;
 
+    // Check every owned country's allied reach to every other owned country
     for (int i = 0; i < playerCountries->size(); i++)
     {
-        // If the current country has enough armies to fortify
+        // Make sure the origin country has more than 1 army.
         if (playerCountries->at(i)->getArmyNum() > 1)
         {
             for (int j = 0; j < playerCountries->size(); j++)
             {
-                // If the second country and the second country are connected
-                if (i != j &&
+                // Make sure the target country isn't the origin and can be reached
+                if (playerCountries->at(i)->getName() != playerCountries->at(j)->getName() &&
                     gameMap->checkAlliedReach(playerCountries->at(i), playerCountries->at(j)))
                 {
-                    // Add the country to the list and leave the loop to avoid repetition
-                    possibleOrigins.push_back(playerCountries->at(i));
-                    break;
+                    pairs.push_back(pair<Country*, Country*>(playerCountries->at(i), playerCountries->at(j)));
                 }
             }
         }
     }
 
-    // Only continue if there are possible origins.
-    if (possibleOrigins.size() > 0)
+    // Fortify if there are valid fortifications.
+    if (pairs.size() > 0)
     {
-        // Select a random country from the list of valid fortifiers
-        Country* origin = possibleOrigins.at(rand() % possibleOrigins.size());
+        int pairIndex = rand() % pairs.size();
 
-        // Find all friendly countries that are connected to the selected origin.
-        vector<Country*> possibleTargets;
+        int armiesSent = (rand() % (pairs.at(pairIndex).first->getArmyNum() - 1) + 1);
 
-        for (int i = 0; i < playerCountries->size(); i++)
-        {
-            // If the selected country isn't the origin and can be reached from the origin, add it to the list.
-            if (origin->getName() != playerCountries->at(i)->getName() &&
-                gameMap->checkAlliedReach(origin, playerCountries->at(i)))
-            {
-                possibleTargets.push_back(playerCountries->at(i));
-            }
-        }
-
-        // Only continue if there are possible targets.
-        if (possibleTargets.size() > 0)
-        {
-            // Select a target from the new list.
-            Country* target = possibleTargets.at(rand() % possibleTargets.size());
-
-            // Select the number of armies to fortify with
-            int armiesSent = rand() % origin->getArmyNum();
-
-            // Fortify
-            fortify(armiesSent, origin, target);
-        }
-        else
-        {
-            cout << "No valid fortification found.";
-        }
+        fortify(armiesSent, pairs.at(pairIndex).first, pairs.at(pairIndex).second);
     }
     else
     {
-        cout << "No valid fortification found.";
+        cout << "No fortification possible." << endl;
     }
 }
 

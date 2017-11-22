@@ -12,27 +12,21 @@ using std::endl;
 void Strategy::reinforce(int armiesSent, Country* target)
 {
     // Uncomment for testing purposes.
-    ////cout << "in strategy reinforce" << endl;
 
     // Add armies to the country and announce its new army count.
-    //cout << endl << "Reinforcing " << target->getName() << " with " << armiesSent << " armies." << endl;
     target->setArmyNum(target->getArmyNum() + armiesSent);
-    //cout << target->getName() << " now has " << target->getArmyNum() << " armies." << endl;
 }
 
 void Strategy::grantArmies()
 {
     // Uncomment for testing purposes.
-    ////cout << "in strategy grant" << endl;
+
 
     // One army for every third country.
     if (playerCountries->size()/3 > 3)
         armies += playerCountries->size()/3;
     else
         armies += 3;
-
-    //cout << endl << playerName << " controls " << playerCountries->size() << " countries." << endl;
-    //cout << "Granting " << armies << " armies for countries owned." << endl;
 
     // A continent's control value for each continent owned entirely.
     for(int i = 0; i < gameMap->getContiSize(); i++)
@@ -52,22 +46,17 @@ void Strategy::grantArmies()
 
         if (fullControl)
         {
-            //cout << playerName << " controls all of " << gameMap->getContinent(i)->getName() << "." << endl;
-            //cout << "Granting " << gameMap->getContinent(i)->getControl() << " armies for continents controlled." << endl;
             armies += gameMap->getContinent(i)->getControl();
         }
     }
 
     // Allow the player to exchange cards
     exchangeLoop();
-
-    //cout << endl << playerName << " earned " << armies << " armies." << endl;
 }
 
 int Strategy::determineDiceCount(Country* c)
 {
     // Uncomment for testing purposes.
-    ////cout << "in strat dice count" << endl;
 
     // Determine max dice count based on offense or defense
     int maxCount;
@@ -94,19 +83,7 @@ int Strategy::determineDiceCount(Country* c)
 
     // If the owner is human, take input for the actual dice count.
     // Otherwise use max.
-    if(c->isHuman())
-    {
-        //cout << "Use how many dice? ";
-        cin >> diceCount;
-
-        while (diceCount <= 0 || diceCount > maxCount)
-        {
-            //cout << "Invalid dice count entered. Please enter a positive number below " << maxCount << ": ";
-            cin >> diceCount;
-        }
-    }
-    else
-        diceCount = maxCount;
+    diceCount = maxCount;
 
     return diceCount;
 }
@@ -114,16 +91,13 @@ int Strategy::determineDiceCount(Country* c)
 void Strategy::attack(Country* origin, int attackDiceCount, Country* target, int defenseDiceCount)
 {
     // Uncomment for testing purposes.
-    ////cout << "in strategy attack" << endl;
+    //cout << "in strategy attack" << endl;
 
     int attackRoll1 = 0;
     int attackRoll2 = 0;
     int attackRoll3 = 0;
     int defenseRoll1 = 0;
     int defenseRoll2 = 0;
-
-    // Roll as many dice as needed for both attack and defense
-    //cout << "Rolling for attack: " << endl;
 
     switch(attackDiceCount)
     {
@@ -134,8 +108,6 @@ void Strategy::attack(Country* origin, int attackDiceCount, Country* target, int
     default:
         attackRoll1 = playerDice->randomiser();
     }
-
-    //cout << endl << "Rolling for defense: " << endl;
 
     switch(defenseDiceCount)
     {
@@ -182,67 +154,80 @@ void Strategy::attack(Country* origin, int attackDiceCount, Country* target, int
     int attackWins = 0;
     int defenseWins = 0;
 
-    //cout << endl << "Best attack (" << attackRoll1 << ") vs best defense (" << defenseRoll1 << "): " << endl;
     if (attackRoll1 > defenseRoll1)
     {
         attackWins++;
-        //cout << "Attack wins." << endl;
     }
     else
     {
         defenseWins++;
-        //cout << "Defense wins." << endl;
     }
 
     // check second-best dice if both players used two dice or more.
     if (defenseDiceCount == 2 && attackDiceCount >= 2)
     {
-        //cout << endl << "Second best attack (" << attackRoll2 << ") vs second best defense (" << defenseRoll2 << "): " << endl;
+        cout << endl << "Second best attack (" << attackRoll2 << ") vs second best defense (" << defenseRoll2 << "): " << endl;
         if (attackRoll2 > defenseRoll2)
         {
             attackWins++;
-            //cout << "Attack wins." << endl;
+            cout << "Attack wins." << endl;
         }
         else
         {
             defenseWins++;
-            //cout << "Defense wins." << endl;
+            cout << "Defense wins." << endl;
         }
     }
+
+    // Report the losses on each side.
+    if (defenseWins == 1)
+        cout << endl << playerName << " lost 1 army!" << endl;
+    else
+        cout << endl << playerName << " lost " << defenseWins << " armies!" << endl;
+
+    if (attackWins == 1)
+        cout << target->getPlayerName() << " lost 1 army!" << endl;
+    else
+        cout << target->getPlayerName() << " lost " << attackWins << " armies!" << endl;
 
     // Adjust the armies in each country as a result of the attack.
     origin->setArmyNum(origin->getArmyNum() - defenseWins);
     target->setArmyNum(target->getArmyNum() - attackWins);
 
     // Report on the current state of the attacking country.
-    //cout << playerName << " now has " << origin->getArmyNum() << " armies in " << origin->getName() << "." << endl;
+    cout << playerName << " now has " << origin->getArmyNum() << " armies in " << origin->getName() << "." << endl;
     if (origin->getArmyNum() == 1)
-        //cout << origin->getName() << " can no longer attack." << endl;
+        cout << origin->getName() << " can no longer attack." << endl;
 
     // Report on the current state of the defending country.
     // If conquered, move troops and transfer ownership.
-    //cout << target->getPlayerName() << " now has " << target->getArmyNum() << " armies in " << target->getName() << "." << endl;
+    cout << target->getPlayerName() << " now has " << target->getArmyNum() << " armies in " << target->getName() << "." << endl;
     if (target->getArmyNum() == 0)
     {
         // Keep track of the armies selected to move.
         int movedArmies = 0;
 
         // Inform on the status of the country.
-        //cout << endl << origin->getName() << " has been conquered." << endl;
+        cout << endl << origin->getName() << " has been conquered." << endl;
 
         if (origin->isHuman())
         {
-            //cout << playerName << " must move at least " << attackDiceCount << " armies to " << target->getName() << "." << endl;
+            cout << playerName << " must move at least " << attackDiceCount << " armies to " << target->getName() << "." << endl;
 
             // Loop until a valid number of armies is selected.
             while (movedArmies < attackDiceCount || movedArmies >= origin->getArmyNum())
             {
-                //cout << "Enter the number of armies to move: ";
+                cout << "Enter the number of armies to move: ";
                 cin >> movedArmies;
+
+                if (movedArmies < attackDiceCount)
+                    cout << "Too few armies selected. Try again." << endl;
+                else if (movedArmies >= origin->getArmyNum())
+                    cout << "At least one army must remain in " << origin->getName() << endl;
             }
 
-            //cout << "Transferring " << movedArmies << " armies from " << origin->getName() << " to " << target->getName() << "." << endl;
-            //cout << "Transferring ownership of " << target->getName() << " from " << target->getPlayerName() << " to " << playerName << "." << endl;
+            cout << "Transferring " << movedArmies << " armies from " << origin->getName() << " to " << target->getName() << "." << endl;
+            cout << "Transferring ownership of " << target->getName() << " from " << target->getPlayerName() << " to " << playerName << "." << endl;
 
             // Transfer ownership and troops.
             string defendingPlayer = target->getPlayerName();
@@ -256,8 +241,8 @@ void Strategy::attack(Country* origin, int attackDiceCount, Country* target, int
         {
             // Computers move minimum number of armies.
             movedArmies = attackDiceCount;
-            //cout << "Transferring " << movedArmies << " armies from " << origin->getName() << " to " << target->getName() << "." << endl;
-            //cout << "Transferring ownership of " << target->getName() << " from " << target->getPlayerName() << " to " << playerName << "." << endl;
+            cout << "Transferring " << movedArmies << " armies from " << origin->getName() << " to " << target->getName() << "." << endl;
+            cout << "Transferring ownership of " << target->getName() << " from " << target->getPlayerName() << " to " << playerName << "." << endl;
 
             // Transfer ownership and troops.
             string defendingPlayer = target->getPlayerName();
@@ -275,18 +260,10 @@ void Strategy::attack(Country* origin, int attackDiceCount, Country* target, int
 
 void Strategy::fortify(int armiesSent, Country* origin, Country* target)
 {
-    // Uncomment for testing purposes.
-    ////cout << "in strategy fortify" << endl;
-
-    //cout << endl << "Sending " << armiesSent << " armies from " << origin->getName() << " to " << target->getName() << "." << endl;
-
     // Remove armies from the origin and announce its new army count.
     origin->setArmyNum(origin->getArmyNum() - armiesSent);
-    //cout << origin->getName() << " now has " << origin->getArmyNum() << " armies." << endl;
-
     // Add armies to the target and announce its new army count.
     target->setArmyNum(target->getArmyNum() + armiesSent);
-    //cout << target->getName() << " now has " << target->getArmyNum() << " armies." << endl;
 }
 
 /*
@@ -302,13 +279,12 @@ bool HumanStrategy::isHuman()
 void HumanStrategy::exchangeLoop()
 {
     // Uncomment for testing purposes.
-    ////cout << "in human exchange loop" << endl;
 
     // Check how many cards the player has. If more than 5, force an exchange.
     while (playerHand->getSize() > 5)
     {
         // Announce the forced exchange.
-        //cout << endl << "The number of cards in hand exceeds 5; cards must be exchanged." << endl << endl;
+        cout << endl << "The number of cards in hand exceeds 5; cards must be exchanged." << endl << endl;
 
         playerHand->listCards();
 
@@ -321,9 +297,8 @@ void HumanStrategy::exchangeLoop()
         // Allow the player to exchange extra cards if desired.
         char exchangeMore = 'n';
 
-        //cout << "Would you like to exchange cards? y/n ";
         cin >> exchangeMore;
-        //cout << endl;
+        cout << endl;
 
         while(exchangeMore == 'y')
         {
@@ -331,9 +306,9 @@ void HumanStrategy::exchangeLoop()
 
             armies += playerHand->exchange();
 
-            //cout << "Would you like to exchange additional cards? y/n ";
+            cout << "Would you like to exchange additional cards? y/n ";
             cin >> exchangeMore;
-            //cout << endl;
+            cout << endl;
         }
     }
 
@@ -342,7 +317,7 @@ void HumanStrategy::exchangeLoop()
 void HumanStrategy::reinforceLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in human reinforce loop" << endl;
+    //cout << "in human reinforce loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -358,8 +333,8 @@ void HumanStrategy::reinforceLoop(string playerName,vector<Country*>* playerCoun
     grantArmies();
 
     // Announce the number of armies to reinforce with.
-    //cout << armies << " total armies granted." << endl << endl;
-    //cout << "Beginning reinforcement phase..." << endl;
+    cout << armies << " total armies granted." << endl << endl;
+    cout << "Beginning reinforcement phase..." << endl;
 
     // Reinforce until no armies are left.
     while (armies > 0)
@@ -373,16 +348,19 @@ void HumanStrategy::reinforceLoop(string playerName,vector<Country*>* playerCoun
         // Make sure the selected country exists.
         while (countrySelected == nullptr)
         {
-            //cout << "Which country do you wish to reinforce? ";
+            cout << "Which country do you wish to reinforce? ";
             cin >> countrySelectedName;
 
             countrySelected = gameMap->findCountry(countrySelectedName);
+
+            if (countrySelected == nullptr)
+                cout << countrySelectedName << " does not exist. Please enter a valid country name." << endl;
         }
 
         // Ask for the number of armies to reinforce with.
-        //cout << "How many armies do you wish to reinforce " << countrySelectedName << " with? ";
+        cout << "How many armies do you wish to reinforce " << countrySelectedName << " with? ";
         cin >> armiesSelected;
-        //cout << endl;
+        cout << endl;
 
         /*
          * Confirm that the player has enough armies, otherwise give an error
@@ -409,16 +387,23 @@ void HumanStrategy::reinforceLoop(string playerName,vector<Country*>* playerCoun
                 reinforce(armiesSelected, countrySelected);
                 armies -= armiesSelected;
             }
-        }
+            else
+                cout << countrySelectedName << " is not owned by " << playerName << "; reinforcement aborted." << endl;
 
-        //cout << playerName << " has " << armies << " deployable armies." << endl;
+        }
+        else if (armiesSelected > 0)
+            cout << "Not enough armies; this action cannot be taken." << endl;
+        else
+            cout << "Cannot reinforce with 0 or fewer armies." << endl;
+
+        cout << playerName << " has " << armies << " deployable armies." << endl;
     }
 }
 
 void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in human attack loop" << endl;
+    //cout << "in human attack loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -432,7 +417,7 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
 
     if (playerCountries->size() != gameMap->getMapSize())
     {
-        //cout << "Do you wish to attack? (y/n):";
+        cout << "Do you wish to attack? (y/n):";
         cin >> continueAttacking;
     }
     else
@@ -449,19 +434,25 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
         // Make sure the attacking country exists.
         while (origin == nullptr)
         {
-            //cout << "Which country do you wish to attack from? ";
+            cout << "Which country do you wish to attack from? ";
             cin >> countryName;
 
             origin = gameMap->findCountry(countryName);
+
+            if (origin == nullptr)
+                cout << countryName << " does not exist. Please enter a valid country name." << endl;
         }
 
         // Make sure the defending origin exists.
         while (target == nullptr)
         {
-            //cout << "Which country do you wish to attack? ";
+            cout << "Which country do you wish to attack? ";
             cin >> countryName;
 
             target = gameMap->findCountry(countryName);
+
+            if (target == nullptr)
+                cout << countryName << " does not exist. Please enter a valid country name." << endl;
         }
 
         /*
@@ -500,13 +491,23 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
                     {
                         attackValid = true;
                     }
+                    else
+                        cout << origin->getName() << " doesn't have enough troops to attack." << endl;
                 }
+                else
+                    cout << origin->getName() << " and " << target->getName() << " are not adjacent." << endl;
             }
+            else
+                cout << target->getName() << " is already owned by " << playerName << "." << endl;
         }
+        else
+            cout << origin->getName() << "is not owned by " << playerName << "." << endl;
 
         // If the attack conditions are met
         if (attackValid)
         {
+            cout << endl << "Attacking " << target->getName() << " (" << target->getArmyNum() << " armies)" << " from "
+                 << origin->getName() << " (" << origin->getArmyNum() << " armies)." << endl;
             // Number of dice used by each player.
             int attackDiceCount = determineDiceCount(origin);
             int defenseDiceCount = determineDiceCount(target);
@@ -516,7 +517,7 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
 
         if (playerCountries->size() != gameMap->getMapSize())
         {
-            //cout << "Do you wish to continue attacking? (y/n):";
+            cout << "Do you wish to continue attacking? (y/n):";
             cin >> continueAttacking;
         }
         else
@@ -529,7 +530,7 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
 void HumanStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in human fortify loop" << endl;
+    //cout << "in human fortify loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -546,7 +547,7 @@ void HumanStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountr
 
     char proceed = 'y';
 
-    //cout << "Do you wish to fortify a country? ";
+    cout << "Do you wish to fortify a country? ";
     cin >> proceed;
 
     if (proceed == 'y')
@@ -556,19 +557,25 @@ void HumanStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountr
             // Make sure the attacking country exists.
             while (origin == nullptr)
             {
-                //cout << endl << "Which country do you wish to fortify from? ";
+                cout << endl << "Which country do you wish to fortify from? ";
                 cin >> countryName;
 
                 origin = gameMap->findCountry(countryName);
+
+                if (origin == nullptr)
+                    cout << countryName << " does not exist. Please enter a valid country name." << endl;
             }
 
             // Make sure the defending origin exists.
             while (target == nullptr)
             {
-                //cout << "Which country do you wish to fortify? ";
+                cout << "Which country do you wish to fortify? ";
                 cin >> countryName;
 
                 target = gameMap->findCountry(countryName);
+
+                if (target == nullptr)
+                    cout << countryName << " does not exist. Please enter a valid country name." << endl;
             }
 
             // Ensure that the fortification is valid.
@@ -577,17 +584,23 @@ void HumanStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountr
             // If the fortification is valid, proceed. Otherwise, announce the error.
             if (validFort)
             {
-                //cout << target->getName() << " can be fortified from " << origin->getName() << endl;
-                //cout << origin->getName() << " has " << origin->getArmyNum() << " armies." << endl;
-                //cout << target->getName() << " has " << target->getArmyNum() << " armies." << endl;
+                cout << target->getName() << " can be fortified from " << origin->getName() << endl;
+                cout << origin->getName() << " has " << origin->getArmyNum() << " armies." << endl;
+                cout << target->getName() << " has " << target->getArmyNum() << " armies." << endl;
 
                 int armiesSent = -1;
 
                 // Ask for armies, must be between 0 and cannot leave a country empty.
                 while (armiesSent < 0 || armiesSent >= origin->getArmyNum())
                 {
-                    //cout << "Send how many armies?" << endl;
+                    cout << "Send how many armies?" << endl;
                     cin >> armiesSent;
+
+                    // Inform user of errors if they occur.
+                    if (armiesSent < 0)
+                        cout << "Cannot send negative armies. Try again." << endl;
+                    else if (armiesSent >= origin->getArmyNum())
+                        cout << "Must leave at least one army in " << origin->getName() << endl;
                 }
 
                 // Commit to fortification if more than zero armies were sent.
@@ -597,7 +610,11 @@ void HumanStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountr
                     fortify(armiesSent, origin, target);
                     hasFortified = true;
                 }
+                else
+                    cout << "No armies sent." << endl;
             }
+            else
+                cout << target->getName() << " cannot be fortified from " << origin->getName() << endl;
         }
 
     }
@@ -617,9 +634,6 @@ bool ComputerStrategy::isHuman()
 void ComputerStrategy::exchangeLoop()
 {
     // Uncomment for testing purposes.
-    ////cout << "in comp exchange loop" << endl;
-
-    //cout << endl << playerName << " has " << playerHand->getSize() << " cards." << endl;
 
     int infCards = 0;
     int artCards = 0;
@@ -742,7 +756,6 @@ void ComputerStrategy::exchangeLoop()
 void AggressiveStrategy::reinforceLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro reinforce loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -788,7 +801,6 @@ void AggressiveStrategy::reinforceLoop(string playerName,vector<Country*>* playe
 void AggressiveStrategy::attackLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro attack loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -861,7 +873,6 @@ void AggressiveStrategy::attackLoop(string playerName,vector<Country*>* playerCo
 void AggressiveStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro fortify loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -920,7 +931,6 @@ void AggressiveStrategy::fortifyLoop(string playerName,vector<Country*>* playerC
 void BenevolentStrategy::reinforceLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in bene reinforce loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -956,7 +966,6 @@ void BenevolentStrategy::reinforceLoop(string playerName,vector<Country*>* playe
 void BenevolentStrategy::attackLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in bene attack loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -965,15 +974,12 @@ void BenevolentStrategy::attackLoop(string playerName,vector<Country*>* playerCo
     this->gameMap = gameMap;
     this->gameDeck = gameDeck;
     this->hasConquered = hasConquered;
-
-    //cout << endl << playerName << " doesn't attack." << endl;
 }
 
 // Moves armies from strongest country to weakest country so their army count is equal
 void BenevolentStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in bene fortify loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -1044,14 +1050,6 @@ void BenevolentStrategy::fortifyLoop(string playerName,vector<Country*>* playerC
         {
             fortify(armiesSent, playerCountries->at(strongestIndex), playerCountries->at(weakestIndex));
         }
-        else
-        {
-            //cout << endl << "No valid fortification found." << endl;
-        }
-    }
-    else
-    {
-        //cout << endl << "No valid fortification found." << endl;
     }
 
 }
@@ -1064,7 +1062,6 @@ void BenevolentStrategy::fortifyLoop(string playerName,vector<Country*>* playerC
 void RandomStrategy::reinforceLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro reinforce loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -1101,7 +1098,6 @@ void RandomStrategy::reinforceLoop(string playerName,vector<Country*>* playerCou
 void RandomStrategy::attackLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro attack loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -1187,17 +1183,11 @@ void RandomStrategy::attackLoop(string playerName,vector<Country*>* playerCountr
             if (decision != 1)
             {
                 keepAttacking = false;
-                //cout << endl << playerName << " stops attacking." << endl;
-            }
-            else
-            {
-                //cout << endl << playerName << " continues to attack." << endl;
             }
         }
         else
         {
             keepAttacking = false;
-            //cout << endl << playerName << " stops attacking." << endl;
         }
     }
 }
@@ -1206,7 +1196,6 @@ void RandomStrategy::attackLoop(string playerName,vector<Country*>* playerCountr
 void RandomStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro fortify loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -1269,14 +1258,6 @@ void RandomStrategy::fortifyLoop(string playerName,vector<Country*>* playerCount
             // Fortify
             fortify(armiesSent, origin, target);
         }
-        else
-        {
-            //cout << "No valid fortification found.";
-        }
-    }
-    else
-    {
-        //cout << "No valid fortification found.";
     }
 }
 
@@ -1288,7 +1269,6 @@ void RandomStrategy::fortifyLoop(string playerName,vector<Country*>* playerCount
 void CheaterStrategy::reinforceLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro reinforce loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -1302,9 +1282,7 @@ void CheaterStrategy::reinforceLoop(string playerName,vector<Country*>* playerCo
     for (int i = 0; i < playerCountries->size(); i++)
     {
         // Double each country's army number.
-        //cout << endl << playerCountries->at(i)->getName() << " armies doubled from " << playerCountries->at(i)->getArmyNum() << " to ";
         playerCountries->at(i)->setArmyNum(playerCountries->at(i)->getArmyNum() * 2);
-        //cout << playerCountries->at(i)->getArmyNum() << "." << endl;
     }
 }
 
@@ -1312,7 +1290,6 @@ void CheaterStrategy::reinforceLoop(string playerName,vector<Country*>* playerCo
 void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro attack loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -1337,7 +1314,7 @@ void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCount
                 {
                     if (gameMap->areAdjacent(gameMap->getContinent(i)->getCountry(j), playerCountries->at(k)))
                     {
-                        //cout << endl << gameMap->getContinent(i)->getCountry(j)->getName() << " has been conquered by " << playerName << endl;
+                        cout << endl << gameMap->getContinent(i)->getCountry(j)->getName() << " has been conquered by " << playerName << endl;
                         Country* country = gameMap->getContinent(i)->getCountry(j);
                         enemyNeighbours.push_back(country);
 
@@ -1361,7 +1338,6 @@ void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCount
 void CheaterStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountries, Hand* playerHand, Dice* playerDice, bool* hasConquered, Map* gameMap, Deck* gameDeck)
 {
     // Uncomment for testing purposes.
-    ////cout << "in aggro fortify loop" << endl;
     // Initialize all members
     this->playerCountries = playerCountries;
     this->playerHand = playerHand;
@@ -1409,8 +1385,6 @@ void CheaterStrategy::fortifyLoop(string playerName,vector<Country*>* playerCoun
     for (int i = 0; i < countriesToFortify.size(); i++)
     {
         // Double each country's army number.
-        //cout << endl << countriesToFortify.at(i)->getName() << " armies doubled from " << countriesToFortify.at(i)->getArmyNum() << " to ";
         countriesToFortify.at(i)->setArmyNum(countriesToFortify.at(i)->getArmyNum() * 2);
-        //cout << countriesToFortify.at(i)->getArmyNum() << "." << endl;
     }
 }

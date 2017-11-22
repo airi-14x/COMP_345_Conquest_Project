@@ -15,7 +15,7 @@ int main()
 
     vector<Player> p;
     Player p1("Fred", new CheaterStrategy());
-    Player p2("Bob", new BenevolentStrategy());
+    Player p2("Bob", new AggressiveStrategy());
     Player p3("Joe", new BenevolentStrategy());
     Player p4("John", new BenevolentStrategy());
     p.push_back(p1);
@@ -32,14 +32,19 @@ int main()
         int numOfCountries = conti->getCntsSize();
         for(int j = 0; j < numOfCountries; j++){
             counter++;
+                Country* country = conti->getCountry(j);
             if(counter <= 10) {
-                conti->getCountry(j)->setPlayerName(p1.getName());
+                p1.addCountry(country);
+                country->setArmyNum(1);
             } else if (counter <= 20) {
-                conti->getCountry(j)->setPlayerName(p2.getName());
+                p2.addCountry(country);
+                country->setArmyNum(1);
             } else if (counter <= 30) {
-                conti->getCountry(j)->setPlayerName(p3.getName());
+                p3.addCountry(country);
+                country->setArmyNum(1);
             } else {
-                conti->getCountry(j)->setPlayerName(p4.getName());
+                p4.addCountry(country);
+                country->setArmyNum(1);
             }
         }
     }

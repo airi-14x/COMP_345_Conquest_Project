@@ -172,28 +172,28 @@ bool Player::takeTurn(Map* m, Deck* d)
 
     if (countries.size() > 0)
     {
-        //cout << playerName << "'s turn begins." << endl;
+        cout << playerName << "'s turn begins." << endl;
 
-        //cout << endl << "Reinforcement phase: " << endl;
+        cout << endl << "Reinforcement phase: " << endl;
         reinforceLoop(m, d);
-        //cout << endl << "Attack phase: " << endl;
+        cout << endl << "Attack phase: " << endl;
         victorious = attackLoop(m, d);
 
         // If the game is still not won after attacking, carry on with the turn.
         if (!victorious)
         {
-            //cout << endl << "Fortification phase: " << endl;
+            cout << endl << "Fortification phase: " << endl;
             fortifyLoop(m, d);
 
             if (hasConquered)
             {
-                //cout << endl << playerName << " has been granted a card for conquering a country." << endl;
+                cout << endl << playerName << " has been granted a card for conquering a country." << endl;
                 playerHand.addCard(d->draw());
             }
 
             hasConquered = false;
 
-            //cout << endl << playerName << "'s turn ends." << endl;
+            cout << endl << playerName << "'s turn ends." << endl;
         }
     }
 
@@ -209,6 +209,6 @@ Player* Player::findPlayer(string searchName)
             return players.at(i);
     }
 
-    //cout << "ERROR: No player named " << searchName << ". Returning null." << endl;
+    cout << "ERROR: No player named " << searchName << ". Returning null." << endl;
     return NULL;
 }

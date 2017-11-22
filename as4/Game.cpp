@@ -11,15 +11,13 @@ Game::Game(Map* m, vector<Player> p)
 }
 
 void Game::start(){
-    while(turn < 3){
+    while(turn < 5){
         turn++;
         cout << "========================================" << endl << "turn: " << turn << endl << "========================================" << endl;
         for(int i = 0; i < players.size(); i++){
             players[i].takeTurn(gameMap, deck);
         }
     }
-    cout << endl << "Percentage of countries owned by each player" << endl;
-    gameMap->Notify();
 }
 
 Game::~Game()

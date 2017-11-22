@@ -36,5 +36,6 @@ void view::print() {
         }
         cout << endl;
     }
+    cout << endl;
 }
 

@@ -15,7 +15,7 @@ int main()
 
     vector<Player> p;
     Player p1("Fred", new CheaterStrategy());
-    Player p2("Bob", new AggressiveStrategy());
+    Player p2("Bob", new BenevolentStrategy());
     Player p3("Joe", new BenevolentStrategy());
     Player p4("John", new BenevolentStrategy());
     p.push_back(p1);

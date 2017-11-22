@@ -458,7 +458,7 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
 
     if (playerCountries->size() != gameMap->getMapSize())
     {
-        cout << "Do you wish to attack? (y/n):";
+        cout << "Do you wish to attack? (y/n): ";
         cin >> continueAttacking;
     }
     else
@@ -542,7 +542,7 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
                 cout << target->getName() << " is already owned by " << playerName << "." << endl;
         }
         else
-            cout << origin->getName() << "is not owned by " << playerName << "." << endl;
+            cout << origin->getName() << " is not owned by " << playerName << "." << endl;
 
         // If the attack conditions are met
         if (attackValid)
@@ -558,7 +558,7 @@ void HumanStrategy::attackLoop(string playerName,vector<Country*>* playerCountri
 
         if (playerCountries->size() != gameMap->getMapSize())
         {
-            cout << "Do you wish to continue attacking? (y/n):";
+            cout << "Do you wish to continue attacking? (y/n): ";
             cin >> continueAttacking;
         }
         else
@@ -588,7 +588,7 @@ void HumanStrategy::fortifyLoop(string playerName,vector<Country*>* playerCountr
 
     char proceed = 'y';
 
-    cout << "Do you wish to fortify a country? ";
+    cout << "Do you wish to fortify a country? (y/n): ";
     cin >> proceed;
 
     if (proceed == 'y')
@@ -931,47 +931,43 @@ void AggressiveStrategy::fortifyLoop(string playerName,vector<Country*>* playerC
     this->gameDeck = gameDeck;
     this->hasConquered = hasConquered;
 
-    // Find country with the most armies owned by this player, ignoring countries with no enemy neighbours
-    int strongestIndex = 0;
+    // Find strongest friendly country
+    int strongest = -1;
 
     for (int i = 0; i < playerCountries->size(); i++)
     {
-        // Check for enemy neighbours
-        for (int j = 0; j < gameMap->getContiSize(); j++)
+        // Change the index if none had previously been selected or if this one is better than the previous one.
+        if (strongest == -1 ||
+            playerCountries->at(i)->getArmyNum() > playerCountries->at(strongest)->getArmyNum())
         {
-            for (int k = 0; k < gameMap->getContinent(j)->getCntsSize(); k++)
-            {
-                if (gameMap->areAdjacent(gameMap->getContinent(j)->getCountry(k), playerCountries->at(i)) &&
-                    gameMap->getContinent(j)->getCountry(k)->getPlayerName() != playerName)
-                {
-                    // Compare army sizes
-                    if (playerCountries->at(i)->getArmyNum() > playerCountries->at(strongestIndex)->getArmyNum());
-                    {
-                        strongestIndex = i;
-                    }
-                }
-            }
+            strongest = i;
         }
     }
 
-    int secondStrongestIndex = 0;
+    // Find the second strongest country connected to the strongest one.
+    int secondStrongest = -1;
 
-    // Check allied countries.
     for (int i = 0; i < playerCountries->size(); i++)
     {
-        // Compare army sizes
-        if (playerCountries->at(i)->getArmyNum() > playerCountries->at(secondStrongestIndex)->getArmyNum() &&
-            i != strongestIndex &&
-            gameMap->checkAlliedReach(playerCountries->at(secondStrongestIndex), playerCountries->at(strongestIndex)));
+        // Only proceed if this isn't the same index as the strongest country's.
+        if (i != strongest)
         {
-            secondStrongestIndex = i;
+            // Change the index if none had previously been selected or if this one is not the strongest,
+            if (secondStrongest == -1 ||
+                (playerCountries->at(i)->getArmyNum() > 1 &&
+                 gameMap->checkAlliedReach(playerCountries->at(i), playerCountries->at(strongest)) &&
+                 playerCountries->at(i)->getArmyNum() > playerCountries->at(secondStrongest)->getArmyNum()))
+            {
+                secondStrongest = i;
+            }
         }
+
     }
 
     // Fortify with as many armies as possible.
-    cout << endl << "Sending " << playerCountries->at(secondStrongestIndex)->getArmyNum() - 1 << " armies from " << playerCountries->at(secondStrongestIndex)->getName()
-         << " to " << playerCountries->at(strongestIndex)->getName() << "." << endl;
-    fortify(playerCountries->at(secondStrongestIndex)->getArmyNum() - 1, playerCountries->at(secondStrongestIndex), playerCountries->at(strongestIndex));
+    cout << endl << "Sending " << playerCountries->at(secondStrongest)->getArmyNum() - 1 << " armies from " << playerCountries->at(secondStrongest)->getName()
+         << " to " << playerCountries->at(strongest)->getName() << "." << endl;
+    fortify(playerCountries->at(secondStrongest)->getArmyNum() - 1, playerCountries->at(secondStrongest), playerCountries->at(strongest));
 }
 
 /*
@@ -1280,34 +1276,30 @@ void RandomStrategy::fortifyLoop(string playerName,vector<Country*>* playerCount
     this->gameDeck = gameDeck;
     this->hasConquered = hasConquered;
 
-    vector<pair<Country*, Country*>> pairs;
+    // Select a random country.
+    int targetIndex = rand() % playerCountries->size();
 
-    // Check every owned country's allied reach to every other owned country
+    // Make list of indices of countries that can fortify it.
+    vector<int> origins;
+
     for (int i = 0; i < playerCountries->size(); i++)
     {
-        // Make sure the origin country has more than 1 army.
-        if (playerCountries->at(i)->getArmyNum() > 1)
+        // If the country isn't the target, has enough armies to fortify, and can reach the target, add it to the list.
+        if (i != targetIndex &&
+            playerCountries->at(i)->getArmyNum() > 1 &&
+            gameMap->checkAlliedReach(playerCountries->at(i), playerCountries->at(targetIndex)))
         {
-            for (int j = 0; j < playerCountries->size(); j++)
-            {
-                // Make sure the target country isn't the origin and can be reached
-                if (playerCountries->at(i)->getName() != playerCountries->at(j)->getName() &&
-                    gameMap->checkAlliedReach(playerCountries->at(i), playerCountries->at(j)))
-                {
-                    pairs.push_back(pair<Country*, Country*>(playerCountries->at(i), playerCountries->at(j)));
-                }
-            }
+            origins.push_back(i);
         }
     }
 
-    // Fortify if there are valid fortifications.
-    if (pairs.size() > 0)
+    // Select a random index if there are indices to pick from, then fortify. Otherwise announce the impossibility.
+    if (origins.size() > 0)
     {
-        int pairIndex = rand() % pairs.size();
+        int originIndex = origins.at((rand() % origins.size()));
+        int armiesSent = (rand() % playerCountries->at(originIndex)->getArmyNum() - 1) + 1;
 
-        int armiesSent = (rand() % (pairs.at(pairIndex).first->getArmyNum() - 1) + 1);
-
-        fortify(armiesSent, pairs.at(pairIndex).first, pairs.at(pairIndex).second);
+        fortify(armiesSent, playerCountries->at(originIndex), playerCountries->at(targetIndex));
     }
     else
     {

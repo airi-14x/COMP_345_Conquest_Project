@@ -877,7 +877,7 @@ void AggressiveStrategy::attackLoop(string playerName,vector<Country*>* playerCo
     }
 
     // Attack until no longer possible
-    while(canAttack)
+    while(canAttack && playerCountries->at(strongestIndex)->getArmyNum() > 1)
     {
         Country* target = playerCountries->at(strongestIndex);
 
@@ -1405,7 +1405,7 @@ void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCount
                         Country* country = gameMap->getContinent(i)->getCountry(j);
                         enemyNeighbours.push_back(country);
 
-                        gameMap->exchangeCountry(country, playerName);
+                        gameMap->getContinent(i)->getCountry(j)->setPlayerName(playerName);
 
                         *hasConquered = true;
 

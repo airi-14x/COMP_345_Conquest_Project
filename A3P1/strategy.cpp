@@ -1389,6 +1389,7 @@ void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCount
     // Make a list of all enemy neighbours
     vector<Country*> enemyNeighbours;
 
+
     for (int i = 0; i < gameMap->getContiSize(); i++)
     {
         for (int j = 0; j < gameMap->getContinent(i)->getCntsSize(); j++)
@@ -1401,8 +1402,10 @@ void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCount
                     if (gameMap->areAdjacent(gameMap->getContinent(i)->getCountry(j), playerCountries->at(k)))
                     {
                         cout << endl << gameMap->getContinent(i)->getCountry(j)->getName() << " has been conquered by " << playerName << endl;
-                        gameMap->getContinent(i)->getCountry(j)->setPlayerName(playerName);
-                        playerCountries->push_back(gameMap->getContinent(i)->getCountry(j));
+                        Country* country = gameMap->getContinent(i)->getCountry(j);
+                        enemyNeighbours.push_back(country);
+
+                        gameMap->exchangeCountry(country, playerName);
 
                         *hasConquered = true;
 
@@ -1411,6 +1414,10 @@ void CheaterStrategy::attackLoop(string playerName,vector<Country*>* playerCount
                 }
             }
         }
+    }
+
+    for (int i = 0; i < enemyNeighbours.size(); i++){
+        playerCountries->push_back(enemyNeighbours[i]);
     }
 }
 
